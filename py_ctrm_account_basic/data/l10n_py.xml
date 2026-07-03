@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Nombre de la localizacion -->
+    <record id="py_chart_template_basic" model="account.chart.template">
+        <field name="name">Plan contable Base Paraguay (standard)</field>
+        <field name="code_digits">1</field>
+        <field name="bank_account_code_prefix">1010106</field>
+        <field name="cash_account_code_prefix">1010103</field>
+        <field name="transfer_account_code_prefix">1010601011</field>
+        <field name="currency_id" ref="base.PYG"/>
+    </record>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Este archivo cumple con la función de sustituir tanto como sea posible los nombres como NIF o VAT,
+para que figuren como campos de RUC (Registro Único del Contribuyente) o Documento de Identidad
+(sea nacional o extranjero).
+Estos cambios NO AFECTAN la base de datos, sólo generan un nombre que pueda ser mejor interpretado
+por el cliente.
+ -->
+
+<odoo>
+    <!-- Este bloque de código genera el campo VAT como RUC o Documento de Identidad es res.partner -->
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="replace">
+            <field name="vat" string="RUC" placeholder="Registro Único del Contribuyente" context="{'default_is_company': False}" attrs="{'invisible': [('is_company','=', False)]}"/>
+            <field name="vat" string="RUC /C.I." placeholder="RUC o Documento de Identidad" context="{'default_is_company': True}" attrs="{'invisible': [('is_company','=', True)]}"/>
+        </field>
+        </field>
+    </record>
+
+    <!-- Este bloque cambia la etiqueta NIF por RUC en res.company -->
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="name">res.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="attributes">
+                <attribute name="string">RUC</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

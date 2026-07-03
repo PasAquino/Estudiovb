@@ -1,0 +1,175 @@
+<odoo>
+    <data>
+
+        <record id="paperformat_presupuesto" model="report.paperformat">
+            <field name="name">Presupuesto</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_width">210</field> <!-- eje X -->
+            <field name="page_height">297</field> <!-- eje Y -->
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+            <field name="header_line" eval="False"/>
+        </record>
+
+        <record id="report_presupuesto_action" model="ir.actions.report">
+            <field name="name">Presupuesto DF Py</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">maqsuppy_formatos.presupuesto_template</field>
+            <field name="report_file">maqsuppy_formatos.presupuesto_template</field>
+            <field name="paperformat_id" ref="paperformat_presupuesto"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_presupuesto_latin_america_action" model="ir.actions.report">
+            <field name="name">Presupuesto Latin America</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">maqsuppy_formatos.presupuesto_latin_america_template</field>
+            <field name="report_file">maqsuppy_formatos.presupuesto_latin_america_template</field>
+            <field name="paperformat_id" ref="paperformat_presupuesto"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_presupuesto_latinoamerica_action" model="ir.actions.report">
+            <field name="name">Presupuesto Latinoamérica</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">maqsuppy_formatos.presupuesto_latinoamerica_template</field>
+            <field name="report_file">maqsuppy_formatos.presupuesto_latinoamerica_template</field>
+            <field name="paperformat_id" ref="paperformat_presupuesto"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+        <record id="report_presupuesto_lion_action" model="ir.actions.report">
+            <field name="name">Presupuesto Lion</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">maqsuppy_formatos.presupuesto_lion_template</field>
+            <field name="report_file">maqsuppy_formatos.presupuesto_lion_template</field>
+            <field name="paperformat_id" ref="paperformat_presupuesto"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="paperformat_factura" model="report.paperformat">
+            <field name="name">Factura 4</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_width">216</field> <!-- eje X -->
+            <field name="page_height">356</field> <!-- eje Y -->
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+            <field name="header_line" eval="False"/>
+        </record>
+
+        <record id="report_factura_action" model="ir.actions.report">
+            <field name="name">Factura 5</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">maqsuppy_formatos.factura_template</field>
+            <field name="report_file">maqsuppy_formatos.factura_template</field>
+            <field name="paperformat_id" ref="paperformat_factura"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="paperformat_factura_triplicado" model="report.paperformat">
+            <field name="name">Factura 6</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_width">210</field> <!-- eje X -->
+            <field name="page_height">297</field> <!-- eje Y -->
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">4</field>
+            <field name="margin_right">4</field>
+            <field name="header_spacing">10</field>
+            <field name="dpi">95</field>
+            <field name="header_line" eval="False"/>
+        </record>
+
+        <record id="action_report_factura_triplicado" model="ir.actions.report">
+            <field name="name">Factura_1</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">maqsuppy_formatos.template_factura_duplicado</field>
+            <field name="report_file">maqsuppy_formatos.template_factura_duplicado</field>
+            <field name="paperformat_id" ref="paperformat_factura"/>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="paperformat_nota_remision" model="report.paperformat">
+            <field name="name">Nota de Remisión</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_width">210</field> <!-- eje X -->
+            <field name="page_height">297</field> <!-- eje Y -->
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">4</field>
+            <field name="margin_right">4</field>
+            <field name="header_spacing">10</field>
+            <field name="dpi">95</field>
+            <field name="header_line" eval="False"/>
+        </record>
+
+        <record id="action_report_factura_triplicado" model="ir.actions.report">
+            <field name="name">Nota de Entrega</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">maqsuppy_formatos.nota_remision_template</field>
+            <field name="report_file">maqsuppy_formatos.nota_remision_template</field>
+            <field name="paperformat_id" ref="paperformat_factura"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="paperformat_factura_duplicado" model="report.paperformat">
+            <field name="name">Factura2</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_width">210</field> <!-- eje X -->
+            <field name="page_height">297</field> <!-- eje Y -->
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">4</field>
+            <field name="margin_right">4</field>
+            <field name="header_spacing">10</field>
+            <field name="dpi">95</field>
+            <field name="header_line" eval="False"/>
+        </record>
+
+        <record id="action_report_factura" model="ir.actions.report">
+            <field name="name">Factura Autoimpresor 3</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">maqsuppy_formatos.template_factura_duplicado</field>
+            <field name="report_file">maqsuppy_formatos.template_factura_duplicado</field>
+            <field name="paperformat_id" ref="paperformat_factura"/>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>
+

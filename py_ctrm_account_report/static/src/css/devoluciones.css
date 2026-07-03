@@ -1,0 +1,58 @@
+.page{
+    font-size: 12px;
+}
+
+.contenedor{
+    font-size:10px;
+    font-family:  "DejaVu Serif", "STIX", serif;
+}
+
+.con-bordes{
+    border-top: 1px solid black;
+}
+.con-bordes1{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.con-bordes2{
+    border-bottom: 1px solid black;
+}
+
+table.tabla{
+    width: 100% !important;
+}
+
+table.tabla{
+     page-break-after:auto
+}
+td{
+     page-break-inside:avoid; page-break-after:auto;
+     font-size:10px;
+}
+tr{
+     page-break-inside:avoid; page-break-after:auto;
+}
+
+td{
+    padding:2px ;
+    font-size:10px;
+}
+
+th{
+    vertical-align: middle;
+    font-size:13px;
+}
+
+table.diario{
+    border: 1px solid black;
+}
+td{
+    padding:2px ;
+    font-size:10px;
+}
+
+th{
+    vertical-align: middle;
+    font-size:13px;
+}
+

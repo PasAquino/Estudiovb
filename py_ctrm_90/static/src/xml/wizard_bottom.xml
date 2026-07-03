@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<template>
+
+    <t t-extend="ListView.buttons" t-name="WizardGeneratorResolucion90.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="replace">
+            <button type="button" class="btn btn-success o_button_generate_wizard">
+                GENERAR ARCHIVO
+            </button>
+        </t>
+    </t>
+
+</template>

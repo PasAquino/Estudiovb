@@ -1,0 +1,144 @@
+<odoo>
+    <data>
+        <record id="paperformat_libro_diario" model="report.paperformat">
+            <field name="name">A4-Libro Diario</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">330</field>
+            <field name="page_width">216</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_balance" model="report.paperformat">
+            <field name="name">Oficio-Balance</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">330</field>
+            <field name="page_width">215</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">25</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_libro_mayor" model="report.paperformat">
+            <field name="name">A4-Libro Mayor</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_libro_iva" model="report.paperformat">
+            <field name="name">Oficio</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">330</field>
+            <field name="page_width">215</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report id="report_libro_iva_id"
+                string="Libro IVA"
+                report_type="qweb-pdf"
+                model="iva.book.wizard"
+                name="py_ctrm_account_report.libro_iva_report"
+                attachment_use="True"
+                paperformat="paperformat_libro_iva"/>
+
+        <report
+                id="report_libro_diario_id"
+                string="Libro Diario"
+                report_type="qweb-pdf"
+                model="daily.book.wizard"
+                name="py_ctrm_account_report.daily_book"
+                attachment_use="True"
+                paperformat="paperformat_libro_diario"
+        />
+        <report
+                id="balance_id"
+                string="Balance"
+                report_type="qweb-pdf"
+                model="balance.book.wizard"
+                name="py_ctrm_account_report.balance_book"
+                file="py_ctrm_account_report.balance_book"
+                attachment_use="True"
+                paperformat="paperformat_balance"
+        />
+
+        <report
+                id="report_libro_diario_id_new"
+                string="Libro Mayor"
+                report_type="qweb-pdf"
+                model="account.ledger.book"
+                name="py_ctrm_account_report.account_ledger_book"
+                file="py_ctrm_account_report.account_ledger_book"
+                attachment_use="True"
+                paperformat="paperformat_libro_diario"
+        />
+
+        <record id="paperformat_pagos" model="report.paperformat">
+            <field name="name">Planilla de Pagos</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="report_pagos_action"
+                model="wizard.reporte.pagos"
+                string="Planilla de Pagos"
+                name="py_ctrm_account_report.report_pagos_py"
+                file="py_ctrm_account_report.report_pagos_py"
+                report_type="qweb-pdf"
+                paperformat="paperformat_pagos"
+        />
+
+        <report
+                id="report_cobranzas_action"
+                model="report.cobranzas.py"
+                string="Reporte de Cobranzas"
+                name="py_ctrm_account_report.report_cobranzas_py"
+                file="reporte_cobranzas_file"
+                report_type="qweb-pdf"
+                print_report_name="Reporte de Cobranzas"
+                paperformat="paperformat_pagos"
+        />
+
+    </data>
+</odoo>

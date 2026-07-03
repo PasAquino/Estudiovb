@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="wizard_picking_remision" model="ir.ui.view">
+            <field name="name">picking.remision.wizard</field>
+            <field name="model">wizard.remision</field>
+            <field name="arch" type="xml">
+                <form string="Remision Wizard">
+                    <p >
+                        Seleccione el talonario de remisiones. <br/>
+                        Para asignar el numero de remision a este albaran de click en Confirmar.<br/>
+                        Si es que se trata de una equivocación y desea volver atrás haga click en Cancelar
+                    </p>
+                    <group>
+                        <field name="picking_id" invisible="1"/>
+                         <field name="stamp_journal" options="{'no_create':True,'no_create_edit':True,'no_open':True}" required="1"/>
+                        <field name="assign_number" />
+
+                    </group>
+                    <footer>
+                        <button class="oe_highlight" name="procesar" string="Confirmar" type="object"/>
+                        <button string="Cancelar" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="open_wizard_picking_remision_id" model="ir.actions.act_window">
+            <field name="name">Asignar Nro. de Remision</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.remision</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_picking_remision"/>
+            <field name="target">new</field>
+            <field name="context">{'default_picking_id':active_id}</field>
+        </record>
+
+    </data>
+</odoo>

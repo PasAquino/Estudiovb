@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <function name="try_loading" model="account.chart.template" >
+            <value eval="[ref('py_ctrm_account_basic.py_chart_template_basic')]"/>
+        </function>
+    </data>
+</odoo>

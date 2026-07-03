@@ -1,0 +1,86 @@
+<odoo>
+    <data>
+
+        <record id="paperformat_orden_pago" model="report.paperformat">
+            <field name="name">Orden de Pago</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_width">210</field> <!-- eje X -->
+            <field name="page_height">297</field> <!-- eje Y -->
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">4</field>
+            <field name="margin_right">4</field>
+            <field name="header_spacing">15</field>
+            <field name="dpi">95</field>
+            <field name="header_line" eval="False"/>
+        </record>
+
+        <record id="report_orden_pago_action" model="ir.actions.report">
+            <field name="name">Orden de Pago</field>
+            <field name="model">account.payment.paraguay</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account_payment_paraguay.orden_pago_report_py</field>
+            <field name="report_file">account_payment_paraguay.orden_pago_report_py</field>
+            <field name="paperformat_id" ref="paperformat_orden_pago"/>
+            <field name="binding_model_id" ref="model_account_payment_paraguay"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="paperformat_deposito_cheque" model="report.paperformat">
+            <field name="name">Deposito Cheque</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_width">210</field> <!-- eje X -->
+            <field name="page_height">297</field> <!-- eje Y -->
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">4</field>
+            <field name="margin_right">4</field>
+            <field name="header_spacing">30</field>
+            <field name="dpi">95</field>
+            <field name="header_line" eval="False"/>
+        </record>
+
+        <record id="report_deposito_cheque_action" model="ir.actions.report">
+            <field name="name">Deposito de Cheque</field>
+            <field name="model">account.checkbooks.deposit</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account_payment_paraguay.report_template_check_deposit</field>
+            <field name="report_file">account_payment_paraguay.report_template_check_deposit</field>
+            <field name="paperformat_id" ref="paperformat_deposito_cheque"/>
+            <field name="binding_model_id" ref="model_account_checkbooks_deposit"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="paperformat_listado_cheques" model="report.paperformat">
+            <field name="name">Listado de Cheques</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_width">210</field> <!-- eje X -->
+            <field name="page_height">297</field> <!-- eje Y -->
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">4</field>
+            <field name="margin_right">4</field>
+            <field name="header_spacing">30</field>
+            <field name="dpi">95</field>
+            <field name="header_line" eval="False"/>
+        </record>
+
+        <record id="report_listado_cheques_action" model="ir.actions.report">
+            <field name="name">Listado de Cheques</field>
+            <field name="model">check.list.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account_payment_paraguay.template_check_list</field>
+            <field name="report_file">account_payment_paraguay.template_check_list</field>
+            <field name="paperformat_id" ref="paperformat_listado_cheques"/>
+            <field name="binding_model_id" ref="model_check_list_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

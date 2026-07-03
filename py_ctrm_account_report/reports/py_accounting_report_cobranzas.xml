@@ -1,0 +1,938 @@
+<odoo>
+    <template id="report_cobranzas_py">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+
+                    <div class="header">
+                        <table class="tabla">
+                            <th style="font-size:15px; width: 800px; font-weight:bold">
+                                <span t-field="o.company_id"/>
+                            </th>
+                            <th style="font-size:11px;">Fecha:&amp;nbsp;
+                                <span t-esc="o.fecha_de_hoy.strftime('%d-%m-%Y')"/>
+                            </th>
+                        </table>
+
+                        <table>
+                            <th style="width: 800px">&amp;nbsp;&amp;nbsp;</th>
+                            <th style="font-size:11px;">Hora:&amp;nbsp;
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M:%S')"/>
+                            </th>
+                        </table>
+
+                        <table class="tabla">
+                            <th style="font-size:13px;">RUC:&amp;nbsp;
+                                <span t-field="o.company_id.vat"/>
+                            </th>
+                        </table>
+                    </div>
+
+                    <table>
+                        <h6>
+                            <div class="col-xs-12 text-center negrita">
+                                <th style="text-align:left;font-size:13px; width: 190px">Fecha desde:
+                                    <span t-field="o.desde"/>
+                                </th>
+                                <th style="text-align:left;font-size:13px; width: 250px">Fecha hasta:
+                                    <span t-field="o.hasta"/>
+                                </th>
+                                <th style="text-align:left;font-size:15px; width: 200px">Planilla de Cobros</th>
+
+                            </div>
+                        </h6>
+                    </table>
+
+                    <link rel="stylesheet" href="/py_ctrm_account_report/static/src/css/planilla_de_cobros.css"/>
+                    <div class="page">
+
+                        <!-- Variables -->
+                        <t t-set="total_suma_cheques_py" t-value="0"/>
+                        <t t-set="total_suma_cheques_usd" t-value="0"/>
+                        <t t-set="total_guaranies_py" t-value="0"/>
+                        <t t-set="total_usd" t-value="0"/>
+
+
+                        <t t-if="o.agrupar == 'currency_id'">
+                            <table class="tabla">
+                                <thead>
+                                    <tr>
+                                        <th class="con-bordes">Cliente</th>
+                                        <th class="con-bordes">Fecha</th>
+                                        <th class="con-bordes">Comprobante</th>
+                                        <th style="text-align:right" class="con-bordes">Importe</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th style="text-align:right" class="con-bordes"> </th>
+                                </tr>
+                                <tbody>
+                                    <t t-foreach="cabecera" t-as="p">
+                                        <t t-foreach="lineas" t-as="f">
+                                            <t t-if="p.id == f.payment_group_id.id">
+                                                <t t-if="f.payment_group_id.id != diario_actual">
+                                                    <t t-set="diario_actual" t-value="f.payment_group_id.id"/>
+                                                    <tr>
+                                                        <tr>
+                                                            <th>   &amp;nbsp;&amp;nbsp;</th>
+                                                        </tr>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td style="text-align:left; width: 130px">
+                                                            <span t-field="f.partner_id.name"/>
+                                                        </td>
+                                                        <td style="text-align:left; width: 70px">
+                                                            <span t-esc="p.payment_date.strftime('%d/%m/%Y')"/>
+                                                        </td>
+                                                        <td style="text-align:left; width: 130px">
+                                                            <span t-field="p.communication"/>
+                                                        </td>
+                                                        <td style="text-align:right; width: 70px">
+                                                            <span t-field="f.amount_payment"/>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-else="">
+                                                    <tr>
+                                                        <td style="text-align:left; width: 130px"/>
+                                                        <td style="text-align:left; width: 65px"/>
+                                                        <td style="text-align:left; width: 130px"/>
+                                                        <td style="text-align:right; width: 70px">
+                                                            <span t-field="f.amount_payment"/>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </t>
+
+                                    <t t-if="o.agrupar == 'currency_id'">
+                                        <t t-set="total_diario1" t-value="0"/>
+                                        <tr t-foreach="dic_diario1" t-as="diario">
+                                            <t t-set="total_diario1" t-value="total_diario1 +diario[1]"/>
+                                        </tr>
+                                        <tr>
+                                            <td class="con-bordes" colspan="3">TOTAL COBRANZA EN GUARANIES</td>
+                                            <td class="con-bordes" style="width: 160px; text-align:right">
+                                                <span t-esc="o.agregar_punto_de_miles(total_diario1)"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                    <t t-if="o.agrupar == 'currency_id'">
+                                        <t t-set="total_diario2" t-value="0"/>
+                                        <tr t-foreach="dic_diario2" t-as="diario">
+                                            <t t-set="total_diario2" t-value="total_diario2 + diario[1]"/>
+                                        </tr>
+                                        <tr>
+                                            <td class="con-bordes1" colspan="3">TOTAL COBRANZA EN DOLARES</td>
+                                            <td class="con-bordes1" style="width: 160px; text-align:right">
+                                                <span t-esc="o.agregar_punto_de_miles(total_diario2)"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                </tbody>
+                            </table>
+
+                        </t>
+                        <t t-set="valor" t-value="0"/>
+                        <t t-if="o.agrupar == 'collection_user'">
+                            <table class="tabla">
+                                <thead>
+                                    <th style="width: 340px; border-top: 1px solid black; border-bottom: 1px solid black">
+                                        Recibo
+                                    </th>
+                                    <th style="width: 70px; border-top: 1px solid black; border-bottom: 1px solid black">
+                                        Fecha
+                                    </th>
+                                    <th style="width: 200px; border-top: 1px solid black; border-bottom: 1px solid black">
+                                        Cliente
+                                    </th>
+                                    <th style="width: 70px; border-top: 1px solid black; border-bottom: 1px solid black">
+                                    </th>
+                                    <t t-foreach="lista_tipo" t-as="tipo">
+                                        <th style="width: 200px ; border-top: 1px solid black; border-bottom: 1px solid black">
+                                            <span t-esc="tipo"/>
+                                        </th>
+                                    </t>
+                                    <th style="width: 130px; border-top: 1px solid black; border-bottom: 1px solid black">
+                                        Total
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="dic_agrupados" t-as="dic">
+                                        <t t-if="o.agrupar == 'collection_user'">
+                                            <tr class="negrita mayuscula gris">
+                                                <td colspan="10">Cobrador:
+                                                    <span class="mayuscula" t-esc="dic[0]"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="o.agrupar == 'collection_user'">
+                                            <t t-foreach="dic[1][0]" t-as="rec" class="lineas-colores">
+                                                <t t-set="valor" t-value="1"/>
+                                                <tr class="recibo-detalle">
+                                                    <td style="width: 2700px; border-top: 1px solid black">
+                                                        <span t-esc="rec[0].display_name"/>
+                                                    </td>
+                                                    <td style="width: 70px; border-top: 1px solid black">
+                                                        <span t-esc="rec[0].payment_date.strftime('%d/%m/%Y')"/>
+                                                    </td>
+                                                    <td style="width: 350px; border-top: 1px solid black">
+                                                        <span t-esc="rec[0].partner_id.name"/>
+                                                    </td>
+                                                    <td style="border-top: 1px solid black">
+                                                        <!--<t t-foreach="rec[0].matched_move_line_ids" t-as="linea">
+                                                            <t t-if="valor == 1">
+                                                                <span t-field="linea.move_id.invoice_payment_term_id"/>
+                                                                <t t-set="valor" t-value="0"/>
+                                                            </t>
+                                                        </t>-->
+                                                    </td>
+                                                    <t t-set="total" t-value="0"/>
+                                                    <t t-foreach="rec[1]" t-as="l">
+                                                        <td style="width: 180px; border-top: 1px solid black">
+                                                            <span t-esc="o.agregar_punto_de_miles(l)"/>
+                                                        </td>
+                                                        <t t-set="total" t-value="total+l"/>
+                                                    </t>
+                                                    <td style="width: 130px; border-top: 1px solid black">
+                                                        <span t-esc="o.agregar_punto_de_miles(total)"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <t t-if="o.detalle_factura">
+                                                        <t t-foreach="rec[0].matched_move_line_ids" t-as="linea">
+                                                            <tr>
+                                                                <td>
+                                                                         <strong>N° Doc.</strong>    
+                                                                    <span t-field="linea.name"/>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>Importe Cobrado</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <span t-field="linea.balance"/>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                            </tr>
+                                                        </t>
+                                                    </t>
+                                                </tr>
+                                            </t>
+                                        </t>
+
+                                        <t t-if="o.agrupar == 'collection_user'">
+                                            <tr class="negrita mayuscula verde">
+                                                <t t-if="o.detalle_factura">
+                                                    <td style="border-bottom: 1px solid black; border-top: 1px solid black"
+                                                        colspan="5">Sub-Total
+                                                    </td>
+                                                </t>
+                                                <t t-if="not o.detalle_factura">
+                                                    <td style="border-bottom: 1px solid black; border-top: 1px solid black"
+                                                        colspan="4">Sub-Total
+                                                    </td>
+                                                </t>
+                                                <t t-foreach="dic[1][1]" t-as="rec">
+                                                    <td class="con-bordes">
+                                                        <span t-esc="o.agregar_punto_de_miles(rec)"/>
+                                                    </td>
+                                                </t>
+                                                <td class="con-bordes">  </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+
+                                    <t t-if="o.agrupar == 'collection_user'">
+                                        <tr class="negrita mayuscula gris">
+                                            <t t-set="total_cobrado" t-value="0"/>
+                                            <t t-if="o.detalle_factura">
+                                                <td class="con-bordes" colspan="4">Total cobranza</td>
+                                            </t>
+                                            <t t-if="not o.detalle_factura">
+                                                <td class="con-bordes" colspan="4">Total cobranza
+                                                </td>
+                                            </t>
+                                            <t t-foreach="lista_total_tipo" t-as="lis">
+                                                <td class="con-bordes">
+                                                    <span t-esc="o.agregar_punto_de_miles(lis)"/>
+                                                </td>
+                                                <t t-set="total_cobrado" t-value="total_cobrado + lis"/>
+                                            </t>
+                                            <td class="con-bordes">
+                                                <span t-esc="o.agregar_punto_de_miles(total_cobrado)"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <!--   <t t-if="o.detalle_factura">
+                               <table class="tabla">
+                                   <thead>
+                                       <th style="width: 200px; border-top: 1px solid black; border-bottom: 1px solid black">
+                                           Numero Recibo
+                                       </th>
+                                       <th style="width: 200px; border-top: 1px solid black; border-bottom: 1px solid black">
+                                           Cliente
+                                       </th>
+                                       <th style="width: 200px; border-top: 1px solid black; border-bottom: 1px solid black">
+                                           Total
+                                       </th>
+                                   </thead>
+                                   <t t-foreach="dic_agrupados" t-as="dic">
+                                       <t t-foreach="dic[1][0]" t-as="rec" class="lineas-colores">
+                                           <tr class="recibo-detalle">
+                                               <td style="width: 130px">
+                                                   <span t-esc="rec[0].display_name"/>
+                                               </td>
+                                               <td style="width: 200px">
+                                                   <span t-esc="rec[0].partner_id.name"/>
+                                               </td>
+                                               <t t-set="totalrecibo" t-value="0"/>
+                                               <t t-foreach="rec[0].matched_move_line_ids" t-as="linea">
+                                                   <t t-set="totalrecibo" t-value="totalrecibo + linea.balance"/>
+                                               </t>
+                                               <td style="width: 160px">
+                                                   <span t-esc="o.agregar_punto_de_miles(totalrecibo)"/>
+                                               </td>
+                                           </tr>
+                                           <t t-foreach="rec[0].matched_move_line_ids" t-as="linea">
+                                               <tr>
+                                                   <td>
+                                                       <span></span>
+                                                   </td>
+                                                   <td>
+                                                       <strong>N° Doc.</strong>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="linea.name"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="linea.balance"/>
+                                                   </td>
+                                               </tr>
+                                           </t>
+                                       </t>
+                                   </t>
+                               </table>
+                           </t>-->
+
+                        <br/>
+                        <br/>
+
+                        <t t-set="encender1" t-value="0"/>
+                        <t t-set="primero" t-value="0"/>
+                        <t t-foreach="dic_diario1" t-as="diario">
+                            <t t-set="encender1" t-value="diario[1]"/>
+                        </t>
+
+                        <t t-if="float(encender1) &gt; float(primero)">
+                            <table class="diario">
+                                <thead>
+                                    <tr>
+                                        <th class="con-bordes">DIARIO EN GUARANIES</th>
+                                        <th class="con-bordes">TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                </tr>
+                                <tbody>
+                                    <t t-set="total_diario" t-value="0"/>
+                                    <tr t-foreach="dic_diario1" t-as="diario">
+                                        <td style="width: 160px">
+                                            <span t-esc="diario[0].name"/>
+                                        </td>
+                                        <td style="width: 160px">
+                                            <span t-esc="o.agregar_punto_de_miles(diario[1])"/>
+                                        </td>
+                                        <t t-set="total_diario" t-value="total_diario+diario[1]"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="con-bordes" style="width: 160px">Total</td>
+                                        <td class="con-bordes" style="width: 160px">
+                                            <span t-esc="o.agregar_punto_de_miles(total_diario)"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <table>
+                            <tr>
+                                <tr>
+                                    <th>   &amp;nbsp;&amp;nbsp;</th>
+                                </tr>
+                            </tr>
+                        </table>
+
+                        <t t-set="encender2" t-value="0"/>
+                        <t t-set="segundo" t-value="0"/>
+                        <t t-foreach="dic_diario2" t-as="diario">
+                            <t t-set="encender2" t-value="diario[1]"/>
+                        </t>
+
+                        <t t-if="float(encender2) &gt; float(segundo)">
+                            <table class="diario">
+                                <thead>
+                                    <tr>
+                                        <th class="con-bordes">DIARIO EN DOLARES</th>
+                                        <th class="con-bordes">TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                </tr>
+                                <tbody>
+                                    <t t-set="total_diario" t-value="0"/>
+                                    <tr t-foreach="dic_diario2" t-as="diario">
+                                        <td style="width: 160px">
+                                            <span t-esc="diario[0].name"/>
+                                        </td>
+                                        <td style="width: 160px">
+                                            <span t-esc="'{0:,.2f}'.format(diario[1]).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                        </td>
+                                        <t t-set="total_diario" t-value="total_diario+diario[1]"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="con-bordes" style="width: 160px">Total</td>
+                                        <td class="con-bordes" style="width: 160px">
+                                            <span t-esc="'{0:,.2f}'.format(total_diario).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <table>
+                            <tr>
+                                <tr>
+                                    <th>   &amp;nbsp;&amp;nbsp;</th>
+                                </tr>
+                            </tr>
+                        </table>
+                        <t t-set="encender3" t-value="0"/>
+                        <t t-set="tercero" t-value="0"/>
+                        <t t-foreach="lineas" t-as="l">
+                            <t t-if="(l.currency_id.name == 'PYG' and l.cheques_al_dia == true) or (l.cheques_diferidos == true  and l.currency_id.name == 'PYG')">
+                                <t t-set="encender3" t-value="l.amount_payment"/>
+                            </t>
+                        </t>
+
+                        <t t-if="float(encender3) &gt; float(tercero)">
+                            <table class="tabla">
+                                <thead>
+                                    <tr>
+                                        <th class="con-bordes">BANCO</th>
+                                        <th class="con-bordes">Numero de Cheque</th>
+                                        <th class="con-bordes">Cliente</th>
+                                        <th class="con-bordes">Fecha de Inicio</th>
+                                        <th class="con-bordes">Fecha de Vencimiento</th>
+                                        <th class="con-bordes" style="text-align:right; width: 120px">TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                </tr>
+                                <tbody>
+                                    <t t-foreach="lineas" t-as="l">
+                                        <t t-if="(l.currency_id.name == 'PYG' and l.cheques_al_dia == true) or (l.cheques_diferidos == true  and l.currency_id.name == 'PYG')">
+                                            <tr>
+                                                <td style="text-align:left; width: 140px">
+                                                    <span t-field="l.bank_id"/>
+                                                </td>
+                                                <td style="text-align:left; width: 150px">
+                                                    <span t-field="l.detalle_cheque"/>
+                                                </td>
+                                                <td style="text-align:left; width: 200px">
+                                                    <span t-field="l.move_id.partner_id.name"/>
+                                                </td>
+                                                <td style="text-align:left; width: 115px">
+                                                    <span t-field="l.fecha_cobro"/>
+                                                </td>
+                                                <td style="text-align:left; width: 130px">
+                                                    <span t-field="l.fecha_diferida"/>
+                                                </td>
+                                                <td style="text-align:right; width: 120px">
+                                                    <span t-field="l.amount_payment"/>
+                                                </td>
+                                                <t t-set="total_suma_cheques_py"
+                                                   t-value="total_suma_cheques_py + l.amount_payment"/>
+                                                <t t-set="total_guaranies_py" t-value="total_suma_cheques_py"/>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                                <tr class="negrita">
+                                    <td class="con-bordes">
+                                        <span style="font-weight:bold;">Total en Guaranies:</span>
+                                    </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes" style="text-align:right; width: 120px">
+                                        <span t-esc="o.agregar_punto_de_miles(total_guaranies_py)"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+
+                        <table>
+                            <tr>
+                                <tr>
+                                    <th>   &amp;nbsp;&amp;nbsp;</th>
+                                </tr>
+                            </tr>
+                        </table>
+
+                        <t t-set="encender4" t-value="0"/>
+                        <t t-set="cuarto" t-value="0"/>
+                        <t t-foreach="lineas" t-as="l">
+                            <t t-if="(l.currency_id.name == 'USD' and l.cheques_al_dia == true) or (l.cheques_diferidos == true  and l.currency_id.name == 'USD')">
+                                <t t-set="encender4" t-value="l.amount_payment"/>
+                            </t>
+                        </t>
+                        <t t-if="float(encender4) &gt; float(cuarto)">
+                            <table class="tabla">
+                                <thead>
+                                    <tr>
+                                        <th class="con-bordes">BANCO</th>
+                                        <th class="con-bordes">Numero de Cheque</th>
+                                        <th class="con-bordes">Cliente</th>
+                                        <th class="con-bordes">Fecha de Inicio</th>
+                                        <th class="con-bordes">Fecha de Vencimiento</th>
+                                        <th class="con-bordes" style="text-align:right; width: 120px">TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                </tr>
+                                <tbody>
+                                    <t t-foreach="lineas" t-as="l">
+                                        <t t-if="(l.currency_id.name == 'USD' and l.cheques_al_dia == true) or (l.cheques_diferidos == true and l.currency_id.name == 'USD')">
+                                            <tr>
+                                                <td style="text-align:left; width: 140px">
+                                                    <span t-field="l.bank_id"/>
+                                                </td>
+                                                <td style="text-align:left; width: 150px">
+                                                    <span t-field="l.detalle_cheque"/>
+                                                </td>
+                                                <td style="text-align:left; width: 200px">
+                                                    <span t-field="l.move_id.partner_id.name"/>
+                                                </td>
+                                                <td style="text-align:left; width: 115px">
+                                                    <span t-field="l.fecha_cobro"/>
+                                                </td>
+                                                <td style="text-align:left; width: 130px">
+                                                    <span t-field="l.fecha_diferida"/>
+                                                </td>
+                                                <td style="text-align:right; width: 120px">
+                                                    <span t-field="l.amount_payment"/>
+                                                </td>
+                                                <t t-set="total_suma_cheques_usd"
+                                                   t-value="total_suma_cheques_usd + l.amount_payment"/>
+                                                <t t-set="total_usd" t-value="total_suma_cheques_usd"/>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <tr class="negrita">
+                                        <td class="con-bordes">
+                                            <span style="font-weight:bold;">Total en Dolares:</span>
+                                        </td>
+                                        <td class="con-bordes"> </td>
+                                        <td class="con-bordes"> </td>
+                                        <td class="con-bordes"> </td>
+                                        <td class="con-bordes"> </td>
+                                        <td class="con-bordes" style="text-align:right; width: 120px">
+                                            <span t-esc="'{0:,.2f}'.format(total_usd).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <table>
+                            <tr>
+                                <tr>
+                                    <th>   &amp;nbsp;&amp;nbsp;</th>
+                                </tr>
+                            </tr>
+                        </table>
+
+                        <t t-set="total_suma_retencion_py" t-value="0"/>
+                        <t t-set="total_retencion_guaranies_py" t-value="0"/>
+                        <t t-set="encender5" t-value="0"/>
+                        <t t-set="quinto" t-value="0"/>
+                        <t t-foreach="lineas" t-as="l">
+                            <t t-if="(l.currency_id.name == 'PYG' and l.payment_journal.tipo_reporte == 'Retencion')">
+                                <t t-set="encender5" t-value="l.amount_payment"/>
+                            </t>
+                        </t>
+
+                        <t t-if="float(encender5) &gt; float(quinto)">
+                            <table class="tabla">
+                                <thead>
+                                    <tr>
+                                        <th class="con-bordes">Diario</th>
+                                        <th class="con-bordes">Fecha</th>
+                                        <th class="con-bordes">Cliente</th>
+                                        <th class="con-bordes">Numero de Retencion</th>
+                                        <th class="con-bordes" style="text-align:right; width: 120px">TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                </tr>
+                                <tbody>
+                                    <t t-foreach="lineas" t-as="l">
+                                        <t t-if="(l.currency_id.name == 'PYG' and l.payment_journal.tipo_reporte == 'Retencion')">
+                                            <tr>
+                                                <td style="text-align:left; width: 140px">
+                                                    <span t-field="l.payment_journal.name"/>
+                                                </td>
+                                                <td style="text-align:left; width: 100px">
+                                                    <span t-field="l.payment_group_id.payment_date"/>
+                                                </td>
+                                                <td style="text-align:left; width: 200px">
+                                                    <span t-field="l.payment_group_id.partner_id.name"/>
+                                                </td>
+                                                <td style="text-align:left; width: 180px">
+                                                    <span t-field="l.communication"/>
+                                                </td>
+                                                <td style="text-align:right; width: 120px">
+                                                    <span t-field="l.amount_payment"/>
+                                                </td>
+                                                <t t-set="total_suma_retencion_py" t-value="total_suma_retencion_py + l.amount_payment"/>
+                                                <t t-set="total_retencion_guaranies_py" t-value="total_suma_retencion_py"/>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                                <tr class="negrita">
+                                    <td class="con-bordes">
+                                        <span style="font-weight:bold;">Total en Guaranies:</span>
+                                    </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes" style="text-align:right; width: 120px">
+                                        <span t-esc="o.agregar_punto_de_miles(total_suma_retencion_py)"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+
+                        <table>
+                            <tr>
+                                <th>   &amp;nbsp;&amp;nbsp;</th>
+                            </tr>
+                        </table>
+
+                        <t t-set="total_suma_retencion_usd" t-value="0"/>
+                        <t t-set="total_retencion_dolares_py" t-value="0"/>
+                        <t t-set="encender6" t-value="0"/>
+                        <t t-set="sexto" t-value="0"/>
+                        <t t-foreach="lineas" t-as="l">
+                            <t t-if="(l.currency_id.name == 'USD' and l.payment_journal.tipo_reporte == 'Retencion')">
+                                <t t-set="encender6" t-value="l.amount_payment"/>
+                            </t>
+                        </t>
+
+                        <t t-if="float(encender6) &gt; float(sexto)">
+                            <table class="tabla">
+                                <thead>
+                                    <tr>
+                                        <th class="con-bordes">Diario</th>
+                                        <th class="con-bordes">Fecha</th>
+                                        <th class="con-bordes">Cliente</th>
+                                        <th class="con-bordes">Numero de Retencion</th>
+                                        <th class="con-bordes" style="text-align:right; width: 120px">TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                </tr>
+                                <tbody>
+                                    <t t-foreach="lineas" t-as="l">
+                                        <t t-if="(l.currency_id.name == 'USD' and l.payment_journal.tipo_reporte == 'Retencion')">
+                                            <tr>
+                                                <td style="text-align:left; width: 140px">
+                                                    <span t-field="l.payment_journal.name"/>
+                                                </td>
+                                                <td style="text-align:left; width: 100px">
+                                                    <span t-field="l.payment_group_id.payment_date"/>
+                                                </td>
+                                                <td style="text-align:left; width: 200px">
+                                                    <span t-field="l.payment_group_id.partner_id.name"/>
+                                                </td>
+                                                <td style="text-align:left; width: 180px">
+                                                    <span t-field="l.communication"/>
+                                                </td>
+                                                <td style="text-align:right; width: 120px">
+                                                    <span t-field="l.amount_payment"/>
+                                                </td>
+                                                <t t-set="total_suma_retencion_usd"
+                                                   t-value="total_suma_retencion_usd + l.amount_payment"/>
+                                                <t t-set="total_retencion_dolares_py"
+                                                   t-value="total_suma_retencion_usd"/>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                                <tr class="negrita">
+                                    <td class="con-bordes">
+                                        <span style="font-weight:bold;">Total en Dolares:</span>
+                                    </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes" style="text-align:right; width: 120px">
+                                        <span t-esc="'{0:,.2f}'.format(total_retencion_dolares_py).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+
+                        <table>
+                            <tr>
+                                <th>   &amp;nbsp;&amp;nbsp;</th>
+                            </tr>
+                        </table>
+
+                        <t t-set="total_suma_transferencia_py" t-value="0"/>
+                        <t t-set="total_transferencia_guaranies_py" t-value="0"/>
+                        <t t-set="encender7" t-value="0"/>
+                        <t t-set="septimo" t-value="0"/>
+                        <t t-foreach="lineas" t-as="l">
+                            <t t-if="(l.currency_id.name == 'PYG' and l.payment_journal.tipo_reporte == 'Transferencia')">
+                                <t t-set="encender7" t-value="l.amount_payment"/>
+                            </t>
+                        </t>
+
+                        <t t-if="float(encender7) &gt; float(septimo)">
+                            <table class="tabla">
+                                <thead>
+                                    <tr>
+                                        <th class="con-bordes">Diario</th>
+                                        <th class="con-bordes">Fecha</th>
+                                        <th class="con-bordes">Cliente</th>
+                                        <th class="con-bordes">Numero de Transferencia</th>
+                                        <th class="con-bordes" style="text-align:right; width: 120px">TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                </tr>
+                                <tbody>
+                                    <t t-foreach="lineas" t-as="l">
+                                        <t t-if="(l.currency_id.name == 'PYG' and l.payment_journal.tipo_reporte == 'Transferencia')">
+                                            <tr>
+                                                <td style="text-align:left; width: 140px">
+                                                    <span t-field="l.payment_journal.name"/>
+                                                </td>
+                                                <td style="text-align:left; width: 100px">
+                                                    <span t-field="l.payment_group_id.payment_date"/>
+                                                </td>
+                                                <td style="text-align:left; width: 200px">
+                                                    <span t-field="l.payment_group_id.partner_id.name"/>
+                                                </td>
+                                                <td style="text-align:left; width: 180px">
+                                                    <span t-field="l.detalle_transferencia"/>
+                                                </td>
+                                                <td style="text-align:right; width: 120px">
+                                                    <span t-field="l.amount_payment"/>
+                                                </td>
+                                                <t t-set="total_suma_transferencia_py"
+                                                   t-value="total_suma_transferencia_py + l.amount_payment"/>
+                                                <t t-set="total_transferencia_guaranies_py"
+                                                   t-value="total_suma_transferencia_py"/>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                                <tr class="negrita">
+                                    <td class="con-bordes">
+                                        <span style="font-weight:bold;">Total en Guaranies:</span>
+                                    </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes" style="text-align:right; width: 120px">
+                                        <span t-esc="o.agregar_punto_de_miles(total_transferencia_guaranies_py)"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+
+                        <table>
+                            <tr>
+                                <th>   &amp;nbsp;&amp;nbsp;</th>
+                            </tr>
+                        </table>
+
+                        <t t-set="total_suma_transferencia_usd" t-value="0"/>
+                        <t t-set="total_transferencia_dolares_py" t-value="0"/>
+                        <t t-set="encender8" t-value="0"/>
+                        <t t-set="octavo" t-value="0"/>
+                        <t t-foreach="lineas" t-as="l">
+                            <t t-if="(l.currency_id.name == 'USD' and l.payment_journal.tipo_reporte == 'Transferencia')">
+                                <t t-set="encender8" t-value="l.amount_payment"/>
+                            </t>
+                        </t>
+
+                        <t t-if="float(encender8) &gt; float(octavo)">
+                            <table class="tabla">
+                                <thead>
+                                    <tr>
+                                        <th class="con-bordes">Diario</th>
+                                        <th class="con-bordes">Fecha</th>
+                                        <th class="con-bordes">Cliente</th>
+                                        <th class="con-bordes">Numero de Transferencia</th>
+                                        <th class="con-bordes" style="text-align:right; width: 120px">TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                    <th class="con-bordes"> </th>
+                                </tr>
+                                <tbody>
+                                    <t t-foreach="lineas" t-as="l">
+                                        <t t-if="(l.currency_id.name == 'PYG' and l.payment_journal.tipo_reporte == 'Retencion')">
+                                            <tr>
+                                                <td style="text-align:left; width: 140px">
+                                                    <span t-field="l.payment_journal.name"/>
+                                                </td>
+                                                <td style="text-align:left; width: 100px">
+                                                    <span t-field="l.payment_group_id.payment_date"/>
+                                                </td>
+                                                <td style="text-align:left; width: 200px">
+                                                    <span t-field="l.payment_group_id.partner_id.name"/>
+                                                </td>
+                                                <td style="text-align:left; width: 180px">
+                                                    <span t-field="l.communication"/>
+                                                </td>
+                                                <td style="text-align:right; width: 120px">
+                                                    <span t-field="l.amount_payment"/>
+                                                </td>
+                                                <t t-set="total_suma_transferencia_usd"
+                                                   t-value="total_suma_transferencia_usd + l.amount_payment"/>
+                                                <t t-set="total_transferencia_dolares_py"
+                                                   t-value="total_suma_transferencia_usd"/>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                                <tr class="negrita">
+                                    <td class="con-bordes">
+                                        <span style="font-weight:bold;">Total en Dolares:</span>
+                                    </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes"> </td>
+                                    <td class="con-bordes" style="text-align:right; width: 120px">
+                                        <span t-esc="'{0:,.2f}'.format(total_transferencia_dolares_py).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+
+                        <table>
+                            <tr>
+                                <th>   &amp;nbsp;&amp;nbsp;</th>
+                            </tr>
+                        </table>
+
+
+                        <table>
+                            <tr>
+                                <th>   &amp;nbsp;&amp;nbsp;</th>
+                            </tr>
+                        </table>
+
+                        <table class="tabla">
+                            <tr>
+                                <td style="text-align:center; width: 400px">
+                                    <strong>_________________________</strong>
+                                </td>
+                                <td style="text-align:center">
+                                    <strong>   &amp;nbsp;&amp;nbsp;</strong>
+                                </td>
+                                <td style="text-align:left">
+                                    <strong>_________________________</strong>
+                                </td>
+                            </tr>
+                            <tr class="tabla">
+                                <td style="text-align:center">
+                                    <strong>Realizado por</strong>
+                                </td>
+                                <td style="text-align:center">
+                                    <strong>   &amp;nbsp;&amp;nbsp;</strong>
+                                </td>
+                                <td style="text-align:center">
+                                    <strong>Controlado por</strong>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="footer">
+                        <div class="text-center" style="border-top: 2px solid black;">
+                            <ul class="list-inline">
+                                Página:
+                                <span class="page"/>
+                                de
+                                <span class="topage"/>
+                            </ul>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+
+    </template>
+</odoo>

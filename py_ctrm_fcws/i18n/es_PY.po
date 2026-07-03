@@ -1,0 +1,775 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* py_ctrm_fcws
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-12 12:33+0000\n"
+"PO-Revision-Date: 2025-08-12 09:46-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_PY\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.6\n"
+
+#. module: py_ctrm_fcws
+#: model:ir.actions.act_window,name:py_ctrm_fcws.action_account_document_type
+#: model:ir.ui.menu,name:py_ctrm_fcws.menu_l10n_account_document_type
+msgid "Account Document Type"
+msgstr "Tipos de documentos"
+
+#. module: py_ctrm_fcws
+#: model:ir.actions.act_window,name:py_ctrm_fcws.action_account_journal_stamped
+#: model:ir.ui.menu,name:py_ctrm_fcws.menu_l10n_account_journal_stamped
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_account_journal_stamped_form
+msgid "Account Journal Stamped"
+msgstr "Timbrados"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields.selection,name:py_ctrm_fcws.selection__account_journal_stamped__state__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: py_ctrm_fcws
+#: model:l10n_latam.identification.type,description:py_ctrm_fcws.it_nn
+#: model:l10n_latam.identification.type,name:py_ctrm_fcws.it_nn
+msgid "Anonymous"
+msgstr "Anónimo"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.constraint,message:py_ctrm_fcws.constraint_account_journal_journa-stamped-unique-type
+msgid "Another accounting journal already has the same stamp number, please verify!!!!"
+msgstr ""
+"Otro diario de contabilidad ya tiene el mismo número de timbrado, ¡por favor verifique!"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields.selection,name:py_ctrm_fcws.selection__res_partner__l10n_py_operation_type__b2b
+msgid "Business to Business"
+msgstr "Negocio a negocio"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields.selection,name:py_ctrm_fcws.selection__res_partner__l10n_py_operation_type__b2c
+msgid "Business to Consumer"
+msgstr "Negocio al consumidor"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields.selection,name:py_ctrm_fcws.selection__res_partner__l10n_py_operation_type__b2f
+msgid "Business to Foreign"
+msgstr "Negocio a extranjero"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields.selection,name:py_ctrm_fcws.selection__res_partner__l10n_py_operation_type__b2g
+msgid "Business to Government"
+msgstr "Negocio al gobierno"
+
+#. module: py_ctrm_fcws
+#: model:l10n_latam.identification.type,name:py_ctrm_fcws.it_ci
+msgid "CI"
+msgstr "CI"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_country_district__city_ids
+msgid "Cities"
+msgstr "Ciudades"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,help:py_ctrm_fcws.field_res_country_district__city_ids
+msgid "Cities that belong to this district."
+msgstr "Ciudades que pertenecen a este distrito."
+
+#. module: py_ctrm_fcws
+#: model:ir.model,name:py_ctrm_fcws.model_res_city
+msgid "City"
+msgstr "Ciudad"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,help:py_ctrm_fcws.field_res_partner__l10n_py_operation_type
+#: model:ir.model.fields,help:py_ctrm_fcws.field_res_users__l10n_py_operation_type
+msgid ""
+"Classification of the type of fiscal operation for SIFEN: B2B (Business to Business), B2C "
+"(Business to Consumer), B2G (Business to Government), B2F (Business to Foreign)."
+msgstr ""
+"Clasificación del tipo de operación fiscal para SIFEN: B2B (Negocio a Negocio), B2C "
+"(Negocio al Consumidor), B2G (Negocio al Gobierno), B2F (Negocios a Extranjeros)."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__code
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_country_district__code
+msgid "Code"
+msgstr "Código"
+
+#. module: py_ctrm_fcws
+#: model:ir.model,name:py_ctrm_fcws.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: py_ctrm_fcws
+#: model:ir.model,name:py_ctrm_fcws.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: py_ctrm_fcws
+#: model:ir.model,name:py_ctrm_fcws.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: py_ctrm_fcws
+#: model:ir.model,name:py_ctrm_fcws.model_res_country_state
+msgid "Country state"
+msgstr "Estado"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__create_uid
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__create_uid
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_country_district__create_uid
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_partner_stamped__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__create_date
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__create_date
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_country_district__create_date
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_partner_stamped__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields.selection,name:py_ctrm_fcws.selection__account_journal_stamped__type__4
+msgid "Credit Note"
+msgstr "Nota de crédito"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_config_settings__credit_note_default_document_type
+msgid "Credit Note Type"
+msgstr "Tipo de nota de crédito"
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_journal_stamped.py:0
+msgid "Current number must be greater than or equal to initial number."
+msgstr "El número actual debe ser mayor o igual al número inicial."
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_journal_stamped.py:0
+msgid "Current number must be less than or equal to final number."
+msgstr "El número actual debe ser menor o igual al número final."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields.selection,name:py_ctrm_fcws.selection__account_journal_stamped__type__6
+msgid "Debit Note"
+msgstr "Nota de débito"
+
+#. module: py_ctrm_fcws
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.res_config_settings_view_form
+msgid "Default Document Type"
+msgstr "Tipo de documento predeterminado"
+
+#. module: py_ctrm_fcws
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.res_config_settings_view_form
+msgid "Default documents for Invoice/Credit Note"
+msgstr "Documentos predeterminados para factura/nota de crédito"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields.selection,name:py_ctrm_fcws.selection__account_journal_stamped__type__2
+msgid "Delivery Note"
+msgstr "Nota de entrega"
+
+#. module: py_ctrm_fcws
+#: model:l10n_latam.identification.type,description:py_ctrm_fcws.it_dip
+#: model:l10n_latam.identification.type,name:py_ctrm_fcws.it_dip
+msgid "Diplomatic"
+msgstr "Diplomático"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__display_name
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__display_name
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_country_district__display_name
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_partner_stamped__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: py_ctrm_fcws
+#: model_terms:ir.actions.act_window,help:py_ctrm_fcws.action_res_district_list
+msgid ""
+"Display and manage the list of all districts that can be assigned to\n"
+"                your partner records. Note that an option can be set on each state "
+"separately\n"
+"                to enforce any address of it to have a district in this list."
+msgstr ""
+"Mostrar y administrar la lista de todos los distritos que se pueden asignar a\n"
+"                proveedor. Tenga en cuenta que se puede configurar una opción en cada "
+"estado por separado\n"
+"                Para hacer cumplir cualquier dirección para tener un distrito en esta lista."
+
+#. module: py_ctrm_fcws
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_district_filter
+msgid "Distric"
+msgstr "Distrito"
+
+#. module: py_ctrm_fcws
+#: model:ir.model,name:py_ctrm_fcws.model_res_country_district
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_city__district_id
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_district_list
+msgid "District"
+msgstr "Distrito"
+
+#. module: py_ctrm_fcws
+#: model:ir.actions.act_window,name:py_ctrm_fcws.action_res_district_list
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_country_state__district_ids
+#: model:ir.ui.menu,name:py_ctrm_fcws.menu_res_district
+msgid "Districts"
+msgstr "Distritos"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__description
+msgid "Document Description"
+msgstr "Descripción del documento"
+
+#. module: py_ctrm_fcws
+#: model:ir.model,name:py_ctrm_fcws.model_account_document_type
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_bank_statement_line__document_type
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__type
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_move__document_type
+msgid "Document Type"
+msgstr "Tipo de documento"
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_move.py:0
+msgid "Document number %s is out of the authorized range: "
+msgstr "El número de documento %s está fuera del rango autorizado:"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields.selection,name:py_ctrm_fcws.selection__account_journal_stamped__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_l10n_latam_identification_type__edi_code
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_city__edi_code
+msgid "EDI Code"
+msgstr "Código EDI"
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_journal_stamped.py:0
+msgid "End date must be greater than start date."
+msgstr "La fecha de finalización debe ser mayor que la fecha de inicio."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__establishment_code
+msgid "Establishment Code"
+msgstr "Código de establecimiento"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__expenses
+msgid "Expenses"
+msgstr "Gastos"
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_journal_stamped.py:0
+msgid "Final number must be greater than initial number."
+msgstr "El número final debe ser mayor que el número inicial."
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_journal_stamped.py:0
+msgid "Final number must be provided."
+msgstr "Se debe proporcionar un número final."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_l10n_latam_identification_type__position_id
+msgid "Fiscal Position"
+msgstr "Posición fiscal"
+
+#. module: py_ctrm_fcws
+#: model:l10n_latam.identification.type,name:py_ctrm_fcws.it_fid
+msgid "Foreign ID"
+msgstr "ID de extranjero"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_partner_stamped__from_date
+msgid "From Date"
+msgstr "Desde la fecha"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_partner_stamped__from_number
+msgid "From Number"
+msgstr "Desde el número"
+
+#. module: py_ctrm_fcws
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_account_document_type_search
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_account_journal_stamped_search
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_res_partner_stamped_search
+msgid "Group By"
+msgstr "Agrupar"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__id
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__id
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_country_district__id
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_partner_stamped__id
+msgid "ID"
+msgstr "IDENTIFICACIÓN"
+
+#. module: py_ctrm_fcws
+#: model:ir.model,name:py_ctrm_fcws.model_l10n_latam_identification_type
+msgid "Identification Types"
+msgstr "Tipos de identificación"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields.selection,name:py_ctrm_fcws.selection__account_journal_stamped__state__no_active
+msgid "Inactive"
+msgstr "Inactivo"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,help:py_ctrm_fcws.field_account_document_type__e_registry_rg90
+msgid "Include in Electronic Registry RG90"
+msgstr "Incluir en el registro electrónico RG90"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,help:py_ctrm_fcws.field_account_document_type__tax_report
+msgid "Include in Tax Report"
+msgstr "Incluir en el informe fiscal"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__income
+msgid "Income"
+msgstr "Ingreso"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,help:py_ctrm_fcws.field_res_company__subject_vat
+msgid "Indicates whether the company is subject to Value Added Tax (VAT)."
+msgstr "Indica si la Compañía está sujeta al impuesto al valor agregado (IVA)."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,help:py_ctrm_fcws.field_res_company__subject_ire
+msgid "Indicates whether the company is subject to the IRE tax."
+msgstr "Indica si la empresa está sujeta al impuesto IRE."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,help:py_ctrm_fcws.field_res_company__subject_irp
+msgid "Indicates whether the company is subject to the IRP-RSP tax."
+msgstr "Indica si la empresa está sujeta al impuesto IRP-RSP."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,help:py_ctrm_fcws.field_account_bank_statement_line__vat_applicability
+#: model:ir.model.fields,help:py_ctrm_fcws.field_account_move__vat_applicability
+msgid "Indicates whether this document is subject to Value Added Tax (VAT)."
+msgstr "Indica si este documento está sujeto al impuesto al valor agregado (IVA)."
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_journal_stamped.py:0
+msgid "Initial number must be less than final number."
+msgstr "El número inicial debe ser menor que el número final."
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_journal_stamped.py:0
+msgid "Initial number must be provided."
+msgstr "Se debe proporcionar el número inicial."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields.selection,name:py_ctrm_fcws.selection__account_journal_stamped__type__1
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_move.py:0
+msgid "Invoice Date is required."
+msgstr "Se requiere fecha de factura."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_config_settings__invoice_default_document_type
+msgid "Invoice Type"
+msgstr "Tipo de factura"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_bank_statement_line__edi_invoice
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_move__edi_invoice
+msgid "Is Electronic Invoice?"
+msgstr "Es factura electrónica?"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__shipping_point
+msgid "Issuance Point"
+msgstr "Punto de emisión"
+
+#. module: py_ctrm_fcws
+#: model:ir.model,name:py_ctrm_fcws.model_account_journal
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_ir_sequence__py_latam_journal_id
+msgid "Journal"
+msgstr "Diario"
+
+#. module: py_ctrm_fcws
+#: model:ir.model,name:py_ctrm_fcws.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__write_uid
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__write_uid
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_country_district__write_uid
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_partner_stamped__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__write_date
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__write_date
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_country_district__write_date
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_partner_stamped__write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__number_used
+msgid "Last Used Number"
+msgstr "Último número usado"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal__req_doc
+msgid "Manage Sequences?"
+msgstr "Gestionar secuencias?"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__name
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_country_district__name
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_account_document_type_search
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_res_partner_stamped_search
+msgid "Name"
+msgstr "Nombre"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,help:py_ctrm_fcws.field_res_country_district__name
+msgid "Name or description of the district."
+msgstr "Nombre o descripción del distrito."
+
+#. module: py_ctrm_fcws
+#: model:l10n_latam.identification.type,description:py_ctrm_fcws.it_ci
+msgid "National Identity Document"
+msgstr "Documento de identidad nacional"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__current_number
+msgid "Next Number"
+msgstr "Siguiente número"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_partner__l10n_py_operation_type
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_users__l10n_py_operation_type
+msgid "Operation Type"
+msgstr "Tipo de operación"
+
+#. module: py_ctrm_fcws
+#: model:l10n_latam.identification.type,description:py_ctrm_fcws.it_other
+#: model:l10n_latam.identification.type,name:py_ctrm_fcws.it_other
+msgid "Other"
+msgstr "Otro"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_partner_stamped__partner_id
+msgid "Partner"
+msgstr "Contacto"
+
+#. module: py_ctrm_fcws
+#: model:ir.actions.act_window,name:py_ctrm_fcws.action_res_partner_stamped
+#: model:ir.model,name:py_ctrm_fcws.model_res_partner_stamped
+#: model:ir.ui.menu,name:py_ctrm_fcws.menu_l10n_res_partner_stamped
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_res_partner_stamped_form
+msgid "Partner Stamped"
+msgstr "Timbrado de Contacto"
+
+#. module: py_ctrm_fcws
+#: model:l10n_latam.identification.type,name:py_ctrm_fcws.it_pass
+msgid "Passport"
+msgstr "Pasaporte"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__purchases
+msgid "Purchase"
+msgstr "Compra"
+
+#. module: py_ctrm_fcws
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_account_move_form_ctrm_l10n_inherit
+msgid "Purchase Document Type"
+msgstr "Tipo de documento de compra"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__e_registry_rg90
+msgid "RG90"
+msgstr "RG90"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_l10n_latam_identification_type__rg_code
+#: model:ir.model.fields,help:py_ctrm_fcws.field_l10n_latam_identification_type__rg_code
+msgid "RG90 Code"
+msgstr "Código RG90"
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_move.py:0
+msgid "RUC is required and cannot be empty."
+msgstr "Se requiere RUC y no puede estar vacío."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__number_ini
+msgid "Range From"
+msgstr "Rango de"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__number_max
+msgid "Range To"
+msgstr "Rango a"
+
+#. module: py_ctrm_fcws
+#: model:l10n_latam.identification.type,description:py_ctrm_fcws.it_residence_id
+#: model:l10n_latam.identification.type,name:py_ctrm_fcws.it_residence_id
+msgid "Residence Card"
+msgstr "Tarjeta de residencia"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__sales
+msgid "Sales"
+msgstr "Ventas"
+
+#. module: py_ctrm_fcws
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_account_move_form_ctrm_l10n_inherit
+msgid "Sales Document Type"
+msgstr "Tipo de documento de ventas"
+
+#. module: py_ctrm_fcws
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_district_filter
+msgid "Search district"
+msgstr "Distrito de búsqueda"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields.selection,name:py_ctrm_fcws.selection__account_journal_stamped__type__5
+msgid "Self-Invoice"
+msgstr "Autoinvocencia"
+
+#. module: py_ctrm_fcws
+#: model:ir.model,name:py_ctrm_fcws.model_ir_sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal__py_sequence_ids
+msgid "Sequences"
+msgstr "Secuencias"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__name
+msgid "Stamp Number"
+msgstr "Número de timbrado"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_bank_statement_line__partner_stamped_id
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal__stamped_id
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_move__partner_stamped_id
+msgid "Stamped"
+msgstr "Timbrado"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__stamped_control
+msgid "Stamped Control"
+msgstr "Control de timbrado"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_partner_stamped__name
+msgid "Stamped Nr."
+msgstr "Timbrado nr."
+
+#. module: py_ctrm_fcws
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_res_partner_stamped_form
+msgid "Stamped Number"
+msgstr "Número timbrado"
+
+#. module: py_ctrm_fcws
+#: model:ir.model,name:py_ctrm_fcws.model_account_journal_stamped
+msgid "Stamped Voucher Range"
+msgstr "Rago de timbrado"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,help:py_ctrm_fcws.field_account_bank_statement_line__stamped_id
+#: model:ir.model.fields,help:py_ctrm_fcws.field_account_move__stamped_id
+msgid "Stamped document that authorizes the invoice"
+msgstr "Timbrado que autoriza la factura"
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_journal_stamped.py:0
+msgid "Stamped range is expired."
+msgstr "El rango del timbrado está caducado."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_bank_statement_line__stamped_id
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_move__stamped_id
+msgid "Stamping"
+msgstr "Timbrado"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_country_district__state_id
+#: model_terms:ir.ui.view,arch_db:py_ctrm_fcws.view_account_journal_stamped_search
+msgid "State"
+msgstr "Estado"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,help:py_ctrm_fcws.field_res_country_district__state_id
+msgid "State (department) to which this district belongs."
+msgstr "Estado (Departamento) al que pertenece este distrito."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_company__subject_ire
+msgid "Subject to IRE?"
+msgstr "Sujeto a IRE?"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_company__subject_irp
+msgid "Subject to IRP-RSP?"
+msgstr "Sujeto a IRP-RSP?"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_bank_statement_line__vat_applicability
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_move__vat_applicability
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_company__subject_vat
+msgid "Subject to VAT?"
+msgstr "Sujeto al IVA?"
+
+#. module: py_ctrm_fcws
+#: model:l10n_latam.identification.type,name:py_ctrm_fcws.it_vat
+msgid "Tax ID (RUC)"
+msgstr "Identificación fiscal (RUC)"
+
+#. module: py_ctrm_fcws
+#: model:l10n_latam.identification.type,description:py_ctrm_fcws.it_tax_id
+#: model:l10n_latam.identification.type,name:py_ctrm_fcws.it_tax_id
+msgid "Tax Identification"
+msgstr "Identificación fiscal"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_document_type__tax_report
+msgid "Tax Report"
+msgstr "Informe fiscal"
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_move.py:0
+msgid "The document number must be numeric."
+msgstr "El número de documento debe ser numérico."
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_move.py:0
+msgid "The document number must follow the format 999-999-9999999"
+msgstr "El número de documento debe seguir el formato 999-999-9999999"
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/res_partner.py:0
+msgid "The entered RUC number has an invalid format or check digit."
+msgstr "El número RUC ingresado tiene un formato no válido o dígito verificador."
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_move.py:0
+msgid "The invoice date %s is out of the authorized range: "
+msgstr "La fecha de factura %s está fuera del rango autorizado:"
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_move.py:0
+msgid "The journal does not have an active stamping configured."
+msgstr "El diario no tiene un timbrado activo configurado."
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_move.py:0
+msgid "The number %s does not match the format 999-999-9999999"
+msgstr "El número %s no coincide con el formato 999-999-9999999"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.constraint,message:py_ctrm_fcws.constraint_res_partner_stamped_unique_stamped
+msgid "The stamped number must be unique"
+msgstr "El número timbrado debe ser único"
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_move.py:0
+msgid ""
+"The stamping is no longer valid, the document number is out of range.\n"
+"Next invoice number is %s, while the stamping range is [%s - %s]"
+msgstr ""
+"El timbrado ya no es válido, el número de documento está fuera de rango.\n"
+"El siguiente número de factura es %s, mientras que el rango de timbrado es [ %s - %s]"
+
+#. module: py_ctrm_fcws
+#: model_terms:ir.actions.act_window,help:py_ctrm_fcws.action_account_journal_stamped
+msgid "There is no examples click here to add new Account Journal Stamped."
+msgstr "No hay ejemplos, haga clic aquí para agregar un nuevo timbrado."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.constraint,message:py_ctrm_fcws.constraint_account_journal_stamped_stamped_unique
+msgid "This stamped range is already registered. Please verify."
+msgstr "Esta rago de timbrado ya está registrado. Por favor verifique."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_partner_stamped__to_date
+msgid "To Date"
+msgstr "Hasta la fecha"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_res_partner_stamped__to_number
+msgid "To Number"
+msgstr "Al número"
+
+#. module: py_ctrm_fcws
+#: model:l10n_latam.identification.type,description:py_ctrm_fcws.it_vat
+msgid "Unique Taxpayer Registry"
+msgstr "Registro único de contribuyentes"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,help:py_ctrm_fcws.field_res_country_district__code
+msgid "Unique code identifying the district."
+msgstr "Código único que identifica el distrito."
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__date_range_end
+msgid "Validity End"
+msgstr "Fin de validez"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields,field_description:py_ctrm_fcws.field_account_journal_stamped__date_range_ini
+msgid "Validity Start"
+msgstr "Inicio de validez"
+
+#. module: py_ctrm_fcws
+#: model:ir.model.fields.selection,name:py_ctrm_fcws.selection__account_journal_stamped__type__3
+msgid "Withholding"
+msgstr "Retención"
+
+#. module: py_ctrm_fcws
+#. odoo-python
+#: code:addons/py_ctrm_fcws/models/account_journal_stamped.py:0
+msgid "You cannot have more than one active stamped range of the same type."
+msgstr "No puede tener más de un rango de timbrado activo del mismo tipo."

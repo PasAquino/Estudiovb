@@ -1,0 +1,8 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_res_country_district_manager,res_country_district_manager,model_res_country_district,,1,1,1,1
+access_fcws_client_manager,fcws_client_manager,model_fcws_client,,1,1,1,1
+access_fcws_document_manager,fcws_document_manager,model_fcws_document,,1,1,1,1
+access_account_move_reversal_manager,account_move_reversal_manager,model_account_move_reversal,,1,1,1,1
+access_fcws_cancel_wizard_manager,fcws_cancel_wizard_manager,model_fcws_cancel_wizard,,1,1,1,1
+access_fcws_inutilization_user,access.fcws.inutilization.user,model_fcws_inutilization,,1,1,1,0
+access_fcws_inutilization_manager,access.fcws.inutilization.manager,model_fcws_inutilization,,1,1,1,1

@@ -1,0 +1,257 @@
+
+.contenedor{
+    font-size: 12px;
+    font-family: "Arial", "Helvetica", "Verdana", "Trebuchet";
+
+}
+
+/*hoja 1 ##################################################################################################3*/
+
+.fechaxx01{
+    position: absolute;
+    left:3.6cm;
+    top: 5.7cm;
+}
+.senoresxx01{
+    position: absolute;
+    left: 4.8cm;
+    top: 6.2cm;
+}
+.rucxx01{
+    position: absolute;
+    left: 1.8cm;
+    top: 6.8cm;
+}
+.direccionxx01{
+    position: absolute;
+    left: 2cm;
+    top: 7.2cm;
+}
+.contadoxx01{
+    position: absolute;
+    left: 18.6cm;
+    top: 5.7cm;
+}
+
+.creditoxx01{
+    position: absolute;
+    left: 20.5cm;
+    top: 5.9cm;
+}
+.datecreditoxx01{
+    position: absolute;
+    left: 19.6cm;
+    top: 6.5cm;
+}
+.telefonoxx01{
+    position: absolute;
+    left: 18.5cm;
+    top: 7.2cm;
+}
+.cantxx01{
+    position: absolute;
+    left: 0.4cm;
+    top: 9.4cm;
+}
+
+.detallexx01{
+    position: absolute;
+    left: 4.3cm;
+    top: 9.4cm;
+}
+
+.preciounitarioxx01{
+    position: absolute;
+    left: 14.9cm;
+    top: 9.4cm;
+}
+
+.exentaxx01{
+    position: absolute;
+    left: 17.8cm;
+    top: 9.4cm;
+}
+
+.cincoxx01{
+    position: absolute;
+    left: 18.5cm;
+    top: 9.4cm;
+}
+
+.diezxx01{
+    position: absolute;
+    left: 21.3cm;
+    top: 9.4cm;
+}
+.valorparcialexentaxx01{
+    position: absolute;
+    left: 17.8cm;
+    top: 17.4cm;
+}
+
+.valorparcialcincoxx01{
+    position: absolute;
+    left: 19.4cm;
+    top: 17.4cm;
+}
+
+.valorparcialdiezxx01{
+    position: absolute;
+    left: 21.3cm;
+    top: 17.4cm;
+}
+.letraxx01{
+    position: absolute;
+    left: 5.2cm;
+    top: 18.6cm;
+}
+
+.totalapagarxx01{
+    position: absolute;
+    left: 21.3cm;
+    top: 18.6cm;
+}
+.liqcincoxx01{
+    position: absolute;
+    left: 7cm;
+    top: 19.6cm;
+}
+
+.liqdiezxx01{
+    position: absolute;
+    left: 13cm;
+    top: 19.6cm;
+}
+
+.total510xx01{
+    position: absolute;
+    left: 21.3cm;
+    top: 19.6cm;
+}
+
+/*hoja 2 #############################################################################################*/
+.fechaxx02{
+    position: absolute;
+    left: 3.6cm;
+    top: 26.9cm;
+}
+.senoresxx02{
+    position: absolute;
+    left: 5cm;
+    top: 27.4cm;
+
+}
+.rucxx02{
+    position: absolute;
+    left: 1.8cm;
+    top: 28cm;
+}
+.direccionxx02{
+    position: absolute;
+    left: 2cm;
+    top: 28cm;
+
+}
+.contadoxx02{
+    position: absolute;
+    left: 18.6cm;
+    top: 26.5cm;
+}
+
+.creditoxx02{
+    position: absolute;
+    left: 20.5cm;
+    top: 26.5cm;
+}
+.datecreditoxx02{
+    position: absolute;
+    left: 19.6cm;
+    top: 24.3cm;
+}
+
+.telefonoxx02{
+    position: absolute;
+    left: 18.5cm;
+    top: 28cm;
+}
+
+.cantxx02{
+    position: absolute;
+    left: 0.4cm;
+    top: 30.5cm;
+}
+
+.detallexx02{
+    position: absolute;
+    left: 4.3cm;
+    top: 30.5cm;
+}
+
+.preciounitarioxx02{
+    position: absolute;
+    left: 14.9cm;
+    top: 30.5cm;
+}
+
+.exentaxx02{
+    position: absolute;
+    left: 17.8cm;
+    top: 30.5cm;
+}
+
+.cincoxx02{
+    position: absolute;
+    left: 18.5cm;
+    top: 30.5cm;
+}
+
+.diezxx02{
+    position: absolute;
+    left: 21.3cm;
+    top: 30.5cm;
+}
+.valorparcialexentaxx02{
+    position: absolute;
+    left: 17.8cm;
+    top: 38.4cm;
+}
+
+.valorparcialcincoxx02{
+    position: absolute;
+    left: 19.4cm;
+    top: 38.4cm;
+}
+
+.valorparcialdiezxx02{
+    position: absolute;
+    left: 21.3cm;
+    top: 38.4cm;
+}
+.letraxx02{
+    position: absolute;
+    left: 5cm;
+    top: 39.64cm;
+}
+.totalapagarxx02{
+    position: absolute;
+    left: 21.3cm;
+    top: 39.64cm;
+}
+
+.liqcincoxx02{
+    position: absolute;
+    left: 7cm;
+    top: 40.57cm;
+}
+
+.liqdiezxx02{
+    position: absolute;
+    left: 13cm;
+    top: 40.57cm;
+}
+
+.total510xx02{
+    position: absolute;
+    left: 21.3cm;
+    top: 40.57cm;
+}

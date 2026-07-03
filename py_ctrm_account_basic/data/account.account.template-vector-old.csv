@@ -1,0 +1,648 @@
+﻿id;name;code;vla;user_type_id/id;chart_template_id/id;tag_ids/id;reconcile
+11;ACTIVO CORRIENTE;11;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+111;DISPONIBILIDADES;111;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+1111;RECAUDACION A DEPOSITAR;1111;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+11111;Recaudacion Venta Cantina;11111;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+1112;CAJA;1112;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+11121;Caja;11121;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+11122;Caja Utilidad;11122;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+11123;Caja DZ;11123;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+11124;Caja Termeco;11124;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+1113;FONDO FIJO;1113;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+11131;Caja Chica;11131;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+1114;BANCO;1114;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+11141;Continental C.C. Nº 1;11141;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+11142;BBVA Gs Cta Cte Nº 0701614430;11142;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+11143;BNF Gs Cta Cte Nº 061006101077;11143;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+11144;GNB CTA Nº;11144;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+11145;BBVA  $ Cta Cte Nº 2101042029;11145;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+1115;FINANCIERA;1115;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+11151;Financiera xx;11151;Banco y caja;account.data_account_type_liquidity;py_ctrm_account_basic.py_chart_template_basic;;False
+112;INVERSIONES TEMPORARIAS;112;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1121;INVERSIONES FINANCIERAS;1121;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11211;Valores;11211;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11212;Titulos y Acciones;11212;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11213;Bonos;11213;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11214;Previsión para Fluctuación de;11214;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11216;Intereses Devengados a Cobrar;11216;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11217;Inversión xx;11217;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11218;Acciones - Negofin SAECA;11218;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+113;CREDITOS;113;Por cobrar;account.data_account_type_receivable;py_ctrm_account_basic.py_chart_template_basic;;True
+1131;DEUDORES POR VENTA;1131;Por cobrar;account.data_account_type_receivable;py_ctrm_account_basic.py_chart_template_basic;;True
+11311;CLIENTES BANCARD;11311;Por cobrar;account.data_account_type_receivable;py_ctrm_account_basic.py_chart_template_basic;;True
+11312;CLIENTES VARIOS;11312;Por cobrar;account.data_account_type_receivable;py_ctrm_account_basic.py_chart_template_basic;;True
+11315;(-) Previsión para Incobrables;11315;Por cobrar;account.data_account_type_receivable;py_ctrm_account_basic.py_chart_template_basic;;False
+1132;DEUDORES POR PRESTAMOS;1132;Por cobrar;account.data_account_type_receivable;py_ctrm_account_basic.py_chart_template_basic;;False
+11321;Préstamos con Pagares (Capital);11321;Por cobrar;account.data_account_type_receivable;py_ctrm_account_basic.py_chart_template_basic;;False
+11322;Préstamos con Pagares (Intereses a Cobrar);11322;Por cobrar;account.data_account_type_receivable;py_ctrm_account_basic.py_chart_template_basic;;False
+1133;CUENTAS A COBRAR A DIRECTORES Y FUNCIONARIOS;1133;Por cobrar;account.data_account_type_receivable;py_ctrm_account_basic.py_chart_template_basic;;False
+11331;Dtos/ Ctas por cobrar a Directores;11331;Por cobrar;account.data_account_type_receivable;py_ctrm_account_basic.py_chart_template_basic;;False
+1134;CUENTAS A COBRAR A SOCIOS O A ENTIDADES VINCULA;1134;Por cobrar;account.data_account_type_receivable;py_ctrm_account_basic.py_chart_template_basic;;False
+11341;Prestamos a Socios y Accionistas;11341;Por cobrar;account.data_account_type_receivable;py_ctrm_account_basic.py_chart_template_basic;;False
+1135;CREDITOS POR IMPUESTOS CORRIENTES;1135;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11351;Anticipos  Impuesto a la Renta;11351;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11352;Retencion Impuesto a la Renta;11352;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11353;Retención IVA 10%;11353;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11354;Retención IVA 5%;11354;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11355;IVA Credito Fiscal 10%;11355;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11356;IVA Credito Fiscal 5%;11356;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11357;IVA Credito Fiscal - Regimen de Turismo;11357;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11358;Pago previo IVA;11358;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11359;Pago previo Impuesto a la Renta;11359;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1136;ANTICIPOS A PROVEEDORES;1136;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11361;Importación en Curso;11361;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11362;ANTICIPO A PROVEEDOR LOCAL;11362;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1136201;Anticipo Sistema Nestor Benitez;1136201;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11363;Anticipo a Proveedor Exterior;11363;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11364;Anticipo a Acreedores;11364;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1137;ANTICIPO AL PERSONAL;1137;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11371;ANTICIPO PERSONAL;11371;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11372;Anticipo- Diferencia de sueldos;11372;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11373;Anticipo DZ;11373;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11374;Anticipo M.Z.;11374;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11375;Anticipo GZ;11375;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11377;Anticipo de Honorarios;11377;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1138;CREDITOS COMERCIALES;1138;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+113801;Documentos a Cobrar;113801;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+113802;Préstamos a Terceros;113802;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+113803;Cuentas a Cobrar;113803;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+113804;Cuentas a Cobrar Cesión de Créditos;113804;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+113805;Cuentas a Cobrar Negofin;113805;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+113806;Créditos en Gestión Judicial;113806;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+113807;Letras por Cobrar;113807;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+113808;Deudores Varios;113808;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+113809;Intereses a Vencer;113809;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+113810;Tarjeta de Créditos;113810;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1139;OTROS CREDITOS;1139;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11391;Intereses a Cobrar;11391;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11392;SEGUROS A VENCER;11392;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1139201;Seguros a Vencer Tractor;1139201;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11393;Alquileres vencidos a cobrar;11393;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11394;Indemnización a Cobrar;11394;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11395;(-)PREVISION PARA CREDITOS DE DUDOSO COBRO;11395;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+114;INVENTARIOS - BIENES DE CAMBIOS;114;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+114001;MERCADERIAS GRAVADOS Y EXENTOS DE IVA;114001;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+114001001;MERCADERIA CANTINA;114001001;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad Cantina10% - Gs;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad Cantina 10% - $;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad Cantina 5%- Gs;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad Cantina 5% - $;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad Cantina Exenta - Gs;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad Cantina Exenta - $;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;(-) Previsión por Obsolescencia;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+114001002;MERCADERIA CONTENEDOR ACC EMBARC;114001002;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad Cont Acc Emb 10% - Gs.;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad Cont Acc Emb 10% - $;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad Cont Acc Emb 5% - Gs;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad Cont Acc Emb 5% - $;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad Cont Acc Emb Exento - Gs;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad Cont Ac Emb Exento - $;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;(-) Previsión por Obsolescencia;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+114001003;MERCADERIAS EXENTOS;114001003;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad A 10% - Gs;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad A 10% - $;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad A 5% - Gs;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad A 5% - $;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad A Exento - Gs;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercad A Exento - $;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;(-) Previsión por Obsolescencia;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+114001006;MERCADERIA IMPORTADAS;114001006;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1,14001E+11;Mercaderias;1,14001E+11;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11411;IMPORTACION EN CURSO;11411;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+114111;Importac en Curso XX;114111;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+115;GASTOS PAGADOS POR ADELANTADOS;115;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1151;OTROS GASTOS NO DEVENGADOS;1151;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11511;Alquileres Pagados por Adelanto;11511;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11513;Productos Diversos p/ Propaganda;11513;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11514;Material de Oficina/Utiles e Impresos;11514;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11515;Combustibles, Lubricantes y Repuestos en Deposito;11515;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1152;SEGUROS A VENCER;1152;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11521;Seguros a Vencer Tractor;11521;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11522;Seguros a Vencer Saveiro;11522;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11523;Seguros a Vencer Freelander;11523;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11524;Seguros a Vencer Dodge Ram;11524;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11525;Seguros a Vencer Land Rover,Frontier, Volvo,Isuzu;11525;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11526;Seguros a Vencer Ford;11526;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+11527;Seguros a Vencer Amarras;11527;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1153;GASTOS FINANCIEROS NO DEVENGADOS;1153;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+115301;Intereses a devengar Bco GNB;115301;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+115302;Interes a Devengar Bco BBVA;115302;Activos actuales;account.data_account_type_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12;ACTIVO NO CORRIENTE;12;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+121;CREDITOS A LARGO PLAZO;121;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1211;Deudores por Venta;1211;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1212;Deudores por Prestamos;1212;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1213;Cuentas a Cobrar a Directores y Funcionarios;1213;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1214;Cuentas a Cobrar a Socios  o Entidades Vinculadas;1214;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1215;Deudores en Gestión de Cobro - Morosos o Similares;1215;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1216;ANTICIPO A PROVEEDORES;1216;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+121601;Anticipo a Proveedores Locales;121601;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+121602;Anticipo a Proveedores del Exterior;121602;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+121603;Creditos por Impuestos Diferidos;121603;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+121604;Titulos Públicos - Bonos L.P.;121604;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+121605;Debentures - L.P.;121605;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+121606;Acciones L.P.;121606;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+121607;Inversiones en Otra Empresa;121607;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+121608;Previsión p/ Fluctuación;121608;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+121609;Bco- Caja Ahorro Plazo Fijo;121609;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+121610;(-) Previsión para Créditos de dudoso cobro;121610;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+122;INVERNTARIOS A REALIZAR A LARGO PLAZO;122;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1221;Activos Biologicos en Producción;1221;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1222;Activos Biologicos en Desarrollo;1222;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1223;(-)Previsión por Devaluacin de Activos Biologicos;1223;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+123;INVERSIONES A LARGO PLAZO;123;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1231;Inversiones  Acciones Negofin SAECA;1231;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1232;Inversiones en entidades Vinculadas Aqua Alta;1232;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1233;Inversiones en entidades Vinculadas Boz S.A.;1233;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1234;Inversiones Inmobiliarias;1234;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1235;Otras Inversiones;1235;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1236;(-)Previsión por Devaluacin de Activos Biologicos;1236;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124;PROPIEDAD, PLANTA Y EQUIPO - BIENES DE USO;124;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12401;INMUEBLE;12401;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124011;TERRENOS;124011;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240111;Terrenos;1240111;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124012;EDIFICACIONES;124012;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240121;Edificaciones- Amarras;1240121;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240122;(-)Depreciación Acumulada- Edificaciones;1240122;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12402;RODADOS/TRANSPORTE TERRESTRE;12402;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240211;Automoviles, camioneta y otros;1240211;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240212;(-)Depreciación Acumulada- Automoviles y otros;1240212;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124023;RESTANTES BIENES - ;124023;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240231;Restantes Bienes;1240231;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240232;(-)Depreciación Acumulada- Restantes Bienes;1240232;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124024;EMBARCACIONES/ TRANSPORTE ACUATICO-;124024;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240241;Embarcación, Canoas y otros;1240241;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240242;(-)Depreciación Acumulada- Embarcación, Canoas y o;1240242;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240243;Modulos Flotantes y otros- ;1240243;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240244;(-) Depreciación Acumulada Modulos Flontantes;1240244;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240245;Casco Barco- ;1240245;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240246;(-) Depreciacion Acumulada- Casco Barco;1240246;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240247;Incado de Pilotes, Flotadores de aluminio- ;1240247;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240248;(-) Depreciacion Acumulada- Incado de Pilotes y ot;1240248;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12403;MUEBLES UTILES, ENSERES Y EQ DE OFICINA;12403;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124031;MUEBLES Y EQUIPOS EN GENERAL - ;124031;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240311;Muebles, escritorios, sillas, mesas y otros;1240311;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240312;(-)Depreciación Acumulada- Muebles y Equipos;1240312;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124032;UTILES ENSERES - ;124032;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240321;Vajillas, ropa de cama y similares;1240321;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240312;(-)Depreciación, ropa de cama y similares;1240312;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240322;Otros Utiles y Enseres;1240322;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240312;(-)Depreciación Acumulada- Otros Utiles y Enseres;1240312;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12404;MAQUINARIAS - ;12404;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124041;Maquinarias;124041;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124042;(-)Depreciación Acumulada- Maquinarias;124042;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12405;EQUIPOS INFORMATICOS - ;12405;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124051;Equipos de Informatica;124051;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124052;(-)Depreciación Acumulada- Eq. De Informatica;124052;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12406;HERRAMIENTAS  - ;12406;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124061;Herramientas;124061;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124062;(-)Depreciación Acumulada- Herramientas;124062;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12407;BIENES FUERA DE OPERACIÓN;12407;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124071;Bienes fuera de Operación;124071;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124072;(-)Depreciación Acumulada- Bienes fuera de Operac;124072;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12408;MEJORAS EN PREDIO AJENO;12408;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240811;Inmueble XX;1240811;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240812;(-)Depreciación Acumulada- Mejoras Inmb Urabano;1240812;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240821;Inmueble XX;1240821;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240822;(-)Depreciación Acumulada- Mejoras Inmb Rural;1240822;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240831;Inmueble XX;1240831;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1240832;(-) Depreciación Acumulada- Inmueble XX;1240832;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12409;INSTALACIONES  - ;12409;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124091;Instalaciones;124091;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124092;(-)Depreciación Acumulada-Instalaciones;124092;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12410;EQUIPO DE AIRE ACONDICIONADO - ;12410;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124101;Equipo de Aire Acondicionado;124101;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124102;(-)Depreciación Acumulada- Eq. Aire Acondicionado;124102;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12411;EQ. TELEFONICOS - ;12411;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124111;Equipos Telefonicos;124111;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124112;(-)Depreciación Acumulada- Eq. Telefonicos;124112;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12412;EQ. ELECTRODOMESTICOS - ;12412;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124121;Eq. Electrodomesticos;124121;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124122;(-)Depreciación Acumulada-Eq. Electrodomesticos;124122;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12413;EQ. DE SEGURIDAD CAMARAS - ;12413;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124131;Eq de Seguridad Camaras p/ CCT;124131;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124132;(-)Depreciación Acumulada Camaras;124132;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12415;EQUIPAMIENTOS;12415;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124151;Equipamientos;124151;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124152;(-)Depreciación Acumulada- Equipamientos;124152;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12416;TRACTO AGRICOLA- ;12416;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124161;Tractor Agricola- ;124161;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124162;(-)Depreciación Acumulada- Tracto Agricola;124162;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12417;ESTRUCTURA METALICA - TECHO- ;12417;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124171;Estructura Metalica Techo- ;124171;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124172;(-)Depreciación Acumulada-Esctructura Metalica;124172;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124174;(-) Depreciación Acumulada- Incado de Pilotes;124174;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12418;CARROCERIAS- ;12418;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124181;Carroceria Tailer- ;124181;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124182;(-)Depreciación Acumulada-Carrocerias Tailer;124182;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12419;COMPRESORES- CARGADOR DE BATERIAS- ;12419;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1241191;Compresor- Cargador de Bateria- ;1241191;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1241192;(-)Depreciación Acumulada-Compresor- Cargador;1241192;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12420;BOMBA DE RIEGOS;12420;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124201;Bomba de Riego;124201;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124202;(-)Depreciación Acumulada-Bomba de Riego;124202;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12421;INSTALACIONES INTERNET;12421;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124211;Instalación de Internet;124211;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124212;(-)Depreciación Acumulada-Instalaciones Internet;124212;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+124222;CONTENEDOR;124222;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1242221;Contenedor;1242221;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1242222;(-)Depreciación Acumulada- Contenedor;1242222;Activos fijos;account.data_account_type_fixed_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+125;OTROS ACTIVOS A LARGO PLAZO;125;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1251;Derechos Fiduciarios;1251;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+126;CARGOS DIFERIDOS;126;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1261;GASTOS DE CONSTITUCION;1261;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12611;Gastos de Constitución;12611;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12612;(-) Amortización Acumuada;12612;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1262;GASTOS DE ORGANIZACIÓN;1262;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12621;Gastos de Organización;12621;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12622;(-) Amortización Acumuada;12622;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1264;GASTOS DE PROYECTOS DE INVERSION;1264;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12641;Gastos de Desarrollo;12641;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12642;(-) Amortización Acumuada;12642;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1265;GASTOS DE PROYECTOS DE INVERSION;1265;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12651;Gastos de Proyectos de Inversión;12651;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12652;(-) Amortización Acumuada;12652;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+127;ACTIVOS INTANGIBLES;127;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1271;LICENCIAS, MARCAS Y PATENTES;1271;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12711;LICENCIA COMERCIAL - STMA TRINIDAD;12711;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+127112;Licencia Comercial Stma. Trinidad;127112;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+127113;(-) Amortización 25% - STMA TRINIDAD;127113;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12712;LICENCIA COMERCIAL VILLA HAYES;12712;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+127121;Licencia Comercial V.H.;127121;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+127122;(-) Amortización 25% - V.H.;127122;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1272;LICENCIAS;1272;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+127201;Licencia Siga Basica;127201;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+127202;(-) Amortización Licencia Siga;127202;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+1274;LLAVE DE NEGOCIO;1274;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12741;Llave de Negocio;12741;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12742;(-) Amortizacion Acumulada;12742;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+128;OTROS ACTIVOS NO CORRIENTES;128;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+12801;XX;12801;Activos no-corrientes;account.data_account_type_non_current_assets;py_ctrm_account_basic.py_chart_template_basic;;False
+2;PASIVO;2;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21;PASIVO CORRIENTE;21;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+211;ACREEDORES COMERCIALES;211;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+2111;PROVEEDORES LOCALES;2111;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+2112;PROVEEDORES DEL EXTERIOR;2112;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21121;Argentina;21121;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21122;Brasil;21122;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21123;Uruguay;21123;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+2113;INTERESES A PAGAR A PROVEEDOR;2113;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21131;Intereses;21131;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+2114;OTROS ACREEDORES;2114;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+211401;Honorarios a Pagar;211401;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+212;DEUDAS FINACIERAS;212;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+2121;PRESTAMOS DE BANCOS Y OTRAS ENTIDADES FINANCIE;2121;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21211;Gastos Bancarios;21211;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21212;Tarjeta de Credito - Continental;21212;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21213;Prestamo  Bco BBVA;21213;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21214;Documento a pagar;21214;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21215;Prestamo Bco GNB;21215;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21221;Intereses a Devengar;21221;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21222;Cuentas a Pagar;21222;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+2123;ARRENDAMENTOS FINANCIEROS;2123;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21231;Arrendamientos;21231;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+2124;OTROS PRESTAMOS A PAGAR;2124;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21241;Otros prestamos a pagar;21241;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+2125;DEVENGAMIENTO CESION DE CREDITO / PAGARES;2125;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+21251;Prestamos Intereses c/Pagares a Devengar;21251;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+213;OTRAS CUENTAS A PAGAR;213;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+2131;DEUDAS FISCALES CORRIENTES;2131;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+213101;IRACIS a pagar;213101;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+213102;IVA a pagar;213102;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+213103;Retenciones de Impuestos a Ingresar;213103;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+213106;Anticipo IRACIS a pagar;213106;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+213107;IVA Debito Fiscal  5%;213107;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+213108;IVA Debito Fiscal 10%;213108;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+213109;Retencion IVA 5%;213109;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+213110;Retencion IVA 30% a pagar;213110;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+213111;IRACIS a pagar Adicional x Distrib Utilidad;213111;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+213112;IPS 25.5% a pagar;213112;A pagar;account.data_account_type_payable;py_ctrm_account_basic.py_chart_template_basic;;True
+214;PROVISIONES;214;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2141;Obligaciones por Garantías otorgadas;2141;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2142;Obligaciones por Legales por Litigios;2142;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2143;Provisión para beneficios a Empleados;2143;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2144;Sueldo a Pagar;2144;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2145;Sueld a pagar - Tarjeta de Debito;2145;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2146;Aguinaldos a Pagar;2146;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2147;Remuneracion Pnal Superior a pagar;2147;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2148;Otros Gastos a Pagar;2148;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+215;INGRESOS DIFERIDOS;215;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2151;Anticipo de Clientes;2151;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2152;Subvenciones;2152;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2153;Derechos de Fidelización de Clientes;2153;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2154;Alquileres cobrados por Adelantado;2154;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+216;SEGUROS A PAGAR;216;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2161;Grupo Gral de S. S.A.;2161;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2162;La Agricola S.A.;2162;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+217;OTROS PASIVOS;217;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2171;Prestamos de Terceros;2171;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2172;Garantía sobre Alquileres;2172;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2173;Utilidades a Distribuir;2173;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2174;Dividendo / Utilidad a pagar;2174;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+218;GANANCIAS DIFERIDAS;218;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2181;Ingresos no Realizados;2181;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2182;Costos y Gastos no realizados;2182;Pasivo actual;data_account_type_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+22;PASIVO NO CORRIENTE;22;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+221;ACREEDORES COMERCIALES A LARGO PLAZO;221;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2211;Proveedores Locales;2211;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2212;Proveedores del Exterior;2212;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2213;Intereses a pagar a proveedores;2213;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2214;Otros Acreedores;2214;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+222;DEUDAS FINANCIERAS A LARGO PLAZO;222;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2221;Dario Zaldivar x Acciones,Barco;2221;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2222;Prestamos del Dueño, Socio o Entidad Vinculadas;2222;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2223;Arrendamientos Financieros;2223;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2224;Otros Prestamos;2224;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2225;Interereses a Pagar;2225;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2226;Prestamos de Bancos y otras Entidades Financieras;2226;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+223;OTRAS CUENTAS POR PAGAR;223;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2231;Pasivos por Impuesto Diferidos;2231;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2232;Pasivos Fiduciarios;2232;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+224;PROVISIONES PARA OBLIGACIONES A LARGO PLAZO;224;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2241;Obligaciones por Garantias otorgadas;2241;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2242;Obligaciones Legales por Litigios pendientes;2242;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2243;Provisiones para Beneficios a empleados;2243;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+225;INGRESOS DIFERIDOS A LARGO PLAZO;225;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2251;Anticipo de Clientes;2251;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2252;Subvenciones;2252;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2253;Derecho de Fidelización de Clientes;2253;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2254;Otros Prestamos;2254;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2255;Alquileres cobrados por adelantados;2255;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+226;PREVISIONES;226;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2261;Previsión para Indemnización;2261;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+2262;Otras contingencias;2262;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+3;PATRIMONIO NETO;3;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+31;CAPITAL;31;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+311;CAPITAL INTEGRADO;311;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+3111;Capital Suscripto;3111;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+3112;Capital Emitido;3112;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+3113;Capital a Integrar;3113;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+3114;Capital Integrado;3114;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+32;RESERVAS;32;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+321;RESERVA LEGAL;321;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+3211;Reserva Legal 5% hasta el 20% del Capital;3211;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+322;RESERVA DE REVALUO;322;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+3221;Reserva de Revaluo Fiscal;3221;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+3222;Reserva de Revalúo Técnico;3222;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+323;OTRAS RESERVAS;323;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+3231;Otras Reservas;3231;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+3232;Reservas Facultativa;3232;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+33;RESULTADOS;33;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+331;Resultados Acumulados;331;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+332;Resultado a Capitalizar;332;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+333;Resultado del Ejercicio;333;Valor neto;account.data_account_type_equity;py_ctrm_account_basic.py_chart_template_basic;;False
+4;INGRESOS OPERATIVOS;4;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+401;VENTAS DE MERCADERIAS;401;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4011;VENTAS DE MERCADERIAS GRAVADAS POR EL IVA;4011;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+40111;VENTA DE MERCADERIAS GRAVADAS 10%;40111;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+401111;Mercad Cantina10% - GS;401111;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+401112;Mercad Cantina 10% - $;401112;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+401113;Mercad Acc Emb 10% - Gs;401113;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+401114;Mercad Acc Emb 10% - $;401114;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+401115;Mercad A 10% - Gs;401115;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+401116;Mercad  A 10% - $;401116;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+40112;VENTA DE MERCADERIAS GRAVADAS 5%;40112;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+401121;Mercad  Cantina 5% - Gs;401121;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+401122;Mercad Cantina  5% - $;401122;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+401123;Mercad Acc Emb 5% - Gs;401123;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+401124;Mercad Acc Emb 5% - $;401124;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+401125;Mercad A  5% - Gs;401125;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+401126;Mercad A 5% - $;401126;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4012;VENTAS DE MERCADERIAS EXENTAS AL IVA;4012;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+40121;Mercad Cantina  Exenta- Gs;40121;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+40122;Mercad Cantina Exenta - $;40122;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+40123;Mercad Acc Emb Exenta - Gs;40123;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+40124;Mercad Acc Emb Exenta - $;40124;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+40125;Mercad A Exenta - Gs;40125;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+40126;Mercad A Exenta- $;40126;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409;VENTA DE SERVICIOS GRAVADOS;409;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4091;VENTA DE SERVICIOS SECTOR PRIVADO;4091;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409101;Servicio Prest, Planif, Organiz. Func.Control Adm;409101;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409102;Asesoramiento Planif.Organiz.Func.Control Administ;409102;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409103;Consultoria Planif.Organiz.Func.Control.Administ;409103;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409104;Servicios de Gestion Gerencial;409104;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409105;Comisiones;409105;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409106;Interes Cobrados;409106;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409107;Servicios Lógisticos;409107;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409112;Comision y Recargo Financiero;409112;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409113;Comisiones Cobradas;409113;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409114;Ventas Exentas;409114;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409115;Intereses Cobrados;409115;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409116;Reembolso Franquicias;409116;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409117;Alquiler de Oficina - Local propio;409117;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409118;Alquileres y Gastos Administrativos;409118;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+409119;Gastos Adm Alquiler;409119;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+414;OTROS INGRESOS;414;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4141;Intereses Ganados;4141;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4142;Comisiones Cobrados;4142;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4143;Descuentos Obtenidos;4143;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4144;Utilidades, Dividendos, Excedentes;4144;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4145;Ganancia por Diferencia de Cambio;4145;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4146;Act Fijo -Rodado;4146;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4147;Act- Fijo- Mod Flotante y Otro;4147;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4148;Act- Fijo- Venta Inmueble;4148;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4149;Reembolso de Compras;4149;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4150;Act- Fijo- Venta Generador SDMO;4150;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+498;(-) DESCUENTOS CONDEDIDOS;498;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+4981;XX;4981;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+49811;XX;49811;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+499;(-) DEVOLUCIONES;499;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+49911;XX;49911;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+499111;XX;499111;Ingreso;account.data_account_type_revenue;py_ctrm_account_basic.py_chart_template_basic;;False
+5;COSTOS OPERATIVOS;5;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+501;COSTOS DE MERCADERIAS;501;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+5011;COSTOS DE MERCADERIAS GRAVADAS POR EL IVA;5011;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50111;MERCADERIA 10%;50111;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50111001;Costo de Venta Cantina 10% - Gs;50111001;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50111002;Costo de Venta Cantina 10% - $;50111002;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50111003;Costo de Venta Acc Emb 10% - Gs;50111003;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50111004;Costo de Venta Acc Emb 10% - $;50111004;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50111005;Costo de Venta  A  10% - Gs;50111005;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50111006;Costo de Venta A 10% $;50111006;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50112;MERCADERIA 5%;50112;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50112001;Costo de Venta Cantina 5% - Gs;50112001;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50112002;Costo de Venta Cantina 5% - $;50112002;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50112003;Costo de Venta Acc Emb 5% - Gs;50112003;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50112004;Costo de Venta Acc Emb 5% - $;50112004;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50112005;Costo de Venta A  5% - Gs;50112005;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50112006;Costo de Venta A 5% - $;50112006;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+5012;COSTO DE MERCADERIA EXENTA DEL IVA;5012;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+5012001;Costo de Venta Cantina Ex - Gs;5012001;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+5012002;Costo de Venta Cantina Ex - $;5012002;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+5012003;Costo de Venta Acc Emb Ex - Gs;5012003;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+5012004;Costo de Venta Acc Emb Ex - $;5012004;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+5012005;Costo de Venta A  Ex - Gs;5012005;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+5012006;Costo de Venta A Ex - $;5012006;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+5013;OTROS TIPOS DE COSTOS;5013;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+5013001;Descuento Concedido;5013001;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+508;COSTO DE OTROS PRODUCTOS EXPORTADOS;508;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+5081;XX;5081;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+509;COSTO DE SERVICIOS GRAVADOS;509;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50901;Servicio Prest, Planif, Organiz. Func. Control Adm;50901;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50902;Asesoramiento Planif.Organiz.Func.Cont Administ;50902;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50903;Consultoria Planif.Organiz.Func.Control Administ;50903;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50910;Servicio Control de Obra Termeco SRL;50910;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50911;Servicio Direccion, Planificacion de Obra;50911;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50912;Servicio Tecnico y Direccion Obra;50912;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50913;Servicio Remodelacion de Obra e Insumo;50913;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50914;Servicio Planificación y Elaboración de Proy.;50914;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50915;Servicio Movimiento de Suelo y Alquiler Maquina;50915;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50916;Servicio de Electricidad y Plomeria;50916;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50917;Servicios de Herreria;50917;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50919;Servicio Prestados Coninver SA;50919;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50921;Servicio de Asesoramiento;50921;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50923;Servicio de Reparación de Estructura Flotante;50923;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50924;Servicio Reparacion y Adecuacion Ponton;50924;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50925;Honorarios Proyecto Arquitectonico Practica EIRL;50925;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50926;Servicios de Carpinteria;50926;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+50927;Gratificacion Por Logro de Meta;50927;Costos Directos;account.data_account_type_direct_costs;py_ctrm_account_basic.py_chart_template_basic;;False
+513;GASTOS DE ADMINISTRACION;513;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51301;SUELDOS Y OTRAS REMUNERACIONES AL PERSONAL;51301;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5130101;Sueldo y Jornales;5130101;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5130102;Aporte Patronal 16,5%;5130102;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5130103;Otros beneficios al Personal;5130103;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5130104;Bonificación Familiar;5130104;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5130105;Vacaciones;5130105;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5130106;Aguinaldo;5130106;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5130107;Preaviso;5130107;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5130108;Indemnización;5130108;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5130109;Uniforme;5130109;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51302;REMUNERACIÓN PNAL SUPERIOR;51302;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513021;Remuneración - Dario Zaldivar;513021;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513022;Remuneración - Gaspar Zaldivar;513022;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513023;Remuneración- Mateo Zaldivar;513023;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51303;GASTOS DE REPRESENTACION;51303;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513031;Hotel y Hospedaje;513031;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51305;ALQUILES;51305;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513051;Alquileres Gastos Administrarivos;513051;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513052;Alquileres y Expensas;513052;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513053;Alquiler de Sanitario;513053;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51306;AGUA, LUZ Y TELEFONO;51306;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513061;Agua - Essap;513061;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513062;Luz - Ande;513062;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513063;Telefono - Copaco;513063;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513064;Comunicación e Internet;513064;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51307;MOVILIDAD Y VIATICO;51307;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513071;Pasajes Nacionales;513071;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513072;Pasajes Internacionales;513072;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513073;Peaje;513073;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513074;Estacionamiento;513074;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513075;Servicio de Taxi;513075;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513076;Combustibles, Lubricantes y Otros viaticos;513076;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513077;Lubricantes y otros;513077;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51309;REPARACION Y MANTENIMIENTOS;51309;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513091;Reparac y Mant - Local Oficina;513091;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513092;Reparac y Mant - Equipo de Oficina;513092;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513093;Reparac y Mant - Mueble de Oficina;513093;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513094;Reparac y Mant - Rodado;513094;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513095;Reparac y Mant - Sistema Red;513095;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513096;Reparac y Mant - Equipo Informatico;513096;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513097;Reparac y Mant- Maquinarias;513097;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51310;SEGUROS PAGADOS;51310;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513101;Seguros Pagados Saveiro;513101;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513102;Seguros Pagados Tractor;513102;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513103;Seguros Pagados Freelander;513103;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513104;Seguros Pagados Dodge Ram;513104;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513105;Seguros Pagados Land Rover,Frontier, Volvo,Isuzu;513105;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513106;Seguros pagados Ford;513106;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513107;Seguros Pagados Amarras;513107;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51311;UTILES DE OFICINA;51311;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513111;Papeleria,  Impresos, Imprenta;513111;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513112;Fotocopias;513112;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513113;Librerias;513113;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513114;Alquiler Copiadora Canon -;513114;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513115;Otros Utiles de Oficinas;513115;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51312;GASTOS PAGADOS EN EL EXTERIOR;51312;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513121;Pasajes Internancionales;513121;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513122;Hoteles Internacionales;513122;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51313;JUICIO Y GASTOS JUDICIALES;51313;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513131;Tasas Especiales Poder Judicial;513131;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51314;GASTOS DE COBRANZAS;51314;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513141;Viaticos cobrador;513141;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51315;DONACIONES Y CONTRIBUC DEDUCIBLES;51315;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513151;Bomberos Voluntarios;513151;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51319;OTROS GASTOS ADMINISTRATRIVOS;51319;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131901;IVA costo;5131901;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131902;Insumo Informatico;5131902;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131903;Gastos de Sistema;5131903;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131904;Gasto de Limpieza;5131904;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131905;Gasto de Reuniones y Cafeteria;5131905;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131906;Agasajo al Personal;5131906;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131907;Publicidad y Propoganda Administrativo;5131907;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131908;Gastos de Escribania;5131908;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131909;Autofactura;5131909;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131910;Curso  y Asesoramiento Empresarial;5131910;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131911;Gastos de Adornos para Eventos Sociales;5131911;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131912;Gasto de Salud y Botiquin;5131912;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131913;Aporte no reembolsable Negofin SAECA;5131913;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131914;Perdida Extraordinaria por Asalto y/o Robo;5131914;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131915;Monital SRL;5131915;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5131917;Provision de precintas y otros;5131917;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51341;HS PFLS Y SERVICIOS PRESTADO DEDUCIBLE 2.5%;51341;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51341001;Honorarios Profesionales;51341001;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51341002;Honorarios Prof  - Auditoria Externa;51341002;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51341003;Servicios Prestados y/o Terceros;51341003;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51341004;Servicios de Fletes;51341004;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51341005;Servicios de Courrier;51341005;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51341006;Servicios de Jardineria;51341006;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51342;SERVICIOS Y HS PFLS 100% DEDUCIBLE;51342;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5134204;Honorarios Pfls;5134204;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5134205;Servicios Prestados;5134205;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5134206;Servicio de Mantenimiento Tecnoservice SA;5134206;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51343;IMPUESTOS, TASAS Y CONTRIBUCIONES;51343;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513431;Patente Comercial;513431;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513432;Impuestos y Tasas Rodados;513432;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513433;Impuesto, Tasa Escribania;513433;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513434;Otros Gastos Municipales;513434;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513435;Arrendamiento Municipal;513435;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513436;Impuesto Inmobiliario;513436;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+513437;Impuestos, Tasas a la Construcción;513437;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+515;GASTOS BANCARIOS Y FINANCIEROS;515;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+515001;Gtos  Bancarios y/o Finaciero pago Otros;515001;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+515002;Gastos y Comisiones Bancard;515002;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+515003;Comisiones pagadas sobre ventas- Bancard;515003;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5152;Otros Intereses pagados;5152;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5154;Resultado por Diferencia de Cambio;5154;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5155;Recargo Bancarios y/o Finaciero pago IPS;5155;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5156;Recargo Bancarios y/o Finaciero pago SET;5156;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5157;Intereses por Prestamos;5157;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5158;Compra de Dolares;5158;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+516;PREVISIONES;516;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5161;DESAFECTACION DE PREVISIONES;5161;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51611;xx;51611;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5162;(-) CONSTITUCION DE PREVISIONES;5162;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+51621;(-)XX;51621;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+517;DEPRECIACIONES Y AMORTIZACIONES DE ACTIVOS;517;Amortización;account.data_account_type_depreciation;py_ctrm_account_basic.py_chart_template_basic;;False
+5171;Depreciación del Ejercicio;5171;Amortización;account.data_account_type_depreciation;py_ctrm_account_basic.py_chart_template_basic;;False
+5172;Amortización del Ejercicio;5172;Amortización;account.data_account_type_depreciation;py_ctrm_account_basic.py_chart_template_basic;;False
+5173;Amortización Intangible;5173;Amortización;account.data_account_type_depreciation;py_ctrm_account_basic.py_chart_template_basic;;False
+5174;Amortización Gastos Diferidos;5174;Amortización;account.data_account_type_depreciation;py_ctrm_account_basic.py_chart_template_basic;;False
+520;OTROS RESULTADOS NO OPERATIVOS;520;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5201;Utilidad/ Pérdida en Venta de ACTIVO FIJO;5201;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5202;Utilidad/ Pérdida en Venta de INVERSIÓN;5202;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+5203;Cuentas Incobrables Recuperables;5203;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528;GASTOS NO DEDUCIBLES;528;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528001;GND - Sueldo no Deducible;528001;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528002;GND- Aguinaldo y Vacaciones;528002;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528003;GND- Indemnizaciones y Preavisos;528003;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528004;GND- Impuesto a la Renta adicional 5%;528004;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528005;GND- Autofactura;528005;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528006;GND- Viaticos;528006;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528007;GND- Anticipos;528007;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528008;GND- Comisiones;528008;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528009;GND- Gastos de Limpieza;528009;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528010;GND- Reparac Rodado;528010;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528011;GND- Recarga Celular;528011;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528012;GND- Pasajes nacionales e internacionales;528012;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528013;GND- Retención Impuesto a la Renta;528013;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528014;GND- Retención IVA 10%;528014;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528015;GND- Multas, Sanciones y Regarcos - SET;528015;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528016;GND- Multas, Sanciones y Regarcos - IPS;528016;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528017;GND- Multas, Sanciones y Regarcos - MUNICIPALIDADE;528017;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528018;GND- Multas, Sanciones y Regarcos - MJT;528018;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528019;GND- Combustibles y Lubricantes;528019;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528020;GND- Gastos de Escribania;528020;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528021;GND- Gastos de Gestiones Carnet;528021;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528022;GND- Multas, Sanciones y Regarcos -MOPC;528022;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+528023;GND- Asesoramiento y Consultoria de Diseño;528023;Gastos;account.data_account_type_expenses;py_ctrm_account_basic.py_chart_template_basic;;False
+529;IMPUESTO A LA RENTA;529;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False
+52901;Impuesto a la Renta;52901;Pasivos no-corrientes;data_account_type_non_current_liabilities;py_ctrm_account_basic.py_chart_template_basic;;False

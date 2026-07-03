@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extensión de vista de compañía -->
+    <record id="view_company_form_inherit_fcws" model="ir.ui.view">
+        <field name="name">res.company.form.fcws</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+
+                <page string="Facturación Electrónica (FCWS)" name="fcws_tab">
+                    <group>
+                        <group string="Configuración general">
+                            <field name="fcws_is_production"/>
+                            <field name="fcws_base_url"/>
+                            <field name="fcws_docstamp_number"/>
+                            <field name="fcws_docstamp_number_test"/>
+                            <field name="fcws_timbrado_fec_ini"/>
+                            <field name="fcws_branch_name"/>
+                        </group>
+                        <group string="Actividades Económicas">
+                            <field name="economic_activity_code"/>
+                            <field name="economic_activity_description"/>
+                        </group>
+
+                        <group string="Credenciales de Test">
+                            <field name="fcws_test_user"/>
+                            <field name="fcws_test_password" password="True"/>
+                        </group>
+                        <group string="Credenciales de Producción">
+                            <field name="fcws_prod_user"/>
+                            <field name="fcws_prod_password" password="True"/>
+                        </group>
+                    </group>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

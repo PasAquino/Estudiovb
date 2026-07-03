@@ -1,0 +1,315 @@
+<odoo>
+    <template id="factura_template">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <link rel="stylesheet" href="/maqsuppy_formatos/static/src/css/factura.css"/>
+                        <div class="contenedor">
+                            <!--hoja 1 ##################################################################-->
+                            <div class="fechaxx01">
+                                <t t-if="o.invoice_date">
+                                    <span t-esc="o.invoice_date.strftime('%d-%m-%Y')"/>
+                                </t>
+                            </div>
+                            <div class="senoresxx01">
+                                <span t-field="o.partner_id.name"/>
+                            </div>
+                            <div class="rucxx01">
+                                <span t-field="o.partner_id.vat"/>
+                            </div>
+                            <div class="direccionxx01">
+                                <span t-field="o.partner_id.street"/>
+                            </div>
+                            <div class="contadoxx01">
+                                <t t-if="o.invoice_date == o.invoice_date_due">
+                                    <span>X</span>
+                                </t>
+
+                            </div>
+                            <div class="creditoxx01">
+                                <!--
+                                <t t-if="not o.invoice_date == o.invoice_date_due">
+                                    <span>X</span>
+                                </t>
+                                -->
+                                <t t-if="o.invoice_date == o.invoice_date_due">
+                                    <span>X</span>
+                                </t>
+
+                            </div>
+                            <div class="datecreditoxx01">
+                                <t t-if="not o.invoice_date == o.invoice_date_due">
+                                    <span t-field="o.invoice_date_due" t-field-options="{'format': 'dd/MM/yyyy'}"/>
+                                </t>
+                            </div>
+                            <!-- telefono -->
+                            <div class="telefonoxx01">
+                                <span t-field="o.partner_id.phone"/>
+                            </div>
+                            <table class="cantxx01">
+                                <div>
+                                    <tr t-foreach="o.invoice_line_ids" t-as="p">
+                                        <t t-if="not p.display_type">
+                                            <td>
+                                                <span t-esc="'{0:,.2f}'.format(p.quantity).replace(',', 'a').replace('.', ',').replace('a', '.')"/>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </div>
+                            </table>
+                            <table class="detallexx01">
+                                <t t-foreach="o.invoice_line_ids" t-as="p">
+                                    <tr>
+                                        <t t-if="not p.display_type">
+                                            <td>
+                                                <span t-esc="p.name"/>
+                                            </td>
+                                        </t>
+                                        <t t-if="p.display_type == 'line_section'">
+                                            <td name="td_section_line" colspan="99">
+                                                <span t-field="p.name"/>
+                                            </td>
+                                        </t>
+                                        <t t-if="p.display_type == 'line_note'">
+                                            <td name="td_note_line" colspan="99">
+                                                <span t-field="p.name"/>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>
+
+                            </table>
+                            <table class="preciounitarioxx01">
+                                <t t-foreach="o.invoice_line_ids" t-as="p">
+                                    <t t-if="not p.display_type">
+                                        <tr>
+                                            <t t-if="o.currency_id.name =='PYG'">
+                                                <td>
+                                                    <span t-esc="'{0:,.0f}'.format(p.price_unit).replace(',', '.')"/>
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td>
+                                                    <span t-esc="'{0:,.2f}'.format(p.price_unit).replace(',', '.').replace('.', ',').replace('-', '.')"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </table>
+
+
+                            <table class="exentaxx01">
+                                <t t-foreach="o.invoice_line_ids" t-as="p">
+                                    <t t-if="not p.display_type">
+                                        <tr>
+                                            <t t-if="o.currency_id.name =='PYG'">
+                                                <td>
+                                                    <span t-esc="'{0:,.0f}'.format(p.price_unit).replace(',', '.')"/>
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td>
+                                                    <span t-esc="'{0:,.2f}'.format(p.price_unit).replace(',', '.').replace('.', ',').replace('-', '.')"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </table>
+
+                            <t t-set="subtotalexenta1" t-value="0"/>
+                            <!--
+                            <table class="exentaxx01">
+                                <t t-foreach="o.invoice_line_ids" t-as="p">
+                                    <tr>
+                                        <t t-set="exenta" t-value="0"/>
+                                        <t t-set="exenta" t-value="p.price_total"/>
+                                        <t t-if="not p.tax_ids">
+                                            <t t-if="o.currency_id.name =='PYG'">
+                                                <td>
+                                                    <span t-esc="'{0:,.0f}'.format(p.price_total).replace(',', '.')"/>
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td>
+                                                    <span t-esc="'{0:,.2f}'.format(p.price_total).replace(',', '.').replace('.', ',').replace('-', '.')"/>
+                                                </td>
+                                            </t>
+                                            <t t-set="subtotalexenta1" t-value="subtotalexenta1 + p.price_total"/>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </table>
+                            -->
+
+                            <div class="valorparcialexentaxx01">
+                                <span t-esc="'{:,}'.format(subtotalexenta1)"/>
+                            </div>
+
+
+
+                            <table class="cincoxx01">
+                                <t t-foreach="o.invoice_line_ids" t-as="p">
+                                    <t t-if="not p.display_type">
+                                        <tr>
+                                            <t t-if="o.currency_id.name =='PYG'">
+                                                <td>
+                                                    <span t-esc="'{0:,.0f}'.format(p.price_unit).replace(',', '.')"/>
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td>
+                                                    <span t-esc="'{0:,.2f}'.format(p.price_unit).replace(',', '.').replace('.', ',').replace('-', '.')"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </table>
+                            <t t-set="subtotalcinco1" t-value="0"/>
+                            <!--
+                            <table class="cincoxx01">
+                                <t t-foreach="o.invoice_line_ids" t-as="p">
+                                    <tr>
+                                        <t t-set="cinco" t-value="0"/>
+                                        <t t-set="cinco" t-value="p.price_total"/>
+                                        <span t-foreach="p.tax_ids" t-as="t">
+                                            <t t-if="(t.amount == 5)">
+                                                <t t-set="subtotalcinco1"
+                                                   t-value="subtotalcinco1 + int(p.price_total)"/>
+                                                <t t-if="o.currency_id.name =='PYG'">
+                                                    <td>
+                                                        <span t-esc="'{0:,.0f}'.format(p.price_total).replace(',', '.')"/>
+                                                    </td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td>
+                                                        <span t-esc="'{0:,.2f}'.format(p.price_total).replace(',', '.').replace('.', ',').replace('-', '.')"/>
+                                                    </td>
+                                                </t>
+                                            </t>
+                                        </span>
+                                    </tr>
+                                </t>
+                            </table>
+                            -->
+
+                            <div class="valorparcialcincoxx01">
+                                <t t-if="o.currency_id.name =='PYG'">
+                                    <span t-esc="'{0:,.0f}'.format(subtotalcinco1).replace(',', '.')"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="'{0:,.2f}'.format(subtotalcinco1).replace(',', '.').replace('.', ',').replace('-', '.')"/>
+                                </t>
+                            </div>
+                            <t t-set="subtotaldiez1" t-value="0"/>
+                            <table class="diezxx01">
+                                <t t-foreach="o.invoice_line_ids" t-as="p">
+                                    <tr>
+                                        <t t-set="diez" t-value="0"/>
+                                        <t t-set="diez" t-value="p.price_total"/>
+                                        <span t-foreach="p.tax_ids" t-as="t">
+                                            <t t-if="(t.amount == 10)">
+                                                <t t-if="o.currency_id.name =='PYG'">
+                                                    <td>
+                                                        <span t-esc="'{0:,.0f}'.format(p.price_total).replace(',', '.')"/>
+                                                    </td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td>
+                                                        <span t-esc="'{0:,.2f}'.format(p.price_total).replace(',', '.').replace('.', ',').replace('-', '.')"/>
+                                                    </td>
+                                                </t>
+                                                <t t-set="subtotaldiez1" t-value="subtotaldiez1 + p.price_total"/>
+                                            </t>
+                                        </span>
+
+                                    </tr>
+                                </t>
+                            </table>
+
+                            <div class="valorparcialdiezxx01">
+                                <!--<span t-esc="subtotaldiez1"/>-->
+                                <t t-if="o.currency_id.name == 'PYG'">
+                                    <td>
+                                        <span t-esc="'{0:,.0f}'.format(subtotaldiez1).replace(',', '.')"/>
+                                    </td>
+                                </t>
+                                <t t-else="">
+                                    <td>
+                                        <span t-esc="'{0:,.2f}'.format(subtotaldiez1).replace(',', '.').replace('.', ',').replace('-', '.')"/>
+                                    </td>
+                                </t>
+                            </div>
+                            <t t-set="totalennumero" t-value="0"/>
+                            <t t-set="totalennumero" t-value="totalennumero + subtotalexenta1"/>
+                            <t t-set="totalennumero" t-value="totalennumero + subtotalcinco1"/>
+                            <t t-set="totalennumero" t-value="totalennumero + subtotaldiez1"/>
+
+                            <div class="totalapagarxx01">
+                                <!--<span t-esc="totalennumero"/>-->
+                                <t t-if="o.currency_id.name =='PYG'">
+                                    <span t-esc="'{0:,.0f}'.format(totalennumero).replace(',', '.')"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="'{0:,.2f}'.format(totalennumero).replace(',', '.').replace('.', ',').replace('-', '.')"/>
+                                </t>
+                                <!--<p>op</p>-->
+                            </div>
+
+                            <div class="letraxx01">
+                                <!--<p>letra</p>-->
+                                <!--<span t-esc="o.amount_in_words"/>-->
+                                <span t-esc="o.currency_id.currency_unit_label+' '+o.generar_texto(o.amount_total ,o.currency_id.id) "/>
+                                <!--<span t-esc="o.num_word.replace('Guarani','Guaranies').replace('Dollars','Dolares').replace('Cents','Centavos')"  />-->
+                            </div>
+                            <!-- calculo los iva5, iva10 y la suma -->
+
+                            <t t-set="iva5t" t-value="0"/>
+                            <t t-set="iva10t" t-value="0"/>
+                            <t t-set="ivasuma" t-value="0"/>
+
+                            <t t-set="iva5t" t-value="subtotalcinco1 / 21"/>
+                            <t t-set="iva10t" t-value="subtotaldiez1 / 11"/>
+                            <t t-set="ivasuma" t-value="iva5t + iva10t"/>
+
+                            <div class="liqcincoxx01">
+                                <!--<span t-esc="round(iva5t)"/>-->
+                                <t t-if="o.currency_id.name =='PYG'">
+                                    <span t-esc="'{0:,.0f}'.format(iva5t).replace(',', '.')"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="'{0:,.2f}'.format(iva5t).replace(',', '.').replace('.', ',').replace('-', '.')"/>
+                                </t>
+                            </div>
+
+                            <div class="liqdiezxx01">
+                                <!--<span t-esc="round(iva10t)"/>-->
+                                <t t-if="o.currency_id.name =='PYG'">
+                                    <span t-esc="'{0:,.0f}'.format(iva10t).replace(',', '.')"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="'{0:,.2f}'.format(iva10t).replace(',', '.').replace('.', ',').replace('-', '.')"/>
+                                </t>
+                            </div>
+
+                            <div class="total510xx01">
+                                <!--<span t-esc="round(ivasuma)"/>-->
+                                <t t-if="o.currency_id.name =='PYG'">
+                                    <span t-esc="'{0:,.0f}'.format(ivasuma).replace(',', '.')"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="'{0:,.2f}'.format(ivasuma).replace(',', '.').replace('.', ',').replace('-', '.')"/>
+                                </t>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

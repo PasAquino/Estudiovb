@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_fcws" model="ir.ui.view">
+        <field name="name">res.config.settings.form.inherit.fcws</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block"
+                     data-string="Facturación Electrónica (FCWS)"
+                     string="Facturación Electrónica (FCWS)"
+                     data-key="fcws"
+                     groups="base.group_system">
+
+                    <h2>Facturación Electrónica (FCWS)</h2>
+
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Configuración General</span>
+                                <div class="text-muted">
+                                    Parámetros generales de conexión y timbrado para FCWS
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="fcws_base_url" class="col-lg-4 o_light_label"/>
+                                        <field name="fcws_base_url" class="oe_inline"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="fcws_is_production" class="col-lg-4 o_light_label"/>
+                                        <field name="fcws_is_production" class="oe_inline"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="fcws_docstamp_number" class="col-lg-4 o_light_label"/>
+                                        <field name="fcws_docstamp_number" class="oe_inline"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="fcws_timbrado_fec_ini" class="col-lg-4 o_light_label"/>
+                                        <field name="fcws_timbrado_fec_ini" class="oe_inline"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="economic_activity_code" class="col-lg-4 o_light_label"/>
+                                        <field name="economic_activity_code" class="oe_inline"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="economic_activity_description" class="col-lg-4 o_light_label"/>
+                                        <field name="economic_activity_description" class="oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Credenciales Test</span>
+                                <div class="text-muted">
+                                    Usuario y contraseña para ambiente de pruebas
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="fcws_test_user" class="col-lg-4 o_light_label"/>
+                                        <field name="fcws_test_user" class="oe_inline"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="fcws_test_password" class="col-lg-4 o_light_label"/>
+                                        <field name="fcws_test_password" password="True" class="oe_inline"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="fcws_docstamp_number_test" class="col-lg-4 o_light_label"/>
+                                        <field name="fcws_docstamp_number_test" class="oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Credenciales Producción</span>
+                                <div class="text-muted">
+                                    Usuario y contraseña para ambiente productivo
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="fcws_prod_user" class="col-lg-4 o_light_label"/>
+                                        <field name="fcws_prod_user" class="oe_inline"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="fcws_prod_password" class="col-lg-4 o_light_label"/>
+                                        <field name="fcws_prod_password" password="True" class="oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_fcws_management_config" model="ir.actions.act_window">
+        <field name="name">Factura Electrónica (FCWS)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'py_ctrm_fcws', 'bin_size': False}</field>
+    </record>
+</odoo>

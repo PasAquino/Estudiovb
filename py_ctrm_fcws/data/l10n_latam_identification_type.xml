@@ -1,0 +1,76 @@
+<odoo>
+
+        <record id="it_ci" model="l10n_latam.identification.type">
+            <field name="name">CI</field>
+            <field name="country_id" ref="base.py"/>
+            <field name="description">National Identity Document</field>
+            <field name="rg_code">12</field>
+            <field name="edi_code">1</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="it_pass" model="l10n_latam.identification.type">
+            <field name="edi_code">2</field>
+            <field name="rg_code">13</field>
+            <field name="name">Passport</field>
+        </record>
+
+        <record id="it_vat" model="l10n_latam.identification.type">
+            <field name="name">Tax ID (RUC)</field>
+            <field name="country_id" ref="base.py"/>
+            <field name="description">Unique Taxpayer Registry</field>
+            <field name="rg_code">11</field>
+            <field name="active" eval="True"/>
+            <field name="is_vat" eval="True"/>
+        </record>
+
+        <record id="it_fid" model="l10n_latam.identification.type">
+            <field name="edi_code">3</field>
+            <field name="rg_code">14</field>
+            <field name="name">Foreign ID</field>
+        </record>
+
+        <record id="it_residence_id" model="l10n_latam.identification.type">
+            <field name="name">Residence Card</field>
+            <field name="country_id" ref="base.py"/>
+            <field name="description">Residence Card</field>
+            <field name="edi_code">4</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="it_nn" model="l10n_latam.identification.type">
+            <field name="name">Anonymous</field>
+            <field name="country_id" ref="base.py"/>
+            <field name="description">Anonymous</field>
+            <field name="rg_code">15</field>
+            <field name="edi_code">5</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="it_dip" model="l10n_latam.identification.type">
+            <field name="edi_code">6</field>
+            <field name="name">Diplomatic</field>
+            <field name="country_id" ref="base.py"/>
+            <field name="description">Diplomatic</field>
+            <field name="rg_code">16</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="it_other" model="l10n_latam.identification.type">
+            <field name="name">Other</field>
+            <field name="country_id" ref="base.py"/>
+            <field name="description">Other</field>
+            <field name="edi_code">9</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="it_tax_id" model="l10n_latam.identification.type">
+            <field name="name">Tax Identification</field>
+            <field name="country_id" ref="base.py"/>
+            <field name="description">Tax Identification</field>
+            <field name="rg_code">17</field>
+            <field name="active" eval="True"/>
+        </record>
+
+
+</odoo>

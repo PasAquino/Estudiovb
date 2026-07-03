@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_move_line_tree_payment" model="ir.ui.view">
+            <field name="name">account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field eval="99" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Artículos de diario" edit="0">
+                    <field name="date"/>
+                    <field name="date_maturity"/>
+                    <field name="move_id"/>
+                    <field name="journal_id"/>
+                    <field name="name"/>
+                    <field name="ref"/>
+                    <field name="account_id"/>
+                    <field name="balance" string="Amount"/>
+                    <field name="amount_residual" sum="Total"/>
+                    <field name="currency_id"/>
+                    <field name="company_currency_id"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

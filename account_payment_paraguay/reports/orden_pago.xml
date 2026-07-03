@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="orden_pago_report_py">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <link rel="stylesheet" href="/account_payment_paraguay/static/src/css/orden_pago.css"/>
+                    <div class="page">
+                        <div class="text-center">
+                            <table class="tabla">
+                                <th style="width: 200px; font-size:12px; text-align: left">
+                                    <span style="padding-left: 30px"
+                                          t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y %H:%M:%S')"/>
+                                </th>
+                                <th style="font-size:14px; font-weight:bold; width: 200px; text-align: right">
+                                    <span style="padding-right: 30px" t-field="o.company_id"/>
+                                </th>
+                            </table>
+                        </div>
+                        <table>
+                            <tr>
+                                <tr>
+                                    <th>   &amp;nbsp;&amp;nbsp;</th>
+                                </tr>
+                            </tr>
+                        </table>
+                        <div class="contenedor">
+                            <table class="tabla"
+                                   style="border-top: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
+                                <thead>
+                                    <tr>
+                                        <td style="font-weight:bold; font-size:14px; text-align: center">
+                                            Orden de Pago Nº
+                                            <span style="padding-left: 10px; font-weight: bold" t-field="o.document_number"/>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <table class="tabla" style="border-left: 1px solid black; border-right: 1px solid black">
+                                <tr>
+                                    <td style="width: 750px">
+                                        <span style="padding-left: 25px">Fecha:</span>
+                                        <span t-field="o.payment_date"/>
+                                    </td>
+                                    <td style="width: 250px">
+                                        <span>Moneda:</span>
+                                        <span t-field="o.currency_id.full_name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span style="padding-left: 25px">A la Orden de:</span>
+                                        <span style="font-weight: bold; text-transform: uppercase" t-field="o.partner_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span>RUC/C.I:</span>
+                                        <span style="font-weight: bold" t-field="o.partner_id.vat"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="tabla" style="border-left: 1px solid black; border-right: 1px solid black">
+                                <thead>
+                                    <tr>
+                                        <td style="text-align:left; width: 22px">   &amp;nbsp;&amp;nbsp;</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <table class="tabla" style="border: 1px solid black">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center; font-weight:bold; border-bottom: 1px solid black; width: 160px">
+                                            Tipo de Pago
+                                        </th>
+                                        <th style="text-align:center; font-weight:bold; border-bottom: 1px solid black; width: 160px">
+                                            Fecha
+                                        </th>
+                                        <th style="text-align:center; font-weight:bold; border-bottom: 1px solid black; width: 160px">
+                                            Banco
+                                        </th>
+                                        <th style="text-align:center; font-weight:bold; border-bottom: 1px solid black; width: 160px">
+                                            Cheque Nro.
+                                        </th>
+                                        <th style="text-align:center; font-weight:bold; border-bottom: 1px solid black; width: 160px">
+                                            Transferencia Nro.
+                                        </th>
+                                        <th style="text-align:right; font-weight:bold; border-bottom: 1px solid black; width: 160px">
+                                            Monto Valor
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.payment_methods_ids" t-as="eca">
+                                        <tr style="height: 25px">
+                                            <td style="text-align: center">
+                                                <span t-field="eca.payment_journal.name"/>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <span t-field="eca.payment_date"/>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <t t-if="eca.bank_id">
+                                                    <span t-field="eca.bank_id.name"/>
+                                                </t>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <t t-if="eca.detalle_cheque">
+                                                    <span t-field="eca.detalle_cheque"/>
+                                                </t>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <t t-if="eca.detalle_transferencia">
+                                                    <span t-field="eca.detalle_transferencia"/>
+                                                </t>
+                                            </td>
+                                            <td style="text-align: right">
+                                                <t t-if="o.currency_id.name == 'PYG'">
+                                                    <span t-esc="'{0:,.0f}'.format(eca.amount_payment).replace(',', '.')"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span t-esc="'{0:,.2f}'.format(eca.amount_payment).replace(',', 'a').replace('.', ',').replace('a', '.')"/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <table class="tabla">
+                                <table class="tabla" style="border-left: 1px solid black; border-right: 1px solid black">
+                                    <thead>
+                                        <tr>
+                                            <th style="border-bottom: 1px solid black; text-align:center; font-weight:bold; width: 160px">
+                                                Tipo de Documento
+                                            </th>
+                                            <th style="border-bottom: 1px solid black; text-align:center; font-weight:bold; width: 160px">
+                                                Comprobante
+                                            </th>
+                                            <th style="border-bottom: 1px solid black; text-align:center; font-weight:bold; width: 160px">
+                                                Timbrado
+                                            </th>
+                                            <th style="border-bottom: 1px solid black; text-align:center; font-weight:bold; width: 160px">
+                                                Fecha Fact.
+                                            </th>
+                                            <th style="border-bottom: 1px solid black; text-align:center; font-weight:bold; width: 160px">
+                                                Vencimiento
+                                            </th>
+                                            <th style="border-bottom: 1px solid black; text-align:right; font-weight:bold; width: 160px">
+                                                Total
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.invoices_payment_ids" t-as="eca">
+                                            <tr style="height: 25px">
+                                                <td style="text-align: center">
+                                                    <t t-if="eca.invoice_date == eca.invoice_date_due">
+                                                        <span>FC CONTADO</span>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span>FC CRÉDITO</span>
+                                                    </t>
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <span t-field="eca.invoice_id.ref"/>
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <span t-field="eca.invoice_id.py_timbrado_prov"/>
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <span t-field="eca.invoice_date"/>
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <span t-field="eca.invoice_date_due"/>
+                                                </td>
+                                                <td style="text-align: right">
+                                                    <t t-if="o.currency_id.name == 'PYG'">
+                                                        <span t-esc="'{0:,.0f}'.format(eca.amount_payment).replace(',', '.')"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="'{0:,.2f}'.format(eca.amount_payment).replace(',', 'a').replace('.', ',').replace('a', '.')"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                    <table class="tabla" style="border-left: 1px solid black; border-right: 1px solid black">
+                                        <thead>
+                                            <tr>
+                                                <td>
+                                                    <span>   &amp;nbsp;&amp;nbsp;</span>
+                                                </td>
+                                                <td style="text-align:right; width: 220px; border-top: 1px solid black">
+                                                    <span style="padding-right: 35px">Neto a Pagar:</span>
+                                                    <t t-if="o.currency_id.name == 'PYG'">
+                                                        <span style="font-weight:bold; padding-right: 30px"
+                                                              t-esc="'{0:,.0f}'.format(o.payments_amount_store).replace(',', '.')"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span style="font-weight:bold; padding-right: 30px"
+                                                              t-esc="'{0:,.2f}'.format(o.payments_amount_store).replace(',', 'a').replace('.', ',').replace('a', '.')"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <table class="tabla"
+                                           style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black">
+                                        <thead>
+                                            <tr>
+                                                <td style="text-align:left; width: 22px">   &amp;nbsp;&amp;nbsp;</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </table>
+                            </table>
+
+                            <table class="tabla" style="border: 1px solid black">
+                                <table class="tabla" style="border-left: 1px solid black; border-right: 1px solid black">
+                                    <tr>
+                                        <tr>
+                                            <th>
+                                                <span style="font-weight: bold; padding-left: 20px">Observaciones</span>
+                                                <span style="font-weight: normal; padding-left: 10px" t-field="o.communication"/>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>   &amp;nbsp;&amp;nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <th>   &amp;nbsp;&amp;nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <th>   &amp;nbsp;&amp;nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <th>   &amp;nbsp;&amp;nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <th>   &amp;nbsp;&amp;nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <th>   &amp;nbsp;&amp;nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <th>   &amp;nbsp;&amp;nbsp;</th>
+                                        </tr>
+                                    </tr>
+                                </table>
+                                <table class="tabla" style="border-left: 1px solid black; border-right: 1px solid black">
+                                    <thead>
+                                        <tr>
+                                            <td style="text-align:center">
+                                                ------------------------
+                                            </td>
+                                            <td style="text-align:center">
+                                                ------------------------
+                                            </td>
+                                            <td style="text-align:center">
+                                                ------------------------
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align:center; width: 50px">
+                                                Hecho Por:
+                                            </td>
+                                            <td style="text-align:center; width: 50px">
+                                                Autoriza:
+                                            </td>
+
+                                            <td style="text-align:center; width: 50px">
+                                                V°B° Administración:
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </table>
+                            <table class="tabla"
+                                   style="border-top: 1px solid black; border-left: 1px solid black; border-right: 1px solid black;">
+                                <table class="tabla"
+                                       style="border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+                                    <thead>
+                                        <tr>
+                                            <td style="text-align:left; width: 22px">   &amp;nbsp;&amp;nbsp;</td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table class="tabla" style="border-left: 1px solid black; border-right: 1px solid black">
+                                    <tr>
+                                        <td style="text-align:left; width: 140px; font-size:12px; height: 40px">
+                                            <span style="padding-left: 25px">Recibí de:</span>
+                                        </td>
+                                        <td style="text-align:left; width: 200px; font-weight:bold; font-size:12px">
+                                            <span t-field="o.company_id"/>
+                                        </td>
+                                        <td style="text-align:left; width: 160px; font-weight:bold; font-size:12px">
+                                            <span t-field="o.company_id.vat"/>
+                                        </td>
+                                        <td style="text-align:left; width: 300px; font-size:12px">
+                                            la suma de
+                                            <span style="padding-left: 20px">
+                                                <t t-if="o.currency_id.name == 'PYG'">
+                                                    (
+                                                    <span style="font-weight:bold"
+                                                          t-esc="'{0:,.0f}'.format(o.payments_amount_store).replace(',', '.')"/>
+                                                    )
+                                                </t>
+                                                <t t-else="">
+                                                    (
+                                                    <span style="font-weight:bold"
+                                                          t-esc="'{0:,.2f}'.format(o.payments_amount_store).replace(',', 'a').replace('.', ',').replace('a', '.')"/>
+                                                    )
+                                                </t>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table class="tabla" style="border-left: 1px solid black; border-right: 1px solid black">
+                                    <tr>
+                                        <td style="text-align:left; font-size:12px">
+                                            <span style="font-weight:bold; padding-left: 25px" t-esc="o.currency_id.currency_unit_label"/>
+                                            <span t-esc="o.generar_texto(o.payments_amount_store, o.currency_id.id)"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table class="tabla" style="border-left: 1px solid black; border-right: 1px solid black">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:left; width: 22px">   &amp;nbsp;&amp;nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table class="tabla" style="border: 1px solid black; font-size:6px">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:left; width: 22px; font-size:6px">   &amp;nbsp;&amp;nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </table>
+                            <table class="tabla" style="border-right: 1px solid black; border-left: 1px solid black">
+                                <table class="tabla" style="border-left: 1px solid black; border-right: 1px solid black">
+                                    <thead>
+                                        <tr>
+                                            <td style="text-align:left; width: 22px">   &amp;nbsp;&amp;nbsp;</td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table class="tabla" style="border-left: 1px solid black; border-right: 1px solid black;">
+                                    <thead>
+                                        <tr>
+                                            <td style="text-align:left; width: 790px">
+                                                <span style="padding-left: 25px">
+                                                    Asunción, _ _ _ _ _ _ _ _ _ _ / _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ / _ _ _ _ _ _ _ _ _ _ _ _
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table class="tabla" style="border-left: 1px solid black; border-right: 1px solid black">
+                                    <thead>
+                                        <tr>
+                                            <td style="text-align:left; width: 22px">   &amp;nbsp;&amp;nbsp;</td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table class="tabla" style="border-right: 1px solid black; border-left: 1px solid black">
+                                    <tr>
+                                        <td style="text-align:left; width: 390px">
+                                            <span style="padding-left: 25px">
+                                                Aclaración de Firma: _ _ _ _ _ _ _ _ _ _ _ _ _ _
+                                            </span>
+                                        </td>
+                                        <td style="text-align:center; width: 400px">
+                                            <span style="padding-left: 25px">
+                                                FIRMA _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" style="text-align:left; width: 22px">   &amp;nbsp;&amp;nbsp;</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" style="text-align:left; width: 80px; font-weight:normal; font-size:12px">
+                                            <span style="padding-left: 25px">
+                                                C.I.N°: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+                                            </span>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" style="text-align:left; width: 22px">   &amp;nbsp;&amp;nbsp;</th>
+                                    </tr>
+                                </table>
+                                <table class="tabla" style="border-left: 1px solid black; border-right: 1px solid black;">
+                                    <thead>
+                                        <tr>
+                                            <td style="border-bottom: 1px solid black; text-align:left; width: 22px">
+                                                   &amp;nbsp;&amp;nbsp;
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

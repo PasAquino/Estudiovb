@@ -1,0 +1,37 @@
+.contenedor{
+    font-size:9px;
+    font-family:Arial, sanserif;
+}
+
+.con-bordes{
+    border-top: 1px solid black;
+}
+
+
+table.tabla{
+    width: 100% !important;
+}
+td{
+    padding:2px ;
+    font-size:10px;
+}
+
+th{
+    vertical-align: middle;
+    font-size:13px;
+}
+
+thead { display: table-header-group }
+tr { page-break-inside: avoid }
+
+.negrita{
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.derecha{
+    text-align: right !important;
+}
+.mayusculas{
+    text-transform: uppercase;
+}

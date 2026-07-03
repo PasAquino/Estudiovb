@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_journal_check_form_inherit" model="ir.ui.view">
+            <field name="name">account.journal.inherit.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="cheques_diferidos" attrs="{'invisible':[('type','!=','bank')]}"/>
+                    <field name="cheques_al_dia" attrs="{'invisible':[('type','!=','bank')]}"/>
+                    <field name="diario_de_cheques" attrs="{'invisible':[('type','!=','bank')]}"/>
+                    <field name="cheques_tipo_cobro" attrs="{'invisible':[('type','!=','bank')]}"/>
+                    <field name="cheques_tipo_pago" attrs="{'invisible':[('type','!=','bank')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

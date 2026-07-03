@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="reporte_libro_iva_report" model="ir.ui.view">
+            <field name="name">vat.book.wizard</field>
+            <field name="model">vat.book.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="fecha_inicio" required="1"/>
+                        <field name="fecha_fin" required="1"/>
+                        <field name="tipo_informe"/>
+                        <!--<field name="state" required="1" attrs="{'invisible': [('tipo_informe', '!=', 'venta')]}"/>-->
+                    </group>
+                    <group>
+                        <field name="state"/>
+                        <field name="check_rubricadas"/>
+                        <field name="tipo"/>
+                    </group>
+                    <footer>
+                        <button name="check_report" type="object" string="Generar" class="oe_highlight"/>
+                        <button string="Cancelar" special="cancel" class="btn btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_reporte_libro_iva_report" model="ir.actions.act_window">
+            <field name="name">Reportes Libro IVA </field>
+            <field name="res_model">vat.book.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="reporte_libro_iva_report"/>
+            <field name="target">new</field>
+
+        </record>
+
+    </data>
+</odoo>

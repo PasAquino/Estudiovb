@@ -1,0 +1,352 @@
+<odoo>
+    <template id="daily_book">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <t t-if="o.check_rubricadas is False">
+                        <div class="header">
+                            <br/>
+                            <br/>
+                            <table class="tabla">
+                                <th style="font-size:15px; width: 715px; font-weight:bold">
+                                    <span t-field='o.company_id'/>
+                                </th>
+                                <th style="font-size:11px;">Fecha:&amp;nbsp;
+                                    <span t-esc="o.fecha_de_hoy.strftime('%d-%m-%Y')"/>
+                                </th>
+                            </table>
+                            <table>
+                                <th style="width: 715px">&amp;nbsp;&amp;nbsp;</th>
+                                <th style="font-size:11px;">Hora:&amp;nbsp;
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M:%S')"/>
+                                </th>
+                            </table>
+
+                            <table class="tabla">
+                                <th style="font-size:13px;">RUC:&amp;nbsp;
+                                    <span t-field='o.company_id.vat'/>
+                                </th>
+                            </table>
+
+                            <ul class="list-inline">
+                                <li style="text-align:center; font-size:13px; font-weight:bold">LIBRO
+                                    DIARIO
+                                </li>
+                                <li style="text-align:center; font-size:13px">DEL
+                                    <span t-field="o.fecha_inicio"/>
+                                    AL
+                                    <span t-field="o.fecha_fin"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div class="header">
+                            <table>
+                                <tr>
+                                    <th style="vertical-align: top; width: 715px">
+                                        <table style="font-size: 14px">
+                                            <tr>
+                                                <th style="width: 130px">
+                                                    Razón Social:
+                                                </th>
+                                                <th style="width: 370px">
+                                                    <span t-field="o.company_id"/>
+                                                </th>
+                                                <th style="width: 50px">
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    Ruc:
+                                                </th>
+                                                <th>
+                                                    <span t-field="o.company_id.vat"/>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    Dirección:
+                                                </th>
+                                                <th>
+                                                    <t t-if="o.company_id.street2">
+                                                        <span t-esc="o.company_id.street + o.company_id.street2"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-field="o.company_id.street"/>
+                                                    </t>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    &amp;nbsp;
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="3" style="text-align: center">
+                                                    <span style="padding-left: 180px; font-size: 19px">Libro Diario</span>
+                                                    <br/>
+                                                    <span style="padding-left: 180px; font-size: 15px">
+                                                        DEL
+                                                        <span t-field="o.fecha_inicio"/>
+                                                        AL
+                                                        <span t-field="o.fecha_fin"/>
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                    </th>
+                                    <th>
+                                        <table class="tabla">
+                                            <th>
+                                            </th>
+                                        </table>
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+
+
+                    <div class="page">
+
+                        <!--<div class="contenedor"/>-->
+                        <link rel="stylesheet"
+                              href="/py_ctrm_account_report/static/src/css/libro_diario.css"/>
+
+                        <!-- Variables -->
+                        <t t-set="longitud" t-value="0"/>
+                        <t t-set="filas" t-value="0"/>
+                        <t t-set="valor" t-value="0"/>
+                        <t t-set="pagina" t-value="0"/>
+                        <t t-set="transporte1" t-value="0"/>
+                        <t t-set="transporte2" t-value="0"/>
+                        <t t-set="total1" t-value="0"/>
+                        <t t-set="total2" t-value="0"/>
+
+                        <t t-foreach="lineas" t-as="l">
+                            <t t-set="total1" t-value="total1 + l.debit"/>
+                            <t t-set="total2" t-value="total2 + l.credit"/>
+                        </t>
+
+                        <!--<t t-foreach="transporte1" t-as="l">
+                            <td style="text-align:center; width: 50px"><span t-esc="l['transporte3']"/></td>
+                        </t>-->
+
+                        <table class="tabla">
+                            <thead>
+                                <tr>
+                                    <th style="border: 1px solid black; text-align:center; font-weight:bold;">
+                                        Asiento
+                                    </th>
+                                    <th style="border: 1px solid black; text-align:center; font-weight:bold;">
+                                        Fecha
+                                    </th>
+                                    <th style="border: 1px solid black; text-align:center; font-weight:bold;">
+                                        Codigo
+                                    </th>
+                                    <th style="border: 1px solid black; text-align:center; font-weight:bold;">
+                                        Cuenta
+                                    </th>
+                                    <th style="border: 1px solid black; text-align:center; font-weight:bold;">
+                                        Concepto
+                                    </th>
+                                    <th style="border: 1px solid black; text-align:center; font-weight:bold;">
+                                        Débito
+                                    </th>
+                                    <th style="border: 1px solid black; text-align:center; font-weight:bold;">
+                                        Crédito
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="lineas" t-as="l">
+                                    <t t-if="l.move_id != move_actual">
+                                        <t t-set="filas" t-value="filas + 1"/>
+                                        <t t-set="move_actual" t-value="l.move_id"/>
+                                        <tr>
+                                            <t t-if="filas == 73">
+                                                <t t-set="filas" t-value="0"/>
+                                                <t t-set="filas" t-value="filas + 1"/>
+                                                <td style="font-weight:bold;">
+                                                    <span>TRANSPORTE</span>
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td style="font-weight:bold; text-align:right; width: 110px">
+                                                    <span t-esc="o.agregar_punto_de_miles(transporte1)"/>
+                                                </td>
+                                                <td style="font-weight:bold; text-align:right; width: 110px">
+                                                    <span t-esc="o.agregar_punto_de_miles(transporte2)"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <t t-if="filas == 1 and valor == 1">
+                                                <t t-set="filas" t-value="filas + 1"/>
+                                                <td style="font-weight:bold;">
+                                                    <span>TRANSPORTE</span>
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td style="font-weight:bold; text-align:right; width: 110px">
+                                                    <span t-esc="o.agregar_punto_de_miles(transporte1)"/>
+                                                </td>
+                                                <td style="font-weight:bold; text-align:right; width: 110px">
+                                                    <span t-esc="o.agregar_punto_de_miles(transporte2)"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <t>
+                                                <t t-set="valor" t-value="1"/>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center; width: 60px; border-top: 1px solid black; border-style:dashed; font-weight:normal">
+                                                <span t-field="l.move_id.num_asiento"/>
+                                            </td>
+                                            <td style="width: 70px;text-align:center; border-top: 1px solid black; border-style:dashed; font-weight:normal">
+                                                <span t-field="l.move_id.date"
+                                                      t-field-options="{'format': 'dd/MM/yyyy'}"/>
+                                            </td>
+                                            <td style="text-align:center; width: 70px; border-top: 1px solid black; border-style:dashed; font-weight:normal">
+                                                <span t-field="l.account_id.code"/>
+                                            </td>
+                                            <td style="text-align:left; width: 260px; border-top: 1px solid black; border-style:dashed; font-weight:normal">
+                                                <span t-esc="l.account_id.name[0:40] if l.account_id.name else''"/>
+                                            </td>
+                                            <td style="text-align:left; width: 260px; border-top: 1px solid black; border-style:dashed; font-weight:normal">
+                                                <span t-esc="l.name[0:40] if l.name else''"/>
+                                            </td>
+                                            <td style="text-align:right; width: 90px; border-top: 1px solid black; border-style:dashed; font-weight:normal">
+                                                <span t-esc="o.agregar_punto_de_miles(l.debit)"/>
+                                            </td>
+                                            <td style="text-align:right; width: 90px; border-top: 1px solid black; border-style:dashed; font-weight:normal">
+                                                <span t-esc="o.agregar_punto_de_miles(l.credit)"/>
+                                            </td>
+                                            <t t-set="transporte1" t-value="transporte1 + l.debit"/>
+                                            <t t-set="transporte2" t-value="transporte2 + l.credit"/>
+                                        </tr>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-set="filas" t-value="filas + 1"/>
+                                        <tr>
+                                            <t t-if="filas == 73">
+                                                <t t-set="filas" t-value="0"/>
+                                                <t t-set="filas" t-value="filas + 1"/>
+                                                <td style="font-weight:bold;">
+                                                    <span>TRANSPORTE</span>
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td style="font-weight:bold; text-align:right; width: 90px">
+                                                    <span t-esc="o.agregar_punto_de_miles(transporte1)"/>
+                                                </td>
+                                                <td style="font-weight:bold; text-align:right; width: 90px">
+                                                    <span t-esc="o.agregar_punto_de_miles(transporte2)"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <t t-if="filas == 1 and valor == 1">
+                                                <t t-set="filas" t-value="filas + 1"/>
+                                                <td style="font-weight:bold;">
+                                                    <span>TRANSPORTE</span>
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td><span/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                </td>
+                                                <td style="font-weight:bold; text-align:right; width: 90px">
+                                                    <span t-esc="o.agregar_punto_de_miles(transporte1)"/>
+                                                </td>
+                                                <td style="font-weight:bold; text-align:right; width: 90px">
+                                                    <span t-esc="o.agregar_punto_de_miles(transporte2)"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center; width: 60px; border-top: 1px solid white; border-style:dashed; font-weight:normal">
+                                                <span>&amp;nbsp;</span>
+                                            </td>
+                                            <td style="width: 70px;text-align:center; border-top: 1px solid white; border-style:dashed; font-weight:normal">
+                                                <span>&amp;nbsp;</span>
+                                            </td>
+                                            <td style="text-align:center; width: 70px; border-top: 1px solid white; border-style:dashed; font-weight:normal">
+                                                <span t-field="l.account_id.code"/>
+                                            </td>
+                                            <td style="text-align:left; width: 260px; border-top: 1px solid white; border-style:dashed; font-weight:normal">
+                                                <span t-esc="l.account_id.name[0:40] if l.account_id.name else''"/>
+                                            </td>
+                                            <td style="text-align:left; width: 260px; border-top: 1px solid white; border-style:dashed; font-weight:normal">
+                                                <span t-esc="l.name[0:40] if l.name else''"/>
+                                            </td>
+                                            <td style="text-align:right; width: 90px; border-top: 1px solid white; border-style:dashed; font-weight:normal">
+                                                <span t-esc="o.agregar_punto_de_miles(l.debit)"/>
+                                            </td>
+                                            <td style="text-align:right; width: 90px; border-top: 1px solid white; border-style:dashed; font-weight:normal">
+                                                <span t-esc="o.agregar_punto_de_miles(l.credit)"/>
+                                            </td>
+                                            <t t-set="transporte1" t-value="transporte1 + l.debit"/>
+                                            <t t-set="transporte2" t-value="transporte2 + l.credit"/>
+                                        </tr>
+                                        <t t-set="longitud" t-value="longitud + 1"/>
+                                    </t>
+                                </t>
+
+                                <tr>
+                                    <td colspan="5" style="text-align:right; font-weight:bold">TOTAL GENERAL:&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</td>
+                                    <td style="text-align:right; font-weight:bold">
+                                        <span t-esc="o.agregar_punto_de_miles(total1)"/>
+                                    </td>
+                                    <td style="text-align:right; font-weight:bold">
+                                        <span t-esc="o.agregar_punto_de_miles(total2)"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <t t-if="o.check_rubricadas is False">
+                        <div class="footer">
+                            <div class="text-center">
+                                <ul class="list-inline">
+                                    <li>&amp;nbsp;&amp;nbsp;</li>
+                                    <li style="font-size:11px;">Página:
+                                        <span class="page"/>
+                                        de
+                                        <span class="topage"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
+

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="resolucion_90_form_view">
+            <field name="name">resolucion.90.21.form</field>
+            <field name="model">resolucion.90.21</field>
+            <field name="arch" type="xml">
+                <form string="Reportes Action">
+                    <p>Resolucion 90</p>
+                    <group>
+                        <field name="tipo" required="1"/>
+                        <field name="mes" required="1"/>
+                        <field name="name" invisible="1"/>
+                        <field name="periodo" required="1"/>
+                        <field name="archivo" filename="name" invisible="1"/>
+                    </group>
+
+                    <footer>
+                        <button string="Confirmar" name="generar_informe" type="object" class="oe_highlight"/>
+                        o
+                        <button string="Cancelar" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="set_resolucion90_archivo_tree">
+            <field name="name">set.resolucion90.archivo</field>
+            <field name="model">set.resolucion90.archivo</field>
+            <field name="type">tree</field>
+
+            <field name="arch" type="xml">
+                <tree string="Archivos" js_class="resolucion90_tree">
+                    <field name="name" string="Periodo"/>
+                    <field name="mes" string="Mes"/>
+                    <field name="anio"/>
+                    <field name="periodo" string="Tipo"/>
+                    <field name="archivo" string="Archivo" widget="download_link" filename="filename"/>
+                    <field name="filename" string="Nombre"/>
+                    <field name="fecha_creacion" string="Fecha"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="set_resolucion90_archivo_action" model="ir.actions.act_window">
+            <field name="name">Consultar Informes Resolucion 90</field>
+            <field name="res_model">set.resolucion90.archivo</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="action_run_resolucion90" model="ir.actions.act_window">
+            <field name="name">Resolucion 90</field>
+            <field name="res_model">resolucion.90.21</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.rule" id="registro_por_compañia_resolucion90">
+            <field name="name">Resolucion90 Registros</field>
+            <field name="model_id" search="[('model','=','set.resolucion90.archivo')]" model="ir.model"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <menuitem id="account_py_reports_menu"
+                  parent="account.menu_finance_reports"
+                  name="Reportes Contables Paraguay"/>
+
+        <menuitem
+                id="menu_resolucion_90"
+                parent="account_py_reports_menu"
+                name="Resolucion 90"
+                sequence="48"
+                action="set_resolucion90_archivo_action"/>
+
+    </data>
+</odoo>

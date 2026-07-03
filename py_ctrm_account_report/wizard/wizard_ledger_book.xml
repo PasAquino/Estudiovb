@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+       <record id="reporte_libro_mayor" model="ir.ui.view">
+            <field name="name">account.ledger.book</field>
+            <field name="model">account.ledger.book</field>
+            <field name="arch" type="xml">
+               <form>
+                   <group>
+                       <field name="fecha_inicio" required="1"/>
+                       <field name="fecha_fin" required="1"/>
+                   </group>
+                   <!--<group>
+                      <field name="renumerar"/>
+                      <field name="periodo" attrs="{'required':[('renumerar','=',True)],'invisible':[('renumerar','=',False)]}"/>
+                  </group>-->
+                  <group>
+                      <field name="account_ids" widget="many2many_tags"/>
+                      <field name="check_rubricadas"/>
+                  </group>
+                   <group>
+                       <field name="tipo"/>
+                   </group>
+                   <footer>
+                       <button name="check_report" type="object" string="Generar" class="oe_highlight"/>
+                       <button string="Cancelar" special="cancel" class="btn btn-danger"/>
+                   </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_reporte_libro_mayor" model="ir.actions.act_window">
+            <field name="name">Reporte Libro Mayor </field>
+            <field name="res_model">account.ledger.book</field>
+            <field name="type">ir.actions.act_window</field>
+
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="reporte_libro_mayor"/>
+            <field name="target">new</field>
+
+        </record>
+
+    </data>
+</odoo>

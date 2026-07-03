@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="resolucion90_assets_backend" name="resolucion90_account_assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/py_ctrm_90-21/static/src/js/wizard_bottom.js"/>
+        </xpath>
+    </template>
+</odoo>

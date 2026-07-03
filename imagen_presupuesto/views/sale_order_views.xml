@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Agregar campo en el formulario de Sale Order -->
+    <record id="view_order_form_product_images" model="ir.ui.view">
+        <field name="name">sale.order.form.product.images</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Agregar el campo en la pestaña "Otra Información" -->
+            <xpath expr="//page[@name='other_information']" position="inside">
+                <group string="Opciones de Impresión">
+                    <field name="show_product_images"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

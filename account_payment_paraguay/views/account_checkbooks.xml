@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="account_checkbooks_tree_view">
+            <field name="name">account.checkbooks.tree</field>
+            <field name="model">account.checkbooks</field>
+            <field name="arch" type="xml">
+                <tree string="Cartera Cheques">
+                    <field name="bank_id"/>
+                    <field name="cuenta_bank"/>
+                    <field name="number_used"/>
+                    <field name="number_start"/>
+                    <field name="number_end"/>
+                    <field name="active_state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_checkbooks_form_view">
+            <field name="name">account.checkbooks.form</field>
+            <field name="model">account.checkbooks</field>
+            <field name="arch" type="xml">
+                <form string="Cheque en Cartera">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="active" invisible="1"/>
+                        <group>
+                            <group>
+                                <field name="cuenta_bank" widget="selection"/>
+                                <field name="bank_id" widget="selection"/>
+                                <field name="serie"/>
+                                <field name="active_state"/>
+                            </group>
+                            <group>
+                                <field name="number_start"/>
+                                <field name="number_end"/>
+                                <field name="number_used"/>
+                                <field name="current_number"/>
+                                <field name="company_id" readonly="1" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_checkbooks_search_view">
+            <field name="name">account.checkbooks.search</field>
+            <field name="model">account.checkbooks</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="bank_id"/>
+                    <field name="cuenta_bank"/>
+                    <field name="current_number"/>
+                    <field name="number_used"/>
+                    <!--                    <filter string="Activo" name="active_state"/>-->
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.rule" id="single_company_registration_checkbooks">
+            <field name="name">Cartera de Cheques</field>
+            <field name="model_id" search="[('model','=','account.checkbooks')]" model="ir.model"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="action_account_checkbooks" model="ir.actions.act_window">
+            <field name="name">Cartera de Cheques</field>
+            <field name="res_model">account.checkbooks</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{ }</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click para registrar una Cartera de Cheques
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Cartera de Cheques"
+                  action="action_account_checkbooks"
+                  id="menu_action_account_check_cheques"
+                  parent="account.menu_finance_entries_actions"
+                  sequence="21"/>
+
+    </data>
+</odoo>

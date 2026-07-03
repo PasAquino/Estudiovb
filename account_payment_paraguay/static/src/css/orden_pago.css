@@ -1,0 +1,28 @@
+.contenedor{
+    font-family:  "Arial, sanserif", serif;
+}
+table.tabla{
+    width: 100% !important;
+    page-break-after:auto;
+}
+td{
+    page-break-inside:avoid; page-break-after:auto;
+    vertical-align: middle;
+    font-size:13px;
+}
+th{
+    vertical-align: middle;
+    font-size:13px;
+}
+tfoot{
+    display:table-footer-group
+}
+thead{
+    display:table-header-group;
+}
+tr{
+    page-break-inside: avoid
+}
+
+
+

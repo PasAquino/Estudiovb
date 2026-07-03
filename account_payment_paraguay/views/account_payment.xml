@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- hide default payments menus -->
+        <record id="account.menu_action_account_payments_receivable" model="ir.ui.menu">
+            <field eval="[(6, 0, [ref('account_see_payment_menu_nat')])]" name="groups_id"/>
+        </record>
+
+        <record id="account.menu_action_account_payments_payable" model="ir.ui.menu">
+            <field eval="[(6, 0, [ref('account_see_payment_menu_nat')])]" name="groups_id"/>
+        </record>
+
+        <record id="view_account_payment_form_inherit" model="ir.ui.view">
+            <field name="name">account.payment.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <form>
+                    <style>
+                        .btn-primary:nth-child(2){display:none !important; }
+                    </style>
+                    <field name="journal_ids" invisible="1"/>
+                </form>
+                <field name="journal_ids" invisible="1"/>
+                <div class="oe_title" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('payment_type', '!=', 'transfer'), ('state', '=', 'draft')]}</attribute>
+                </div>
+                <field name="journal_id" position="attributes">
+                    <attribute name="domain">[('id', 'in', journal_ids)]</attribute>
+                    <attribute name="widget">many2one</attribute>
+                    <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+                </field>
+                <div class="oe_title" position="after">
+                    <div class="oe_title" name="payment_group_id" invisible="context.get('payment_group')">
+                        <h1>
+                            <field name="payment_group_id"/>
+                        </h1>
+                    </div>
+                </div>
+                <div name="amount_div" position="after">
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="other_currency" invisible="1"/>
+                    <field name="force_amount_company_currency" invisible="1"/>
+                    <label for="amount_company_currency" string="(en la moneda de la empresa)" attrs="{'invisible': [('other_currency', '=', False)]}"/>
+                    <div name="amount_company_currency" class="o_row" attrs="{'invisible': [('other_currency', '=', False)]}">
+                        x
+                        <field name="exchange_rate" invisible="1"/>
+                        <field name="tipo_cambio"/>
+                        =
+                        <field name="amount_company_currency" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="view_account_payment_form_group_tree" model="ir.ui.view">
+            <field name="name">account.payment.tree</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="amount"/>
+                    <field name="state"/>
+                    <field name="currency_id"/>
+                    <field name="company_currency_id"/>
+                    <field name="partner_type"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+
+        <record model="ir.ui.view" id="campos_set">
+            <field name="name">campos.set</field>
+            <field name="model">account.journal</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="req_doc"/>
+                    <field name="establishment_code"
+                           attrs="{'invisible':[('req_doc', '=', False), ('type', '!=', 'sale')], 'required':[('req_doc', '=', True), ('type', '=', 'sale')]}"/>
+                    <field name="shipping_point"
+                           attrs="{'invisible':[('req_doc', '=', False), ('type', '!=', 'sale')], 'required':[('req_doc', '=', True), ('type', '=', 'sale')]}"/>
+                    <!--<field name="check_cheq_diferido" attrs="{'invisible':[('type','!=','bank')]}"/>
+                    <field name="check_cheq_hoy" attrs="{'invisible':[('type','!=','bank')]}"/>
+                    <field name="diario_cheque" attrs="{'invisible':[('type','!=','bank')]}"/>
+                    <field name="cheque_cobro" attrs="{'invisible':[('type','!=','bank')]}"/>
+                    <field name="cheque_pago" attrs="{'invisible':[('type','!=','bank')]}"/>-->
+
+                </xpath>
+                <xpath expr="//field[@name='code']/.." position="inside">
+                    <field name="py_sequence_ids" nolabel="1" colspan="2"
+                           attrs="{'invisible': [('req_doc', '=', False)]}">
+                        <tree create="false" delete="false" editable="top" default_order="id">
+                            <field name="name" readonly="True" string="Sequence"/>
+                            <field name="number_next_actual" string="Siguiente número"/>
+                            <field name="id" invisible="1"/>
+                        </tree>
+                    </field>
+
+                </xpath>
+                <!--<label for="sequence_number_next" position="attributes">
+                      <attribute name="attrs">{'invisible': [('req_doc', '=', True)]}</attribute>
+                  </label>-->
+                <field name="refund_sequence" position="attributes">
+                    <attribute name="attrs">{'invisible': [('req_doc', '=', True)]}</attribute>
+                </field>
+                <!--<xpath expr="//field[@name='sequence_number_next']/.." position="attributes">
+                    <attribute name="attrs">{'invisible': [('req_doc', '=', True)]}</attribute>
+                </xpath>-->
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Agregar configuración en Ventas -->
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sale.product.images</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@id='sale_config_online_confirmation_sign']" position="after">
+                <h2>Imágenes de Productos en Presupuestos</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="sale_show_product_images"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="sale_show_product_images"/>
+                            <div class="text-muted">
+                                Mostrar imágenes de productos en presupuestos por defecto
+                            </div>
+                            <div class="content-group mt-2" attrs="{'invisible': [('sale_show_product_images', '=', False)]}">
+                                <div class="row">
+                                    <label for="sale_product_image_size" string="Tamaño de Imagen" class="col-lg-3 o_light_label"/>
+                                    <field name="sale_product_image_size" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

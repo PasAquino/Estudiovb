@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="account_tip_doc_search_form_view" model="ir.ui.view">
+        <field name="name">account_tip_doc.search.form</field>
+        <field name="model">account.tip.doc</field>
+        <field name="arch" type="xml">
+            <search string="Tipos de Documentos">
+                <field name="code"/>
+            </search>
+        </field>
+    </record>
+
+    <act_window
+        id="action_open_account_tip_doc"
+        name="Tipos de documentos"
+        res_model="account.tip.doc"
+        view_mode="tree,form,kanban"
+        domain="[('name', '=', active_id)]"/>
+
+    <act_window
+        id="action_open_single_account_tip_doc"
+        name="Tipos de documentos"
+        res_model="account.tip.doc"
+        view_mode="tree,form,kanban"
+        target="current"
+        domain="[('name', 'in', active_id)]"/>
+
+    <record id="view_account_tip_doc_form" model="ir.ui.view">
+        <field name="name">account.tip.doc.form</field>
+        <field name="model">account.tip.doc</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1>
+                    </div>
+                    <group string="Configuracion">
+                        <field name="code" string="Codigo"/>
+                        <field name="code_hck" string="Codigo"/>
+                        <field name="tipdoc"/>
+                        <field name="internal_type"/>
+                        <field name="vatbook"/>
+                        <field name="req_timbrado"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_account_tip_doc_tree" model="ir.ui.view">
+        <field name="name">account.tip.doc.tree</field>
+        <field name="model">account.tip.doc</field>
+        <field name="arch" type="xml">
+            <tree string="account.tip.doc">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="tipdoc"/>
+                <field name="internal_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_account_tip_doc_kanban" model="ir.ui.view">
+        <field name="name">account.tip.doc.kanban</field>
+        <field name="model">account.tip.doc</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="code"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <!--<div class="o_kanban_image">
+                                <img t-att-src="kanban_image('cont.clas.egreso', 'logo', record.id.raw_value)" alt="Logo"/>
+                            </div>-->
+                            <div class="oe_kanban_details">
+                                <h4>
+                                    <field name="name"/>
+                                </h4>
+                                <field name="code"/>
+                                <field name="code_hck"/>
+                                <field name="tipdoc"/>
+                                <field name="internal_type"/>
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_account_tip_doc" model="ir.actions.act_window" >
+        <field name="name">Tipos de Documentos</field>
+        <field name="res_model">account.tip.doc</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <menuitem id="menu_aranduka_configuration" name="Aranduka" parent="account.menu_finance_configuration"
+                  sequence="1"/>
+
+    <menuitem id="menu_account_tip_doc"
+              parent="menu_aranduka_configuration"
+              sequence="1"
+              action="action_account_tip_doc"/>
+
+</odoo>

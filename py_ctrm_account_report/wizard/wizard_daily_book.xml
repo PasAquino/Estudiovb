@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+       <record id="reporte_libro_diario" model="ir.ui.view">
+            <field name="name">daily.book.wizard</field>
+            <field name="model">daily.book.wizard</field>
+            <field name="arch" type="xml">
+               <form>
+                   <group>
+                       <field name="fecha_inicio" required="1"/>
+                       <field name="fecha_fin" required="1"/>
+                   </group>
+                   <group>
+                      <field name="renumerar"/>
+                      <field name="periodo" attrs="{'required':[('renumerar','=',True)],'invisible':[('renumerar','=',False)]}"/>
+                  </group>
+                  <group>
+                      <field name="journal_ids" widget="many2many_tags" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                      <field name="check_rubricadas"/>
+                  </group>
+                   <group>
+                       <field name="tipo"/>
+                   </group>
+                   <footer>
+                       <button name="check_report" type="object" string="Generar" class="oe_highlight"/>
+                       <button string="Cancelar" special="cancel" class="btn btn-danger"/>
+                   </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_reporte_libro_diario" model="ir.actions.act_window">
+            <field name="name">Reporte Libro Diario </field>
+            <field name="res_model">daily.book.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="reporte_libro_diario"/>
+            <field name="target">new</field>
+
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,31 @@
+<odoo>
+
+        <record id="paperformat_electronic_billing" model="report.paperformat">
+            <field name="name">Documento Electronico</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_width">216</field>
+            <field name="page_height">330</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">4</field>
+            <field name="margin_bottom">4</field>
+            <field name="margin_left">4</field>
+            <field name="margin_right">4</field>
+            <field name="header_spacing">0</field>
+            <field name="dpi">95</field>
+            <field name="header_line" eval="False"/>
+        </record>
+
+        <record id="action_report_electronic_billing" model="ir.actions.report">
+            <field name="name">Documento Electronico</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">py_ctrm_fcws.template_electronic_billing</field>
+            <field name="report_file">py_ctrm_fcws.template_electronic_billing</field>
+            <field name="paperformat_id" ref="paperformat_electronic_billing"/>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">(object.name or 'Documento_Electronico')</field>
+        </record>
+
+</odoo>

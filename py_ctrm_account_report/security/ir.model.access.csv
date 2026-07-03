@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+balance_book_wizard_access,balance.book.wizard,model_balance_book_wizard,account.group_account_invoice,1,1,1,1
+daily_book_wizard_access,daily.book.wizard,model_daily_book_wizard,account.group_account_invoice,1,1,1,1
+account_ledger_book_model_access,account.ledger.book,model_account_ledger_book,account.group_account_invoice,1,1,1,1
+vat_book_wizard_access,vat.book.wizard,model_vat_book_wizard,account.group_account_invoice,1,1,1,1
+report_cobranzas_py_access,report.cobranzas.py,model_report_cobranzas_py,account.group_account_invoice,1,1,1,1
+wizard_reporte_pagos_access,wizard.reporte.pagos,model_wizard_reporte_pagos,account.group_account_invoice,1,1,1,1

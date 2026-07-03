@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_saleorder_document_simple" inherit_id="sale.report_saleorder_document">
+
+        <!-- Agregar columna de imagen en el encabezado -->
+        <xpath expr="//table[@name='sale_order_table']/thead/tr/th[@name='th_description']" position="before">
+            <th name="th_image" class="text-left" t-if="doc.show_product_images" style="width: 100px;">
+                Imagen
+            </th>
+        </xpath>
+
+        <!-- Agregar celda de imagen en cada línea -->
+        <xpath expr="//tbody[@class='sale_tbody']/t[@t-foreach='doc.order_line']/tr/td[@name='td_name']" position="before">
+            <t t-if="doc.show_product_images and not line.display_type">
+                <td name="td_image" style="vertical-align: middle; padding: 8px;">
+                    <t t-if="line.product_id.image_128">
+                        <img t-att-src="image_data_uri(line.product_id.image_128)"
+                             style="max-width: 80px; max-height: 80px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"
+                             alt="Producto"/>
+                    </t>
+                    <t t-else="">
+                        <div style="width: 60px; height: 60px; background: #f5f5f5; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #999;">
+                            Sin imagen
+                        </div>
+                    </t>
+                </td>
+            </t>
+            <t t-elif="doc.show_product_images and line.display_type">
+                <td name="td_image"></td>
+            </t>
+        </xpath>
+
+    </template>
+
+</odoo>

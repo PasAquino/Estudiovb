@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+account_payment_receiptbook,account.payment.receiptbook,model_account_payment_receiptbook,,1,1,1,1
+account_payment_paraguay,account.payment.paraguay,model_account_payment_paraguay,,1,1,1,1
+invoices_payment_paraguay,invoices.payment.paraguay,model_invoices_payment_paraguay,,1,1,1,1
+payment_methods_group,payment.methods.group,model_payment_methods_group,,1,1,1,1
+account_checkbooks,account.checkbooks,model_account_checkbooks,,1,1,1,1
+account_checkbooks_deposit,account.checkbooks.deposit,model_account_checkbooks_deposit,,1,1,1,1
+check_list_wizard,check.list.wizard,model_check_list_wizard,,1,1,1,1

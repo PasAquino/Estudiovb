@@ -1,0 +1,673 @@
+<odoo>
+	<template id="template_electronic_billing">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					<!-- <link rel="stylesheet"
+					href="/py_ctrm_fcws/static/src/css/electronic_billing.css"/> -->
+					<div class="page">
+						<div class="contenedor">
+							<table class="tabla" style="border: white;">
+								<thead>
+									<tr style="border: none;">
+										<!-- Columna con información de la empresa y logo -->
+										<th
+											style="width: 650px; height: 140px; padding: 0; border: 1px solid black;">
+											<div style="border: none; height: 140px; padding: 10px;">
+												<table class="tabla"
+													style="border-collapse: collapse; width: 100%; border: white;">
+													<tbody>
+														<tr style="vertical-align: middle;">
+															<!-- Logo de la empresa -->
+															<td
+																style="width: 180px; border: none; vertical-align: middle;">
+																<t t-if="o.company_id.logo">
+																	<img
+																		t-att-src="image_data_uri(o.company_id.logo)"
+																		style="width: 150px; height: auto; max-height: 120px;" />
+																</t>
+															</td>
+															<!-- Información de la empresa -->
+															<td style="width: 420px; border: none;">
+																<div
+																	style="font-family: 'Arial', sans-serif; font-size: 10px; line-height: 1.5;">
+																	<span
+																		style="font-weight: normal;"
+																		t-field="o.company_id.name" />
+																	<br />
+																	<span
+																		style="font-weight: normal;"
+																		t-field="o.company_id.economic_activity_description" />
+																	<br />
+																	<span
+																		style="font-weight: normal; padding-top: 50px;">
+																		<t
+																			t-esc="(o.company_id.street or '') + ' ' + (o.company_id.street2 or '')" />
+																	</span>
+																	<br />
+																	<span
+																		style="font-weight: normal; padding-top: 50px;"
+																		t-field="o.company_id.state_id">
+																	</span>
+																	<br />
+																	<span
+																		style="font-weight: normal; padding-top: 50px;"
+																		t-field="o.company_id.city">
+																	</span>
+																	<br />
+																	<span
+																		style="font-weight: normal; padding-top: 50px;"
+																		t-field="o.company_id.phone">
+																	</span>
+																	<br />
+																	<span
+																		style="font-weight: normal; padding-top: 50px;"
+																		t-field="o.company_id.email">
+																	</span>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</th>
+
+										<!-- Espacio entre las dos columnas -->
+										<th style="width: 10px; border: none;" />
+
+										<!-- Columna con información fiscal -->
+										<th
+											style="width: 300px; height: 140px; padding: 0; border: 1px solid black;">
+											<div
+												style="border: white; height: 140px; padding: 10px;">
+												<table class="tabla"
+													style="border-collapse: collapse; width: 100%; border: white;">
+													<tbody>
+														<tr
+															style="height: 25px; text-align: center;">
+															<td style="border: none;">
+																<span style="font-weight: normal;">
+																	RUC:</span>
+																<span t-field="o.company_id.vat" />
+															</td>
+														</tr>
+														<tr
+															style="height: 25px; text-align: center;">
+															<td style="border: none;">
+																<span style="font-weight: normal;">Timbrado
+																	Nº:</span>
+																<span t-field="o.timbrado_id.name" />
+															</td>
+														</tr>
+														<tr
+															style="height: 25px; text-align: center;">
+															<td style="border: none;">
+																<span style="font-weight: normal;">Inicio
+																	de Vigencia:
+																</span>
+																<span
+																	t-field="o.timbrado_id.date_range_ini" />
+															</td>
+														</tr>
+														<tr
+															style="height: 25px; text-align: center;">
+															<td style="border: none;">
+																<t
+																	t-if="o.move_type == 'out_invoice'">
+																	<span
+																		style="font-weight: normal; font-size: 14px;">
+																		Factura electrónica
+																	</span>
+																</t>
+																<t
+																	t-if="o.move_type == 'out_refund'">
+																	<span
+																		style="font-weight: normal; font-size: 14px;">
+																		Nota de Crédito electrónica
+																	</span>
+																</t>
+															</td>
+														</tr>
+														<tr
+															style="height: 25px; text-align: center;">
+															<td style="border: none;">
+																<span
+																	style="font-weight: normal; font-size: 15px;"
+																	t-field="o.name" />
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</th>
+									</tr>
+								</thead>
+							</table>
+
+							<br />
+							<div style="border: 1px solid black;">
+								<table class="tabla" style="border-collapse: collapse;">
+									<thead>
+										<tr style="height: 22px; vertical-align: middle;">
+											<th
+												style="width: 500px; text-align: left; padding-left: 15px; border: 1px solid white;">
+												<span style="font-weight: normal;">Fecha y hora de
+													emisión:</span>
+												<span style="font-weight: normal;"
+													t-field="o.invoice_date" />
+												<span style="font-weight: normal;"
+													t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M:%S')" />
+											</th>
+											<th
+												style="width: 500px; text-align: left; padding-left: 15px; border: 1px solid white;">
+												<span style="font-weight: normal;">RUC:</span>
+												<span style="font-weight: normal;"
+													t-field="o.partner_id.vat" />
+											</th>
+										</tr>
+										<tr style="height: 22px; vertical-align: middle;">
+											<th
+												style="width: 500px; text-align: left; padding-left: 15px; border: 1px solid white;">
+												<span style="font-weight: normal;">Condición Venta :</span>
+												<t t-if="o.invoice_date == o.invoice_date_due">
+													<span
+														style="font-weight: normal; padding-left: 10px;">
+														Contado
+													</span>
+												</t>
+												<t t-if="not o.invoice_date == o.invoice_date_due">
+													<span
+														style="font-weight: normal; padding-left: 10px;">
+														Crédito
+													</span>
+												</t>
+											</th>
+											<th
+												style="width: 500px; text-align: left; padding-left: 15px; border: 1px solid white;">
+												<span style="font-weight: normal;">Razón Social:</span>
+												<span style="font-weight: normal;"
+													t-field="o.partner_id.name" />
+											</th>
+										</tr>
+										<tr style="height: 22px; vertical-align: middle;">
+											<th
+												style="width: 500px; text-align: left; padding-left: 15px; border: 1px solid white;">
+												<span style="font-weight: normal;">Plazo:</span>
+												<span
+													style="font-weight: normal; padding-left: 10px;"
+													t-esc="o.payment_term_days()" />
+											</th>
+											<th
+												style="width: 500px; text-align: left; padding-left: 15px; border: 1px solid white;">
+												<span style="font-weight: normal;">Dirección:</span>
+												<span
+													style="font-weight: normal; padding-left: 10px;"
+													t-field="o.partner_id.street" />
+											</th>
+										</tr>
+										<tr style="height: 22px; vertical-align: middle;">
+											<th
+												style="width: 500px; text-align: left; padding-left: 15px; border: 1px solid white;">
+												<span style="font-weight: normal;">Moneda:</span>
+												<span
+													style="font-weight: normal; padding-left: 10px;"
+													t-field="o.currency_id.name" />
+											</th>
+											<th
+												style="width: 500px; text-align: left; padding-left: 15px; border: 1px solid white;">
+												<span style="font-weight: normal;">Teléfono:</span>
+												<span
+													style="font-weight: normal; padding-left: 10px;"
+													t-field="o.partner_id.phone" />
+											</th>
+										</tr>
+										<tr style="height: 22px; vertical-align: middle;">
+											<th
+												style="width: 500px; text-align: left; padding-left: 15px; border: 1px solid white;">
+												<span style="font-weight: normal;">Tipo Cambio:</span>
+												<span
+													style="font-weight: normal; padding-left: 10px;"
+													t-field="o.fcws_tipo_cambio" />
+											</th>
+											<th
+												style="width: 500px; text-align: left; padding-left: 15px; border: 1px solid white;">
+												<span style="font-weight: normal;">Código Cliente:</span>
+											</th>
+										</tr>
+										<tr style="height: 22px; vertical-align: middle;">
+											<th
+												style="width: 500px; text-align: left; padding-left: 15px; border: 1px solid white;">
+												<span style="font-weight: normal;">Tipo Operación:</span>
+												<span
+													style="font-weight: normal; padding-left: 10px;"
+													t-field="o.fcws_tipo_transaccion" />
+											</th>
+											<t t-if="o.move_type == 'out_refund'">
+												<th
+													style="width: 500px; text-align: left; padding-left: 15px; border: 1px solid white;">
+													<span
+														style="font-weight: normal; padding-left: 10px">Factura
+														relacionada
+													</span>
+													<span
+														style="font-weight: normal; padding-left: 10px"
+														t-field="o.reversed_entry_id.name" />
+												</th>
+											</t>
+										</tr>
+									</thead>
+								</table>
+							</div>
+
+							<br />
+							<table class="tabla">
+								<thead>
+									<tr
+										style="text-align: center; background-color: #d0cccc; border-top: 1px solid black; border-bottom: 1px solid black;">
+										<th
+											style="width: 80px; border-left: 1px solid black; border-right: 1px solid black;">
+											<span style="font-weight: normal;">Código</span>
+										</th>
+										<th style="width: 380px; border-right: 1px solid black;">
+											<span style="font-weight: normal;">Descripción</span>
+										</th>
+										<th style="width: 70px; border-right: 1px solid black;">
+											<span style="font-weight: normal;">Unidad Medida</span>
+										</th>
+										<th style="width: 90px; border-right: 1px solid black;">
+											<span style="font-weight: normal;">Precio Unitario</span>
+										</th>
+										<th style="width: 70px; border-right: 1px solid black;">
+											<span style="font-weight: normal;">Cantidad</span>
+										</th>
+										<th style="width: 70px; border-right: 1px solid black;">
+											<span style="font-weight: normal;">Descuento</span>
+										</th>
+										<th style="width: 80px; border-right: 1px solid black;">
+											<span style="font-weight: normal;">Exentas</span>
+										</th>
+										<th style="width: 80px; border-right: 1px solid black;">
+											<span style="font-weight: normal;">5%</span>
+										</th>
+										<th style="width: 80px; border-right: 1px solid black;">
+											<span style="font-weight: normal;">10%</span>
+										</th>
+									</tr>
+								</thead>
+
+								<tbody style="border: white;">
+									<t t-set="subtotalexenta1" t-value="0" />
+									<t t-set="subtotalcinco1" t-value="0" />
+									<t t-set="subtotaldiez1" t-value="0" />
+									<t t-set="subtotaldescuentos" t-value="0" />
+									<t t-set="filas" t-value="0" />
+									<t t-set="total_filas" t-value="18" />
+									<t t-set="iva_inmobiliario" t-value="0" />
+									<t t-set="exentas" t-value="0" />
+									<t t-set="gravada_5" t-value="0" />
+									<t t-foreach="o.invoice_line_ids" t-as="eca">
+										<t t-if="not eca.display_type">
+											<t t-set="filas" t-value="filas + 1" />
+											<tr style="height: 30px; border: none">
+												<td
+													style="border-right: 1px solid black; border-left: 1px solid black; text-align: center; border-top: none; border-bottom: none;">
+													<span style="font-size: 10px;"
+														t-field="eca.product_id.default_code" />
+												</td>
+												<td
+													style="border-right: 1px solid black; border-top: none; border-bottom: none;">
+													<span
+														style="font-size: 10px; padding-left: 10px;"
+														t-field="eca.name" />
+												</td>
+												<td
+													style="border-right: 1px solid black; text-align: center; border-top: none; border-bottom: none;">
+													<span style="font-size: 10px;">UNI</span>
+												</td>
+												<td
+													style="border-right: 1px solid black; text-align: right; padding-right: 5px; border-top: none; border-bottom: none;">
+													<t t-if="o.currency_id.name == 'PYG'">
+														<span style="font-size: 10px;"
+															t-esc="'{0:,.0f}'.format(eca.price_unit).replace(',', '.')" />
+													</t>
+													<t t-else="">
+														<span style="font-size: 10px;"
+															t-esc="'{0:,.2f}'.format(eca.price_unit).replace(',', 'a').replace('.', 'b').replace('a', '.').replace('b', ',')" />
+													</t>
+												</td>
+												<td
+													style="border-right: 1px solid black; text-align: center; border-top: none; border-bottom: none;">
+													<t t-if="o.currency_id.name == 'PYG'">
+														<span style="font-size: 10px;"
+															t-esc="'{0:,.0f}'.format(eca.quantity).replace(',', '.')" />
+													</t>
+													<t t-else="">
+														<span style="font-size: 10px;"
+															t-esc="'{0:,.0f}'.format(eca.quantity).replace(',', 'a').replace('.', 'b').replace('a', '.').replace('b', ',')" />
+													</t>
+												</td>
+												<td
+													style="border-right: 1px solid black; text-align: right; padding-right: 5px; border-top: none; border-bottom: none;">
+													<span style="font-size: 10px;">
+														<t t-set="descuentos"
+															t-value="abs((eca.quantity * eca.price_unit) - eca.price_total) / eca.quantity" />
+														<t t-set="descuentostotal"
+															t-value="abs((eca.quantity * eca.price_unit) - eca.price_total)" />
+														<t t-set="subtotaldescuentos"
+															t-value="subtotaldescuentos + descuentostotal" />
+														<t t-if="o.currency_id.name == 'PYG'">
+															<span style="font-size: 10px;"
+																t-esc="'{0:,.0f}'.format(descuentos).replace(',', '.')" />
+														</t>
+														<t t-else="">
+															<span style="font-size: 10px;"
+																t-esc="'{0:,.2f}'.format(descuentos).replace(',', 'a').replace('.', 'b').replace('a', '.').replace('b', ',')" />
+														</t>
+													</span>
+												</td>
+												<td
+													style="border-right: 1px solid black; text-align: right; padding-right: 5px; border-top: none; border-bottom: none;">
+													<t t-if="not eca.tax_5 and not eca.tax_10">
+														<t t-if="o.currency_id.name == 'PYG'">
+															<span style="font-size: 10px;"
+																t-esc="'{0:,.0f}'.format(eca.price_total).replace(',', '.')" />
+														</t>
+														<t t-else="">
+															<span style="font-size: 10px;"
+																t-esc="'{0:,.2f}'.format(eca.price_total).replace(',', 'a').replace('.', 'b').replace('a', '.').replace('b', ',')" />
+														</t>
+														<t t-set="subtotalexenta1"
+															t-value="subtotalexenta1 + eca.price_total" />
+													</t>
+												</td>
+												<td
+													style="border-right: 1px solid black; text-align: right; padding-right: 5px; border-top: none; border-bottom: none;">
+													<t t-if="eca.tax_5">
+														<t t-if="o.currency_id.name == 'PYG'">
+															<span style="font-size: 10px;"
+																t-esc="'{0:,.0f}'.format(eca.price_total).replace(',', '.')" />
+														</t>
+														<t t-else="">
+															<span style="font-size: 10px;"
+																t-esc="'{0:,.2f}'.format(eca.price_total).replace(',', 'a').replace('.', 'b').replace('a', '.').replace('b', ',')" />
+														</t>
+														<t t-set="subtotalcinco1"
+															t-value="subtotalcinco1 + eca.price_total" />
+
+													</t>
+												</td>
+												<td
+													style="border-right: 1px solid black; text-align: right; padding-right: 5px; border-top: none; border-bottom: none;">
+													<t t-if="eca.tax_10">
+														<t t-if="o.currency_id.name == 'PYG'">
+															<span style="font-size: 10px;"
+																t-esc="'{0:,.0f}'.format(eca.price_total).replace(',', '.')" />
+														</t>
+														<t t-else="">
+															<span style="font-size: 10px;"
+																t-esc="'{0:,.2f}'.format(eca.price_total).replace(',', 'a').replace('.', 'b').replace('a', '.').replace('b', ',')" />
+														</t>
+														<t t-set="subtotaldiez1"
+															t-value="subtotaldiez1 + eca.price_total" />
+													</t>
+												</td>
+											</tr>
+										</t>
+									</t>
+								</tbody>
+
+								<t t-set="total_filas" t-value="total_filas - filas" />
+								<t t-foreach="total_filas" t-as="lines">
+									<tr style="height: 30px; border: none;">
+										<td
+											style="border-left: 1px solid black; border-top: none; border-bottom: none;">
+											<span>&amp;nbsp;&amp;nbsp;</span>
+										</td>
+										<td
+											style="border-left: 1px solid black; border-top: none; border-bottom: none;">
+											<span>&amp;nbsp;&amp;nbsp;</span>
+										</td>
+										<td
+											style="border-left: 1px solid black; border-top: none; border-bottom: none;">
+											<span>&amp;nbsp;&amp;nbsp;</span>
+										</td>
+										<td
+											style="border-left: 1px solid black; border-top: none; border-bottom: none;">
+											<span>&amp;nbsp;&amp;nbsp;</span>
+										</td>
+										<td
+											style="border-left: 1px solid black; border-top: none; border-bottom: none;">
+											<span>&amp;nbsp;&amp;nbsp;</span>
+										</td>
+										<td
+											style="border-left: 1px solid black; border-top: none; border-bottom: none;">
+											<span>&amp;nbsp;&amp;nbsp;</span>
+										</td>
+										<td
+											style="border-left: 1px solid black; border-top: none; border-bottom: none;">
+											<span>&amp;nbsp;&amp;nbsp;</span>
+										</td>
+										<td
+											style="border-left: 1px solid black; border-top: none; border-bottom: none;">
+											<span>&amp;nbsp;&amp;nbsp;</span>
+										</td>
+										<td
+											style="border-left: 1px solid black; border-right: 1px solid black; border-top: none; border-bottom: none;">
+											<span>&amp;nbsp;&amp;nbsp;</span>
+										</td>
+									</tr>
+								</t>
+								<tr
+									style="height: 25px; background-color: #d0cccc; border-top: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black;">
+									<!-- Columna de Subtotal -->
+									<td colspan="6"
+										style="font-weight: bold; font-size: 11px; border-top: 1px solid black; border-right: 1px solid black;">
+										<span style="padding-left: 10px;">SUBTOTAL</span>
+									</td>
+
+									<!-- Columna de Exentas -->
+									<td
+										style="text-align: right; font-weight: normal; font-size: 10px; border-top: 1px solid black; border-right: 1px solid black; padding-right: 5px;">
+										<t t-if="o.currency_id.name == 'PYG'">
+											<span
+												t-esc="'{0:,.0f}'.format(subtotalexenta1).replace(',', '.')" />
+										</t>
+										<t t-else="">
+											<span
+												t-esc="'{0:,.2f}'.format(subtotalexenta1).replace(',','a').replace('.','b').replace('a','.').replace('b',',')" />
+										</t>
+									</td>
+
+									<!-- Columna de 5% -->
+									<td
+										style="text-align: right; font-weight: normal; font-size: 10px; border-top: 1px solid black; border-right: 1px solid black; padding-right: 5px;">
+										<t t-if="o.currency_id.name == 'PYG'">
+											<span
+												t-esc="'{0:,.0f}'.format(subtotalcinco1).replace(',', '.')" />
+										</t>
+										<t t-else="">
+											<span
+												t-esc="'{0:,.2f}'.format(subtotalcinco1).replace(',','a').replace('.','b').replace('a','.').replace('b',',')" />
+										</t>
+									</td>
+
+									<!-- Columna de 10% -->
+									<td
+										style="text-align: right; font-weight: normal; font-size: 10px; border-top: 1px solid black; border-right: 1px solid black; padding-right: 5px;">
+										<t t-if="o.currency_id.name == 'PYG'">
+											<span
+												t-esc="'{0:,.0f}'.format(subtotaldiez1).replace(',', '.')" />
+										</t>
+										<t t-else="">
+											<span
+												t-esc="'{0:,.2f}'.format(subtotaldiez1).replace(',','a').replace('.','b').replace('a','.').replace('b',',')" />
+										</t>
+									</td>
+								</tr>
+
+								<!--                                <tr style="height: 25px; background-color: #d0cccc;
+								border-left: 1px solid black; border-right: 1px solid black">-->
+								<!--                                    <td colspan="7" style="font-weight:bold; font-size:11px">-->
+								<!--                                        <span style="padding-left: 10px">DESCUENTOS</span>-->
+								<!--                                    </td>-->
+								<!--                                    <td colspan="2" style="text-align: right">-->
+								<!--                                        <t t-if="o.currency_id.name =='PYG'">-->
+								<!--                                            <span t-esc="'{0:,.0f}'.format(subtotaldescuentos).replace(',',
+								'.')"/>-->
+								<!--                                        </t>-->
+								<!--                                        <t t-else="">-->
+								<!--                                            <span
+								t-esc="'{0:,.2f}'.format(subtotaldescuentos).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>-->
+								<!--                                        </t>-->
+								<!--                                    </td>-->
+								<!--                                </tr>-->
+								<t t-set="totalennumero" t-value="0" />
+								<t t-set="totalennumero"
+									t-value="totalennumero + subtotalexenta1 + subtotalcinco1 + subtotaldiez1" />
+								<tr
+									style="height: 25px; background-color: #d0cccc; border-left: 1px solid black; border-right: 1px solid black">
+									<td colspan="7" style="font-weight:bold; font-size:11px">
+										<span style="padding-left: 10px">TOTAL DE LA OPERACION</span>
+									</td>
+									<td colspan="2" style="text-align: right; padding-right: 5px;">
+										<t t-if="o.currency_id.name =='PYG'">
+											<span
+												t-esc="'{0:,.0f}'.format(totalennumero).replace(',', '.')" />
+										</t>
+										<t t-else="">
+											<span
+												t-esc="'{0:,.2f}'.format(totalennumero).replace(',','a').replace('.','b').replace('a','.').replace('b',',')" />
+										</t>
+									</td>
+								</tr>
+								<tr
+									style="height: 25px; background-color: #d0cccc; border-left: 1px solid black; border-right: 1px solid black">
+									<td colspan="7" style="font-weight:bold; font-size:11px">
+										<span style="padding-left: 10px">TOTAL EN GUARANÍES</span>
+										<t t-if="o.currency_id.name =='PYG'">
+											<span style="padding-left: 5px"
+												t-esc="o.generar_texto(int(totalennumero),o.currency_id.id)" />
+										</t>
+										<t t-else="">
+											<t t-set="totalennumerogs" t-value="0" />
+											<t t-set="totalennumerogs"
+												t-value="float(totalennumero) * float(o.fcws_tipo_cambio)" />
+											<span style="padding-left: 5px"
+												t-esc="o.generar_texto(int(totalennumerogs),1)" />
+										</t>
+									</td>
+									<td colspan="2" style="text-align: right; padding-right: 5px;">
+										<t t-if="o.currency_id.name =='PYG'">
+											<span
+												t-esc="'{0:,.0f}'.format(totalennumero).replace(',', '.')" />
+										</t>
+										<t t-else="">
+											<span
+												t-esc="'{0:,.0f}'.format(totalennumerogs).replace(',', '.')" />
+										</t>
+									</td>
+								</tr>
+								<t t-set="iva5t" t-value="0" />
+								<t t-set="iva10t" t-value="0" />
+								<t t-set="ivasuma" t-value="0" />
+								<t t-set="iva5t" t-value="subtotalcinco1 / 21" />
+								<t t-set="iva10t" t-value="subtotaldiez1 / 11" />
+								<t t-set="ivasuma" t-value="iva5t + iva10t" />
+								<tr
+									style="height: 25px; background-color: #d0cccc; border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
+									<th colspan="9" style="text-align:left; font-size:11px">
+										<span style="padding-left: 15px">LIQUIDACIÓN DEL IVA:</span>
+										<span style="padding-left: 80px">(5%)</span>
+										<t t-if="o.currency_id.name =='PYG'">
+											<span style="padding-left: 40px"
+												t-esc="'{0:,.0f}'.format(iva5t).replace(',', '.')" />
+										</t>
+										<t t-else="">
+											<span style="padding-left: 40px"
+												t-esc="'{0:,.2f}'.format(iva5t).replace(',','a').replace('.','b').replace('a','.').replace('b',',')" />
+										</t>
+										<span style="padding-left: 80px">
+											(10%)
+										</span>
+										<t t-if="o.currency_id.name =='PYG'">
+											<span style="padding-left: 40px"
+												t-esc="'{0:,.0f}'.format(iva10t).replace(',', '.')" />
+										</t>
+										<t t-else="">
+											<span style="padding-left: 40px"
+												t-esc="'{0:,.2f}'.format(iva10t).replace(',','a').replace('.','b').replace('a','.').replace('b',',')" />
+										</t>
+										<span style="padding-left: 80px">
+											TOTAL IVA:
+										</span>
+										<t t-if="o.currency_id.name =='PYG'">
+											<span style="padding-left: 40px"
+												t-esc="'{0:,.0f}'.format(ivasuma).replace(',', '.')" />
+										</t>
+										<t t-else="">
+											<span style="padding-left: 40px"
+												t-esc="'{0:,.2f}'.format(ivasuma).replace(',','a').replace('.','b').replace('a','.').replace('b',',')" />
+										</t>
+									</th>
+								</tr>
+							</table>
+							<br />
+							<table class="tabla" width="100%"
+								style="border: 1px solid black; border-collapse: collapse;">
+								<tbody>
+									<tr>
+										<td
+											style="width: 180px; text-align: center; vertical-align: top; padding: 10px;">
+											<t t-if="o.fcws_qr_image">
+												<img t-att-src="image_data_uri(o.fcws_qr_image)"
+													style="display: block; max-width: 150px; max-height: 150px; margin: 0 auto;" />
+											</t>
+										</td>
+										<td style="vertical-align: top; padding: 10px 15px;">
+											<div
+												style="font-weight: normal; font-size: 16px; line-height: 1.4;">
+												Consulte la validez de esta Factura Electrónica con
+												el número de CDC
+											</div>
+
+											<div
+												style="font-weight: normal; font-size: 16px; line-height: 1.4;">
+												https://ekuatia.set.gov.py/consultas
+											</div>
+
+											<br />
+
+											<div
+												style="font-weight: normal; font-size: 17px; line-height: 1.4;">
+												CDC: <t t-if="o.fcws_cdc">
+													<span t-esc="o.cdc_format(o.fcws_cdc)" />
+												</t>
+											</div>
+
+											<div
+												style="font-weight: normal; font-size: 16px; line-height: 1.4;">
+												ESTE DOCUMENTO ES UNA REPRESENTACIÓN GRÁFICA DE UN
+											</div>
+
+											<div
+												style="font-weight: normal; font-size: 16px; line-height: 1.4;">
+												DOCUMENTO ELECTRÓNICO (XML)
+											</div>
+
+											<div
+												style="font-weight: normal; font-size: 10px; line-height: 1.4; margin-top: 10px;">
+												Si su documento electrónico presenta algún error
+												puede solicitar la modificación dentro de las 72
+												horas siguientes de la emisión de este comprobante
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</t>
+			</t>
+		</t>
+	</template>
+</odoo>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Vista tipo árbol (antes 'list') -->
+        <record id="view_district_tree" model="ir.ui.view">
+            <field name="name">res.district.tree</field>
+            <field name="model">res.country.district</field>
+            <field name="arch" type="xml">
+                <tree string="District" editable="top">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="state_id" options="{'no_open': True, 'no_create': True}"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista de búsqueda -->
+        <record id="view_district_filter" model="ir.ui.view">
+            <field name="name">res.district.search</field>
+            <field name="model">res.country.district</field>
+            <field name="arch" type="xml">
+                <search string="Search District">
+                    <field name="name"
+                           filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"
+                           string="District"/>
+                    <separator/>
+                    <field name="state_id"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción del menú -->
+        <record id="action_res_district_list" model="ir.actions.act_window">
+            <field name="name">Districts</field>
+            <field name="res_model">res.country.district</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">
+                Display and manage the list of all districts that can be assigned to
+                your partner records. Note that an option can be set on each state separately
+                to enforce any address of it to have a district in this list.
+            </field>
+        </record>
+
+        <!-- Menú -->
+        <menuitem id="menu_res_district"
+            name="Districts"
+            parent="contacts.menu_localisation"
+            action="action_res_district_list"
+            sequence="2"/>
+
+</odoo>

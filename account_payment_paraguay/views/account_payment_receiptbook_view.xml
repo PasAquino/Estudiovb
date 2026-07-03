@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_receipt_receiptbook_tree" model="ir.ui.view">
+        <field name="name">account.payment.receiptbook.tree</field>
+        <field name="model">account.payment.receiptbook</field>
+        <field name="arch" type="xml">
+            <tree string="Talonarios">
+                <field name="name"/>
+                <field name="sequence_type"/>
+                <field name="partner_type"/>
+                <field name="prefix"/>
+                <field name="company_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_receipt_receiptbook_form" model="ir.ui.view">
+        <field name="name">account.payment.receiptbook.form</field>
+        <field name="model">account.payment.receiptbook</field>
+        <field name="arch" type="xml">
+            <form string="Talonario">
+                <sheet string="Talonario">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_type"/>
+                            <field name="sequence_type"/>
+                            <field name="prefix"/>
+                            <field name="padding"
+                                   attrs="{'invisible':[('sequence_type', '=','manual')], 'required':[('sequence_type','=','automatic')]}"/>
+                        </group>
+                        <group>
+                            <field name="sequence_id" attrs="{'invisible':[('sequence_type','!=','automatic')]}" options="{'no_create': True}"/>
+                            <field name="next_number" attrs="{'invisible':[('sequence_type','!=','automatic')]}"/>
+                            <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.rule" id="single_company_registration_receiptbook">
+            <field name="name">Cartera de Cheques</field>
+            <field name="model_id" search="[('model','=','account.payment.receiptbook')]" model="ir.model"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+    <record id="action_receiptbook_form" model="ir.actions.act_window">
+        <field name="name">Talonarios</field>
+        <field name="res_model">account.payment.receiptbook</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_receiptbook_form"
+              id="menu_receiptbook_form"
+              sequence="25"
+              parent="account.account_account_menu"/>
+
+</odoo>

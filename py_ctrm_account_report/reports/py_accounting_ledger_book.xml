@@ -1,0 +1,266 @@
+<odoo>
+    <template id="account_ledger_book">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <t t-if="o.check_rubricadas is False">
+                        <div class="header">
+                            <br/>
+                            <br/>
+                            <table class="tabla">
+                                <th style="font-size:15px; width: 715px; font-weight:bold">
+                                    <span t-field='o.company_id'/>
+                                </th>
+                                <th style="font-size:11px;">Fecha:&amp;nbsp;
+                                    <span t-esc="o.fecha_de_hoy.strftime('%d-%m-%Y')"/>
+                                </th>
+                            </table>
+                            <!--<t t-set="print_date" t-value="(datetime.datetime.utcnow().strftime('%Y-%m-%d - %H:%M:%S') - timedelta(hours=3)).strftime('%Y-%m-%d %H:%M:%S')"/>-->
+                            <table>
+                                <th style="width: 715px">&amp;nbsp;&amp;nbsp;</th>
+                                <th style="font-size:11px;">Hora:&amp;nbsp;
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M:%S')"/>
+                                </th>
+                            </table>
+
+                            <table class="tabla">
+                                <th style="font-size:13px;">RUC:&amp;nbsp;
+                                    <span t-field='o.company_id.vat'/>
+                                </th>
+                            </table>
+
+                            <ul class="list-inline">
+                                <li style="text-align:center; font-size:13px; font-weight:bold">LIBRO MAYOR
+                                </li>
+                                <li style="text-align:center; font-size:13px">DEL
+                                    <span t-field="o.fecha_inicio"/>
+                                    AL
+                                    <span t-field="o.fecha_fin"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div class="header">
+                            <table>
+                                <tr>
+                                    <th style="vertical-align: top; width: 715px">
+                                        <table style="font-size: 14px">
+                                            <tr>
+                                                <th style="width: 130px">
+                                                    Razón Social:
+                                                </th>
+                                                <th style="width: 370px">
+                                                    <span t-field="o.company_id"/>
+                                                </th>
+                                                <th style="width: 50px">
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    Ruc:
+                                                </th>
+                                                <th>
+                                                    <span t-field="o.company_id.vat"/>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    Dirección:
+                                                </th>
+                                                <th>
+                                                    <t t-if="o.company_id.street2">
+                                                        <span t-esc="o.company_id.street + o.company_id.street2"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-field="o.company_id.street"/>
+                                                    </t>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    &amp;nbsp;
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="3" style="text-align: center">
+                                                    <span style="padding-left: 180px; font-size: 19px">Libro Mayor</span>
+                                                    <br/>
+                                                    <span style="padding-left: 180px; font-size: 15px">
+                                                        DEL
+                                                        <span t-field="o.fecha_inicio"/>
+                                                        AL
+                                                        <span t-field="o.fecha_fin"/>
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                    </th>
+                                    <th>
+                                        <table class="tabla">
+                                            <th>
+                                            </th>
+                                        </table>
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+
+                    <div class="page">
+                        <!--<table>
+                       <div class="col-xs-12 text-center negrita">
+                           <th style="text-align:left;font-size:12px; width: 180px">Periodo del: <span t-field='o.desde'/></th>
+                           <th style="text-align:left;font-size:12px; width: 560px">Hasta: <span t-field='o.hasta'/></th>
+                           <th style="text-align:left;font-size:12px">Mayor</th>
+                        </div>
+                       </table>-->
+
+                        <div class="contenedor"/>
+                        <link rel="stylesheet" href="/py_ctrm_account_report/static/src/css/libro_mayor.css"/>
+
+                        <!-- Variables -->
+                        <table class="tabla">
+                            <thead>
+                                <tr>
+                                    <th style="border: 1px solid black; text-align:center; font-weight:bold;">Fecha Oper.</th>
+                                    <th style="border: 1px solid black; text-align:center; font-weight:bold;">Ref.</th>
+                                    <th style="border: 1px solid black; text-align:center; font-weight:bold;">Detalles</th>
+                                    <th style="border: 1px solid black; text-align:center; font-weight:bold;">Débito</th>
+                                    <th style="border: 1px solid black; text-align:center; font-weight:bold;">Crédito</th>
+                                    <th style="border: 1px solid black; text-align:center; font-weight:bold;">Saldos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="lineas" t-as="l">
+                                    <t t-if="l.account_id != cuenta_actual">
+                                        <t t-set="longitud" t-value="0"/>
+                                        <t t-set="debito_cuenta" t-value="0"/>
+                                        <t t-set="credito_cuenta" t-value="0"/>
+                                        <t t-set="saldo_cuenta" t-value="0"/>
+                                        <t t-set="saldo_cuenta2" t-value="0"/>
+                                        <t t-set="saldo" t-value="0"/>
+                                        <t t-set="longitud" t-value="longitud + 1"/>
+                                        <t t-set="cuenta_actual" t-value="l.account_id"/>
+                                        <tr>
+                                            <td colspan="5" class="negrita izquierda">Cuenta&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                <span t-field="l.account_id.code"/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                <span t-field="l.account_id.name"/>
+                                            </td>
+                                            <!--<t t-set="saldo" t-value="o.obtener_acumulado_anio(cuenta_actual,o.desde)"/>-->
+                                            <!--<td class="negrita derecha"><span t-esc="o.agregar_punto_de_miles(saldo)"/></td>-->
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span t-field="l.date"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="l.move_id.num_asiento"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="l.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="o.agregar_punto_de_miles(l.debit)"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="o.agregar_punto_de_miles(l.credit)"/>
+                                            </td>
+                                            <t t-set="saldo" t-value="saldo + l.balance"/>
+                                            <t t-set="saldo_cuenta2" t-value="(saldo_cuenta2 + l.debit)"/>
+                                            <t t-set="saldo_cuenta2" t-value="(saldo_cuenta2 - l.credit)"/>
+                                            <td>
+                                                <span t-esc="o.agregar_punto_de_miles(saldo_cuenta2)"/>
+                                            </td>
+                                            <t t-set="debito_cuenta" t-value="debito_cuenta + l.debit"/>
+                                            <t t-set="credito_cuenta" t-value="credito_cuenta + l.credit"/>
+                                            <t t-set="saldo_cuenta" t-value="saldo_cuenta + saldo"/>
+                                        </tr>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-set="longitud" t-value="longitud + 1"/>
+                                        <tr>
+                                            <td>
+                                                <span t-field="l.date"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="l.move_id.num_asiento"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="l.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="o.agregar_punto_de_miles(l.debit)"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="o.agregar_punto_de_miles(l.credit)"/>
+                                            </td>
+                                            <t t-set="saldo" t-value="saldo + l.balance"/>
+                                            <t t-set="saldo_cuenta2" t-value="(saldo_cuenta2 + l.debit)"/>
+                                            <t t-set="saldo_cuenta2" t-value="(saldo_cuenta2 - l.credit)"/>
+                                            <td>
+                                                <span t-esc="o.agregar_punto_de_miles(saldo_cuenta2)"/>
+                                            </td>
+                                            <t t-set="debito_cuenta" t-value="debito_cuenta + l.debit"/>
+                                            <t t-set="credito_cuenta" t-value="credito_cuenta + l.credit"/>
+                                            <t t-set="saldo_cuenta" t-value="saldo_cuenta + saldo"/>
+                                        </tr>
+                                    </t>
+                                    <t t-if="longitud == o.cantidad_cuenta(l.account_id.id)">
+                                        <tr>
+                                            <td class="con-bordes"></td>
+                                            <td class="con-bordes"></td>
+                                            <td class="con-bordes"></td>
+                                            <td class="con-bordes"></td>
+                                            <td class="con-bordes"></td>
+                                            <td class="con-bordes"></td>
+                                        </tr>
+                                        <tr class="negrita">
+                                            <td colspan="3">
+                                                <span style="font-weight:bold;">TOTALES:</span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="o.agregar_punto_de_miles(debito_cuenta)"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="o.agregar_punto_de_miles(credito_cuenta)"/>
+                                            </td>
+                                            <t t-set="saldo_cuenta" t-value="debito_cuenta - credito_cuenta"/>
+                                            <td>
+                                                <span t-esc="o.agregar_punto_de_miles(saldo_cuenta)"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="con-bordes"></td>
+                                            <td class="con-bordes"></td>
+                                            <td class="con-bordes"></td>
+                                            <td class="con-bordes"></td>
+                                            <td class="con-bordes"></td>
+                                            <td class="con-bordes"></td>
+                                        </tr>
+                                    </t>
+                                </t>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <t t-if="o.check_rubricadas is False">
+                        <div class="footer">
+                            <div class="text-center">
+                                <ul class="list-inline">
+                                    <li>   &amp;nbsp;&amp;nbsp;</li>
+                                    <li style="font-size:11px;">Página:
+                                        <span class="page"/>
+                                        de
+                                        <span class="topage"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

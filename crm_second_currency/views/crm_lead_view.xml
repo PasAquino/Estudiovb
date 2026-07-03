@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 SYSNEO CONSULTING S.A.C
+    Part of SysNeo. See LICENSE file for full copyright and licensing details. -->
+
+<odoo>
+    <record model="ir.ui.view" id="quick_create_opportunity_form_currency">
+            <field name="name">crm.lead.form.quick_create.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.quick_create_opportunity_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='expected_revenue']" position="before">
+                    <field name="currency_id"
+                           invisible="0"
+                           class="ml-1 oe_edit_only"
+                           placeholder="Moneda"
+                           options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    <field name="planned_revenue_second"
+                           widget="monetary"
+                           class="ml-1 oe_edit_only"
+                           options="{'currency_field': 'currency_id'}"/>
+                </xpath>
+            </field>
+    </record>
+    <record model="ir.ui.view" id="crm_form_view_leads_oppor">
+        <field name="name">Add Second Currency field</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='probability']" position="after">
+                <field name="planned_revenue_second"
+                       widget="monetary"
+                       class="oe_inline ml-3"
+                       options="{'currency_field': 'currency_id'}"/>
+            </xpath>
+            <xpath expr="//field[@name='planned_revenue_second']" position="after">
+                 <field name="currency_id"
+                        class="oe_inline ml-3"
+                        options="{'no_create': True, 'no_open': True}"/>
+                        <!--options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />-->
+               <!-- <field name="currency_id" invisible="0" class="ml-3 oe_edit_only" placeholder="Moneda" options="{'no_create': True, 'no_create_edit':True}"/>-->
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

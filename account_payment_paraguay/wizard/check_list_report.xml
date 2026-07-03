@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <record id="check_list_wizard_form" model="ir.ui.view">
+            <field name="name">check.list.wizard.form</field>
+            <field name="model">check.list.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="check_type" required="1"/>
+                                <field name="date_start" required="1"/>
+                                <field name="date_end" required="1"/>
+                                <field name="tipo" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="bank_id" widget="selection" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"/>
+                                <field name="journal_id" widget="selection"/>
+                                <field name="detalle_cheque"/>
+                                <field name="partner_id" string="Cliente/Proveedor"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"/>
+                                <field name="collection_user" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"/>
+                                <field name="currency_id" required="1" string="Moneda" widget="selection"/>
+                                <field name="company_id" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="check_report" type="object" string="Generar" class="oe_highlight"/>
+                        <button special="cancel" string="CANCELAR" class="btn btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_check_list_wizard" model="ir.actions.act_window">
+            <field name="name">Reporte de Cheques</field>
+            <field name="res_model">check.list.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="check_list_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <!--<menuitem id="menu_check_list_wizard"
+                  parent="py_ctrm_account_report.account_py_reports_menu"
+                  name="Listado de Cheques"
+                  sequence="48"
+                  action="action_check_list_wizard"/>-->
+
+    </data>
+</odoo>

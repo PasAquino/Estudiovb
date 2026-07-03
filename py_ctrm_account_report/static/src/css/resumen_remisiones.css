@@ -1,0 +1,54 @@
+.contenedor{
+    font-size:9px;
+    font-family:Arial, sanserif;
+}
+
+.con-bordes{
+    border-top: 1px solid black;
+}
+
+
+table.tabla{
+     page-break-after:auto;
+     width: 100% !important;
+}
+td{
+     page-break-inside:avoid; page-break-after:auto;
+     font-size:10px;
+}
+tr{
+     page-break-inside:avoid; page-break-after:auto;
+}
+th{
+    font-size:13px;
+}
+tfoot{
+    display:table-footer-group
+}
+thead{
+    display:table-header-group;
+}
+/*td{
+
+    font-size:10px;
+}
+
+th{
+    font-size:13px;
+}
+*/
+
+
+
+
+.negrita{
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.derecha{
+    text-align: right !important;
+}
+.mayusculas{
+    text-transform: uppercase;
+}

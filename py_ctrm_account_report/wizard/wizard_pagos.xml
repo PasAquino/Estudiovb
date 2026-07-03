@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <record id="reporte_pagos_wizard_view" model="ir.ui.view">
+            <field name="name">wizard.reporte.pagos</field>
+            <field name="model">wizard.reporte.pagos</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group string="Como desea Filtrar el reporte?">
+                            <field name="desde" required="1"/>
+                            <field name="hasta" required="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group string="   &amp;nbsp;&amp;nbsp;">
+                            <field name="receiptbook_id" string="Talonario"
+                                   domain="[('partner_type', '=', 'supplier')]"
+                                   options="{'no_create_edit': True, 'no_create': True,'no_open':True}"/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="check_report" type="object" string="Generar PDF" class="oe_highlight"/>
+                        <button string="Cancelar" special="cancel" class="btn btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_reporte_pagos_wizard" model="ir.actions.act_window">
+            <field name="name">Planilla de Pagos</field>
+            <field name="res_model">wizard.reporte.pagos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="reporte_pagos_wizard_view"/>
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</odoo>

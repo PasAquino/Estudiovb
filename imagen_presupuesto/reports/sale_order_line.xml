@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
+
+        <!-- Encabezado de la columna -->
+        <xpath expr="//thead/tr/th[@name='th_description']" position="before">
+            <th name="th_image" class="text-left" t-if="doc.show_product_images" style="width: 100px;">
+                Imagen
+            </th>
+        </xpath>
+
+        <!-- Columna de imagen -->
+        <xpath expr="//tbody[@class='sale_tbody']/t/tr/t[td[@name='td_name']]" position="before">
+            <t t-if="doc.show_product_images and not line.display_type">
+                <td name="td_image" class="text-left" style="vertical-align: middle; padding: 8px;">
+                    <t t-if="line.product_id.image_128">
+                        <!-- Obtener el tamaño configurado -->
+                        <t t-set="image_size" t-value="doc.env['ir.config_parameter'].sudo().get_param('sale.product_image_size', 'medium')"/>
+                        <t t-set="img_width" t-value="'50px' if image_size == 'small' else ('80px' if image_size == 'medium' else '120px')"/>
+
+                        <img t-att-src="image_data_uri(line.product_id.image_128)"
+                             t-att-style="'max-width: ' + img_width + '; max-height: ' + img_width + '; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);'"
+                             class="img-fluid"
+                             alt="Imagen del producto"/>
+                    </t>
+                    <t t-else="">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #999; text-align: center; padding: 5px;">
+                            Sin<br/>imagen
+                        </div>
+                    </t>
+                </td>
+            </t>
+        </xpath>
+    </template>
+</odoo>
+
+
+
+
+        <!--<?xml version="1.0"?>-->
+        <!--<odoo>-->
+        <!--    <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">-->
+
+        <!--        &lt;!&ndash; Agregar encabezado de columna &ndash;&gt;-->
+        <!--        <xpath expr="//thead/tr/th[@name='th_description']" position="before">-->
+        <!--            <th name="th_image" class="text-left">Image</th>-->
+        <!--        </xpath>-->
+
+        <!--        &lt;!&ndash; Agregar columna de imagen en el detalle &ndash;&gt;-->
+        <!--        <xpath expr="//tbody[@class='sale_tbody']/t/tr/t[td[@name='td_name']]" position="before">-->
+        <!--            <td name="td_image" style="width:80px; text-align:center;">-->
+        <!--                <t t-if="line.product_image">-->
+        <!--                    <img t-att-src="'data:image/png;base64,%s' % line.product_image"-->
+        <!--                         style="max-height:80px; max-width:80px;"/>-->
+        <!--                </t>-->
+        <!--            </td>-->
+        <!--        </xpath>-->
+        <!--    </template>-->
+        <!--</odoo>-->
+

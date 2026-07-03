@@ -1,0 +1,9 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_product_brand_product_manager","product.brand","model_product_brand","base.group_partner_manager",1,1,1,1
+"access_product_brand_public","product.brand.public","model_product_brand",,1,0,0,0
+"access_product_type_product_manager","product.type","model_product_type","base.group_partner_manager",1,1,1,1
+"access_product_type_public","product.type.public","model_product_type",,1,0,0,0
+"access_product_family_product_manager","product.family","model_product_family","base.group_partner_manager",1,1,1,1
+"access_product_family_public","product.family.public","model_product_family",,1,0,0,0
+"access_product_partnumber_manager","product.partnumber","model_product_partnumber","base.group_partner_manager",1,1,1,1
+"access_product_partnumber_public","product.partnumber.public","model_product_partnumber",,1,0,0,0

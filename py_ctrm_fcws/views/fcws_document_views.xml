@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fcws_document_tree" model="ir.ui.view">
+        <field name="name">fcws.document.tree</field>
+        <field name="model">fcws.document</field>
+        <field name="arch" type="xml">
+            <tree string="Documentos FCWS" default_order="create_date desc">
+                <field name="create_date"/>
+                <field name="move_id"/>
+                <field name="partner_id"/>
+                <field name="status"/>
+                <field name="error_message"/>
+                <field name="timestamp"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fcws_document_form" model="ir.ui.view">
+        <field name="name">fcws.document.form</field>
+        <field name="model">fcws.document</field>
+        <field name="arch" type="xml">
+            <form string="Detalle Documento FCWS">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="move_id"/>
+                            <field name="partner_id"/>
+                            <field name="status"/>
+                            <field name="timestamp"/>
+                            <field name="error_message"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Payload">
+                            <field name="payload" widget="text" readonly="1"/>
+                        </page>
+                        <page string="Respuesta">
+                            <field name="response" widget="text" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_fcws_document" model="ir.actions.act_window">
+        <field name="name">Documentos FCWS</field>
+        <field name="res_model">fcws.document</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_fcws"
+              name="Facturación Electrónica (DNIT)"
+              parent="account.menu_finance_entries"
+              sequence="9"/>
+
+    <menuitem id="menu_fcws_documents"
+              name="eDocumentos - DNIT"
+              parent="menu_fcws"
+              action="action_fcws_document"
+              sequence="10"/>
+              
+</odoo>

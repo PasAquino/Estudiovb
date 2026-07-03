@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_payment_paraguay_form_view" model="ir.ui.view">
+            <field name="name">account.payment.paraguay.form</field>
+            <field name="model">account.payment.paraguay</field>
+            <field name="arch" type="xml">
+                <form string="Registrar Pago">
+                    <header>
+                        <button name="action_draft" icon='fa-angle-right' states="posted,cancel" string="CAMBIAR A BORRADOR" type="object"
+                                class="oe_highlight" style="font-weight: bold; color: black"/>
+                        <button name="action_create_payment" icon='fa-angle-right' class="oe_highlight" string="APROBAR" type="object"
+                                attrs="{'invisible': [('state', 'not in', ('draft')), '|' ,('move_line_ids', '=', [])]}"
+                                style="font-weight: bold; color: black" groups="account_payment_paraguay.authorize_payment_group"/>
+                        <button name="action_post" icon='fa-angle-right' class="oe_highlight" string="VALIDAR" type="object" states="to_approve"
+                                style="font-weight: bold; color: black"/>
+                        <button name="action_cancel" icon='fa-angle-right' attrs="{'invisible': [('state', 'in', ('cancel', 'posted'))]}"
+                                string="CANCELAR" type="object" class="btn btn-danger" style="font-weight: bold; color: black"/>
+                        <button name="payment_print" string="Imprimir" type="object" states="posted" class="oe_highlight" icon='fa-angle-right'
+                                style="font-weight: bold; color: black"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <field name="id" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                        <field name="partner_type" invisible="1"/>
+                        <field name="document_sequence_id" invisible="1"/>
+                        <field name="account_internal_type" invisible="1"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_exchange_difference" type="object" class="oe_stat_button" icon="fa-bars"
+                                    attrs="{'invisible': [('exchange_difference_count', '=', 0)]}">
+                                <field name="exchange_difference_count" widget="statinfo" string="Diferencia de Cambio"/>
+                            </button>
+                            <button class="oe_stat_button" name="button_journal_entries"
+                                    string="Artículos de diario" type="object"
+                                    groups="account.group_account_manager"
+                                    attrs="{'invisible':[('move_line_ids','=',[])]}" icon="fa-bars"/>
+                            <field name="move_line_ids" invisible="1"/>
+                            <button name="action_view_payments_group" type="object" class="oe_stat_button" icon="fa-dollar"
+                                    attrs="{'invisible': [('payment_count', '=', 0)]}">
+                                <field name="payment_count" widget="statinfo" string="Pagos"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="display_name" attrs="{'invisible': [('display_name', '=', False)]}" class="oe_inline"
+                                       style="font-weight: bold; color: #714b67"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="collection_user"/>
+                                <field name="currency_id"/>
+                                <field name="payment_type"/>
+                            </group>
+                            <group>
+                                <field name="payment_date"/>
+                                <field name="receiptbook_id" attrs="{'required':[('state', '=', 'draft')]}"
+                                       domain="[('partner_type', '=', partner_type), ('company_id', '=', company_id)]"/>
+                                <field name="document_number"
+                                       attrs="{'invisible': [('document_sequence_id', '!=', False)], 'required': [('document_sequence_id', '=', False)]}"/>
+                                <field name="communication"/>
+                                <field name="nro_recibo"/>
+                            </group>
+                            <group>
+                                <field name="selected_debt" options="{'currency_field': 'currency_id'}" states="draft,to_approve"/>
+                                <field name="selected_financial_debt" options="{'currency_field': 'currency_id'}" invisible="1"/>
+                                <field name="matched_amount" options="{'currency_field': 'currency_id'}" invisible="1"/>
+                                <field name="unmatched_amount" options="{'currency_field': 'currency_id'}" invisible="1"/>
+                                <field name="unreconciled_amount" options="{'currency_field': 'currency_id'}" invisible="1"/>
+                                <field name="to_pay_amount" options="{'currency_field': 'currency_id'}" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="payments_amount" string="Monto de los Pagos" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                                <field name="payment_difference" options="{'currency_field': 'currency_id'}" states="draft,to_approve"/>
+                            </group>
+                        </group>
+                        <notebook invisible="1">
+                            <page string="Lineas de pagos">
+                                <field name="payment_ids"
+                                       context="{'default_payment_group_company_id': company_id, 'default_payment_type': partner_type == 'supplier' and 'outbound' or 'inbound', 'default_date': payment_date, 'default_partner_id': partner_id, 'default_partner_type': partner_type, 'default_move_journal_types': ('bank', 'cash'), 'payment_group': True, 'tree_view_ref': 'account_payment_paraguay.view_account_payment_form_group_tree'}"/>
+                            </page>
+                        </notebook>
+                        <separator string="Comprobantes" style="font-weight: bold; font-size: 18px; color: #714b67"/>
+                        <field name="invoices_payment_ids" widget="section_and_note_one2many" mode="tree">
+                            <tree editable="bottom" string="Comprobantes">
+                                <field name="invoice_id"/>
+                                <field name="invoice_date"/>
+                                <field name="invoice_date_due"/>
+                                <field name="amount_residual" attrs="{'column_invisible': [('parent.payment_type', '=', 'entry')]}"/>
+                                <field name="amount_residual_signed" options="{'currency_field': 'company_currency_id'}" sum="Total"
+                                       attrs="{'column_invisible': [('parent.payment_type', '=', 'entry')]}"/>
+                                <field name="amount_total" sum="total" attrs="{'column_invisible': [('parent.payment_type', '!=', 'entry')]}"/>
+                                <field name="amount_payment" options="{'currency_field': 'currency_id'}" sum="Total a Pagar"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="partner_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="company_currency_id" invisible="1"/>
+                                <field name="payment_group_id" invisible="1"/>
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="invoice_id"/>
+                                        <field name="invoice_date"/>
+                                        <field name="invoice_date_due"/>
+                                        <field name="amount_residual"/>
+                                        <field name="amount_payment" options="{'currency_field': 'currency_id'}"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                        <separator string="Métodos de Pago" style="font-weight: bold; font-size: 18px; color: #714b67"/>
+                        <field name="payment_methods_ids"
+                               context="{'default_amount_payment': payment_difference}"
+                               widget="section_and_note_one2many">
+                            <form>
+                                <header>
+                                    <field name="state" widget="statusbar"/>
+                                </header>
+                                <sheet>
+                                    <field name="payment_group_id" invisible="1"/>
+                                    <field name="partner_id" invisible="1"/>
+                                    <field name="company_id" invisible="1"/>
+                                    <field name="other_currency" invisible="1"/>
+                                    <field name="company_currency_id" invisible="1"/>
+                                    <field name="other_currency" invisible="1"/>
+                                    <field name="force_amount_company_currency" invisible="1"/>
+                                    <group>
+                                        <group>
+                                            <field name="es_transferencia"/>
+                                            <field name="detalle_transferencia" attrs="{'invisible': [('es_transferencia', '=', False)]}"/>
+                                            <label for="amount_payment"/>
+                                            <div name="amount_div" class="o_row">
+                                                <field name="amount_payment"
+                                                       attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                                       options="{'currency_field': 'currency_id'}"/>
+                                                <field name="currency_id"
+                                                       options="{'no_create': True, 'no_open': True}"
+                                                       required="1"
+                                                       attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                                       groups="base.group_multi_currency"/>
+                                            </div>
+                                            <label for="amount_company_currency" string="(en la moneda de la empresa)"
+                                                   attrs="{'invisible': [('other_currency', '=', False)]}"/>
+                                            <div name="amount_company_currency" class="o_row"
+                                                 attrs="{'invisible': [('other_currency', '=', False)]}">
+                                                x
+                                                <field name="exchange_rate" invisible="1"/>
+                                                <field name="tipo_cambio"/>
+                                                =
+                                                <field name="amount_company_currency" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                            </div>
+                                            <field name="payment_date"/>
+                                            <field name="communication"/>
+                                        </group>
+                                        <group>
+                                            <field name="payment_journal" domain="[('type', 'in', ('cash', 'bank'))]"
+                                                   options="{'no_create': True, 'no_open': True}" required="1"/>
+                                            <field name="cheques_diferidos" invisible="1"/>
+                                            <field name="cheques_al_dia" invisible="1"/>
+                                            <field name="fecha_diferida"
+                                                   attrs="{'invisible': [('cheques_diferidos', '=', False)]}"/>
+                                            <field name="fecha_cobro"
+                                                   attrs="{'invisible': [('cheques_diferidos', '=', False), ('cheques_al_dia', '!=', True)]}"/>
+                                            <field name="bank_id"
+                                                   string="Banco"
+                                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"
+                                                   attrs="{'invisible': [('cheques_diferidos', '=', False), ('cheques_al_dia', '!=', True)]}"/>
+                                            <field name="cuenta_bank"
+                                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"
+                                                   attrs="{'invisible': [('cheques_diferidos', '=', False), ('cheques_al_dia', '!=', True)]}"/>
+                                            <field name="detalle_cheque"
+                                                   attrs="{'invisible': [('cheques_diferidos', '=', False), ('cheques_al_dia', '!=', True)]}"/>
+                                            <field name="number_used" invisible="1"/>
+                                            <field name="tal_cheq" invisible="1"/>
+                                        </group>
+                                    </group>
+                                </sheet>
+                            </form>
+                            <tree>
+                                <field name="payment_group_id" invisible="1"/>
+                                <field name="partner_id" invisible="1"/>
+                                <field name="payment_date"/>
+                                <field name="payment_journal"/>
+                                <field name="currency_id"/>
+                                <field name="amount_company_currency" options="{'currency_field': 'company_currency_id'}" sum="Total"/>
+                                <field name="amount_payment" options="{'currency_field': 'currency_id'}" sum="Total a Pagar"/>
+                                <field name="company_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_payment_paraguay_tree_view" model="ir.ui.view">
+            <field name="name">account.payment.paraguay.tree</field>
+            <field name="model">account.payment.paraguay</field>
+            <field name="arch" type="xml">
+                <tree string="Pagos" decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" decoration-success="state == 'posted'"
+                      decoration-warning="state == 'to_approve'">
+                    <field name="payment_date"/>
+                    <field name="name"/>
+                    <field name="nro_recibo"/>
+                    <field name="partner_id"/>
+                    <field name="payment_methods"/>
+                    <field name="payments_amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_payment_paraguay_search" model="ir.ui.view">
+            <field name="name">account.payment.paraguay.search</field>
+            <field name="model">account.payment.paraguay</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="partner_name"/>
+                    <field name="name" string="Referencia de Pago"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.rule" id="single_company_registration_payments_py">
+            <field name="name">Modulo de Pagos</field>
+            <field name="model_id" search="[('model','=','account.payment.paraguay')]" model="ir.model"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="account_payment_customer_act_window" model="ir.actions.act_window">
+            <field name="name">Recibos de Clientes</field>
+            <field name="res_model">account.payment.paraguay</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_partner_type': 'customer'}</field>
+            <field name="domain">[('partner_type', '=', 'customer')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click para registrar un pago
+                </p>
+                <p>
+                    Los pagos se utilizan para registrar movimientos de liquidez (enviar o cobrar).
+                    A continuación, puede procesar esos pagos por sus propios medios o utilizando los medios instalados.
+                </p>
+            </field>
+        </record>
+
+        <record id="account_payment_supplier_act_window" model="ir.actions.act_window">
+            <field name="name">Pagos a Proveedores</field>
+            <field name="res_model">account.payment.paraguay</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_partner_type': 'supplier'}</field>
+            <field name="domain">[('partner_type', '=', 'supplier')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click para registrar un pago
+                </p>
+                <p>
+                    Los pagos se utilizan para registrar movimientos de liquidez (enviar o cobrar).
+                    A continuación, puede procesar esos pagos por sus propios medios o utilizando los medios instalados.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Recibos de Clientes"
+                  action="account_payment_customer_act_window"
+                  id="menu_action_account_payment_paraguay_receivable"
+                  parent="account.menu_finance_receivables"
+                  sequence="20"/>
+
+        <menuitem name="Pagos a Proveedores"
+                  action="account_payment_supplier_act_window"
+                  id="menu_action_account_payment_paraguay_payable"
+                  parent="account.menu_finance_payables"
+                  sequence="20"/>
+
+    </data>
+</odoo>

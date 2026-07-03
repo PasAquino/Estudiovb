@@ -1,0 +1,324 @@
+<odoo>
+    <template id="balance_book">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <link rel="stylesheet" href="/py_ctrm_account_report/static/src/css/balance.css"/>
+                    <div class="header">
+                        <table class="tabla">
+                            <th style="font-size:15px; width: 715px; font-weight:bold">
+                                <span t-field='o.company_id'/>
+                            </th>
+                            <th style="font-size:11px; font-weight:bold">Fecha:&amp;nbsp;
+                                <span t-esc="o.fecha_de_hoy.strftime('%d-%m-%Y')"/>
+                            </th>
+                        </table>
+                        <table>
+                            <th style="width: 715px">&amp;nbsp;&amp;nbsp;</th>
+                            <th style="font-size:11px; font-weight:bold">Hora:&amp;nbsp;
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M:%S')"/>
+                            </th>
+                        </table>
+                        <table class="tabla">
+                            <th style="font-size:14px; font-weight:bold">RUC:&amp;nbsp;
+                                <span t-field='o.company_id.vat'/>
+                            </th>
+                        </table>
+                        <ul class="list-inline">
+                            <li style="text-align:center; font-size:18px; font-weight:bold; border-bottom: 1px solid black">
+                                BALANCE GENERAL DEL
+                                <span t-field="o.fecha_inicio"/>
+                                AL
+                                <span t-field="o.fecha_fin"/>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--VARIABLES-->
+                    <t t-set="total_activo" t-value="0"/>
+                    <t t-set="total_pasivo" t-value="0"/>
+                    <t t-set="total_patrimonio" t-value="0"/>
+                    <t t-set="total_ingreso" t-value="0"/>
+                    <t t-set="total_egreso" t-value="0"/>
+                    <t t-set="resultado_uno" t-value="0"/>
+                    <t t-set="resultado_dos" t-value="0"/>
+                    <div class="page">
+                        <div class="contenedor">
+                            <table class="tabla">
+
+                                <tbody>
+                                    <tr t-foreach="movimientos" t-as="m">
+                                        <t t-if="o.resumen_balance == 'sin_ceros'">
+                                            <t t-if="o.agregar_punto_de_miles((m['total'])) != '0'">
+                                                <t t-if="m['padre'] == True">
+                                                    <td colspan="1" style="font-weight:bold" class="text-left">
+                                                        <span t-esc="m['code']"/>
+                                                    </td>
+                                                    <td colspan="7" style="font-weight:bold" class="text-left">
+                                                        <span t-esc="m['name']"/>
+                                                    </td>
+                                                    <td colspan="1" style="font-weight:bold" class="text-right">
+                                                        <t t-if="str(m['code'])[0] == '2'">
+                                                            <span t-esc="o.agregar_punto_de_miles((m['total'] * -1))"/>
+                                                        </t>
+                                                        <t t-elif="str(m['code'])[0] == '3'">
+                                                            <span t-esc="o.agregar_punto_de_miles((m['total'] * -1))"/>
+                                                        </t>
+                                                        <t t-elif="str(m['code'])[0] == '4'">
+                                                            <span t-esc="o.agregar_punto_de_miles((m['total'] * -1))"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span t-esc="o.agregar_punto_de_miles((m['total']))"/>
+                                                        </t>
+                                                    </td>
+                                                    <t t-if="m['name'][0:7].upper() == 'ACTIVO' and m['parent_id'] is False">
+                                                        <t t-set="total_activo" t-value="m['total']"/>
+                                                    </t>
+                                                    <t t-if="m['name'][0:6].upper() == 'PASIVO' and m['parent_id'] is False">
+                                                        <t t-set="total_pasivo" t-value="m['total']"/>
+                                                    </t>
+                                                    <t t-if="m['name'].upper() == 'PATRIMONIO NETO'">
+                                                        <t t-set="total_patrimonio" t-value="m['total']"/>
+                                                    </t>
+                                                    <t t-if="m['name'][0:7].upper() == 'INGRESO' and m['parent_id'] is False">
+                                                        <t t-set="total_ingreso" t-value="m['total']"/>
+                                                    </t>
+                                                    <t t-if="m['name'][0:6].upper() == 'EGRESO' and m['parent_id'] is False">
+                                                        <t t-set="total_egreso" t-value="m['total']"/>
+                                                    </t>
+                                                    <!--<td colspan="1" class="text-left negrita"><span t-esc="o.agregar_punto_de_miles(abs(int(m['total_ant'])))"/> </td>-->
+                                                </t>
+                                                <t t-else="">
+                                                    <td colspan="1" class="text-left">
+                                                        <t t-if="m['code'] == '999999'">
+                                                            <span style="font-weight:bold" t-esc="m['code']"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span t-esc="m['code']"/>
+                                                        </t>
+                                                    </td>
+                                                    <td colspan="7" class="text-left">
+                                                        <t t-if="m['code'] == '999999'">
+                                                            <span style="text-transform: uppercase; font-weight:bold"
+                                                                  t-esc="m['name']"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span t-esc="m['name']"/>
+                                                        </t>
+                                                    </td>
+                                                    <td colspan="1" class="text-right">
+                                                        <t t-if="m['code'] == '999999'">
+                                                            <span style="font-weight:bold"
+                                                                  t-esc="o.agregar_punto_de_miles((m['total']))"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <t t-if="str(m['code'])[0] == '2'">
+                                                                <span t-esc="o.agregar_punto_de_miles((m['total'] * -1))"/>
+                                                            </t>
+                                                            <t t-elif="str(m['code'])[0] == '3'">
+                                                                <span t-esc="o.agregar_punto_de_miles((m['total'] * -1))"/>
+                                                            </t>
+                                                            <t t-elif="str(m['code'])[0] == '4'">
+                                                                <span t-esc="o.agregar_punto_de_miles((m['total'] * -1))"/>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-esc="o.agregar_punto_de_miles((m['total']))"/>
+                                                            </t>
+                                                        </t>
+                                                    </td>
+                                                    <!-- <td colspan="1" class="text-left"><span t-esc="o.agregar_punto_de_miles(abs(int(m['total_ant'])))"/></td>-->
+                                                </t>
+                                            </t>
+                                        </t>
+                                        <t t-if="o.resumen_balance == 'con_ceros'">
+                                            <t t-if="m['padre'] == True">
+                                                <td colspan="1" style="font-weight:bold" class="text-left">
+                                                    <span t-esc="m['code']"/>
+                                                </td>
+                                                <td colspan="7" style="font-weight:bold" class="text-left">
+                                                    <span t-esc="m['name']"/>
+                                                </td>
+
+                                                <td colspan="1" style="font-weight:bold" class="text-right">
+                                                    <span t-esc="o.agregar_punto_de_miles((m['total']))"/>
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td colspan="1" class="text-left">
+                                                    <t t-if="m['code'] == '999999'">
+                                                        <span style="font-weight:bold" t-esc="m['code']"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="m['code']"/>
+                                                    </t>
+                                                </td>
+                                                <td colspan="7" class="text-left">
+                                                    <t t-if="m['code'] == '999999'">
+                                                        <span style="text-transform: uppercase; font-weight:bold"
+                                                              t-esc="m['name']"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="m['name']"/>
+                                                    </t>
+                                                </td>
+                                                <td colspan="1" class="text-right">
+                                                    <t t-if="m['code'] == '999999'">
+                                                        <span style="font-weight:bold"
+                                                              t-esc="o.agregar_punto_de_miles((m['total']))"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="o.agregar_punto_de_miles((m['total']))"/>
+                                                    </t>
+                                                </td>
+                                                <!-- <td colspan="1" class="text-left"><span t-esc="o.agregar_punto_de_miles(abs(int(m['total_ant'])))"/></td>-->
+                                            </t>
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table>
+                                <tr>
+                                    <tr>
+                                        <th>   &amp;nbsp;&amp;nbsp;</th>
+                                    </tr>
+                                    <tr>
+                                        <th>   &amp;nbsp;&amp;nbsp;</th>
+                                    </tr>
+                                    <tr>
+                                        <th>   &amp;nbsp;&amp;nbsp;</th>
+                                    </tr>
+                                    <tr>
+                                        <th>   &amp;nbsp;&amp;nbsp;</th>
+                                    </tr>
+                                </tr>
+                            </table>
+                            <p style="page-break-after:always;"></p>
+
+                            <tbody>
+                                <div>
+                                    <table class="centrado" style="margin: 0 auto">
+                                        <tr>
+                                            <th colspan="1">   &amp;nbsp;&amp;nbsp;</th>
+                                            <th style="text-align:left; border-top: 1px solid black; border-style:dashed; background-color:#BAEF8B;"
+                                                colspan="2">Resumen de Balance General
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>   &amp;nbsp;&amp;nbsp;</td>
+                                            <td>   &amp;nbsp;&amp;nbsp;</td>
+                                            <td>   &amp;nbsp;&amp;nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="color: black;" style="width: 50px">&amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="color: black; negrita"
+                                                style="width: 240px; text-align:left">
+                                                Total Activo:
+                                            </td>
+                                            <td class="negrita" style="width: 140px; text-align:right">
+                                                <span t-esc="o.agregar_punto_de_miles((int(total_activo)))"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="color: black;" style="width: 50px">&amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="color: black; negrita"
+                                                style="width: 240px; text-align:left">
+                                                Total Pasivo:
+                                            </td>
+                                            <td class="negrita" style="width: 140px; text-align:right">
+                                                <span t-esc="o.agregar_punto_de_miles((int(total_pasivo)))"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="color: black;" style="width: 50px">&amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="color: black; negrita"
+                                                style="width: 240px; text-align:left">
+                                                Total Patrimonio Neto:
+                                            </td>
+                                            <td class="negrita" style="width: 140px; text-align:right">
+                                                <span t-esc="o.agregar_punto_de_miles((int(total_patrimonio)))"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="color: black;" style="width: 50px">&amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="color: black; negrita"
+                                                style="width: 240px; text-align:left; border-top: 1px solid black; border-style:dashed">
+                                                Diferencia: {Activo-(Pasivo+P.Neto)}:&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="negrita"
+                                                style="width: 140px; text-align:right; border-top: 1px solid black; border-style:dashed">
+                                                <t t-set="resultado_uno"
+                                                   t-value="(total_activo +(total_pasivo + total_patrimonio))"/>
+                                                <span t-esc="o.agregar_punto_de_miles((int(resultado_uno)))"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>   &amp;nbsp;&amp;nbsp;</td>
+                                            <td>   &amp;nbsp;&amp;nbsp;</td>
+                                            <td>   &amp;nbsp;&amp;nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="color: black;" style="width: 50px">&amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="color: black; negrita"
+                                                style="width: 240px; text-align:left">
+                                                Total Ingreso:
+                                            </td>
+                                            <td class="negrita" style="width: 140px; text-align:right">
+                                                <span t-esc="o.agregar_punto_de_miles((int(total_ingreso)))"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="color: black;" style="width: 50px">&amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="color: black; negrita"
+                                                style="width: 240px; text-align:left">
+                                                Total Egreso:
+                                            </td>
+                                            <td class="negrita" style="width: 140px; text-align:right">
+                                                <span t-esc="o.agregar_punto_de_miles((int(total_egreso)))"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="color: black;" style="width: 50px">&amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="color: black;"
+                                                style="width: 240px; text-align:left; border-top: 1px solid black; border-style:dashed">
+                                                Resultado:&amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="negrita"
+                                                style="width: 140px; text-align:right; border-top: 1px solid black; border-style:dashed">
+                                                <t t-set="resultado_dos" t-value="total_ingreso + total_egreso"/>
+                                                <span t-esc="o.agregar_punto_de_miles((int(resultado_dos)))"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </tbody>
+                            <div class="footer">
+                                <div class="text-center">
+                                    <ul class="list-inline">
+                                        <li>   &amp;nbsp;&amp;nbsp;</li>
+                                        <li style="font-size:11px;">Página:
+                                            <span class="page"/>
+                                            de
+                                            <span class="topage"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

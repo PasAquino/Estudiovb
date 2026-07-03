@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- agregar el timbrado en la factura -->
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">INVOICE DOCUMENT timbrado</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <!-- <field name='ref' position="after">
+                <field name="py_timbrado_prov" invisible="1"/>
+                <field name="py_timbrado_prov_end" invisible="1"/>
+            </field>-->
+            <field name="invoice_date" position="after">
+                <field
+                    name="move_name"
+                    attrs="{'invisible': [('state', '!=', 'draft')]}"
+                    groups="py_ctrm_base.group_allow_invoice_force_number"
+                />
+            </field>
+            <!--Timbrado y fecha de vencimiento que aparece en la factura del proveedor -->
+            <field name="invoice_vendor_bill_id" position="after">
+                <field name="tipdocgas"
+                       attrs="{
+                        'invisible': [('move_type', 'not in', ['in_invoice','in_refund'])],
+                        'readonly': [('state', '!=', 'draft')]}"
+                />
+                <field name="tipdocing"
+                       attrs="{
+                        'invisible': [('move_type', 'in', ['in_invoice','in_refund'])],
+                        'readonly': [('state', '!=', 'draft')]}"
+                />
+                <field name="py_timbrado_prov"
+                       attrs="{
+                        'readonly': [('state', '!=', 'draft')]
+                        }"
+                />
+                <field name="py_timbrado_prov_end"
+                       attrs="{
+                        'invisible': [('move_type', 'not in', ['in_invoice','in_refund'])],
+                        'readonly': [('state', '!=', 'draft')]
+                        }"
+                />
+            </field>
+
+        </field>
+    </record>
+</odoo>

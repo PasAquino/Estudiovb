@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Reference: Creating a Localization
+https://www.odoo.com/documentation/13.0/webservices/localization.html
+-->
+
+<odoo noupdate="1">
+    <!-- Chart template account links -->
+    <record id="py_chart_template_basic" model="account.chart.template">
+
+        <!-- [Optional] Boolean to enable the complete set of taxes. By default, this field is True.
+        This boolean helps you to choose if you want to propose to the user to encode the sale
+        and purchase rates or choose from list of taxes.
+        This last choice assumes that the set of tax defined on this template is complete. -->
+        <field name="complete_tax_set" eval="True"/>
+
+        <!-- In Continental Accounting, the expense account is affected at the time of purchase,
+        on the other hand, in Anglo Saxon Accounting the expense account is affected at the
+        time of processing a sales order. -->
+        <field name="use_anglo_saxon" eval="False"/>
+
+        <!-- Define receivable/payable accounts. -->
+        <field name="property_account_receivable_id" ref="101030101"/>
+        <field name="property_account_payable_id" ref="2010101"/>
+
+        <!-- Define categories of expense/income account. -->
+        <field name="property_account_expense_categ_id" ref="5010101"/>
+        <field name="property_account_income_categ_id" ref="4010101"/>
+
+        <!-- Define input/output accounts for stock valuation. -->
+        <field name="property_stock_account_input_categ_id" ref="5010101"/>
+        <field name="property_stock_account_output_categ_id" ref="5100103"/>
+
+        <!-- Define an account template for stock valuation. -->
+        <field name="property_stock_valuation_account_id" ref="1010401"/>
+
+        <!-- Define loss/gain exchange rate accounts. -->
+        <field name="income_currency_exchange_account_id" ref="805"/>
+        <field name="expense_currency_exchange_account_id" ref="1304"/>
+
+        <field name="default_cash_difference_income_account_id"  ref="805"/>
+        <field name="default_cash_difference_expense_account_id" ref="1304"/>
+        <field name="default_pos_receivable_account_id" ref="2010101"/>
+    </record>
+
+    <!-- Tax template for sale and purchase -->
+
+    <record id="sale_tax_template_10" model="account.tax.template">
+        <!-- [Required] Set the CoA owning this tax. -->
+        <field name="chart_template_id" ref="py_chart_template_basic"/>
+
+        <!-- [Required] Specify the name to display for this tax. -->
+        <field name="name">IVA 10%</field>
+
+        <!-- [Optional] Specify a short text to be displayed on invoices.
+        For example, a tax named "15% on Services" can have the following label
+        on invoice "15%". -->
+        <field name="description">IVA 10%</field>
+
+        <!-- [Optional] Boolean that indicates if the amount should be considered
+        as included in price. False by default.
+        E.g. Suppose v = 132 and a tax amount of 20.
+        If price_include = False, the computed amount will be 132 * 0.2 = 26.4.
+        If price_include = True, the computed amount will be 132 - (132 / 1.2) = 132 - 110 = 22. -->
+        <field name="price_include" eval="True"/>
+
+        <!-- [Required] Specify the amount.
+        E.g. 7 with fixed amount_type means v + 7 if v is the amount on which
+        the tax is applied.
+        If amount_type is 'percent', the tax amount is v * 0.07. -->
+        <field name="amount">10</field>
+
+        <!-- [Optional] Define the tax's type.
+        'sale', 'purchase' or 'none' are the allowed values. 'sale' is the
+        default value.
+        Note: 'none' means a tax can't be used by itself, however it can still
+        be used in a group. -->
+        <field name="type_tax_use">sale</field>
+
+        <!-- [Optional] The sequence field is used to define order in which the
+        tax lines are applied. By default, sequence = 1. -->
+        <field name="sequence" eval="1"/>
+
+        <field name="tax_group_id" ref="tax_group_iva_10"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('201030102'),
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('201030102'),
+            }),
+        ]"/>
+    </record>
+
+    <record id="sale_tax_template_5" model="account.tax.template">
+        <!-- [Required] Set the CoA owning this tax. -->
+        <field name="chart_template_id" ref="py_chart_template_basic"/>
+
+        <!-- [Required] Specify the name to display for this tax. -->
+        <field name="name">IVA 5%</field>
+
+        <!-- [Optional] Specify a short text to be displayed on invoices.
+        For example, a tax named "15% on Services" can have the following label
+        on invoice "15%". -->
+        <field name="description">IVA 5%</field>
+
+        <!-- [Optional] Boolean that indicates if the amount should be considered
+        as included in price. False by default.
+        E.g. Suppose v = 132 and a tax amount of 20.
+        If price_include = False, the computed amount will be 132 * 0.2 = 26.4.
+        If price_include = True, the computed amount will be 132 - (132 / 1.2) = 132 - 110 = 22. -->
+        <field name="price_include" eval="True"/>
+
+        <!-- [Required] Specify the amount.
+        E.g. 7 with fixed amount_type means v + 7 if v is the amount on which
+        the tax is applied.
+        If amount_type is 'percent', the tax amount is v * 0.07. -->
+        <field name="amount">5</field>
+
+        <!-- [Optional] Define the tax's type.
+        'sale', 'purchase' or 'none' are the allowed values. 'sale' is the
+        default value.
+        Note: 'none' means a tax can't be used by itself, however it can still
+        be used in a group. -->
+        <field name="type_tax_use">sale</field>
+
+        <!-- [Optional] The sequence field is used to define order in which the
+        tax lines are applied. By default, sequence = 1. -->
+        <field name="sequence" eval="2"/>
+
+        <field name="tax_group_id" ref="tax_group_iva_5"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('201030102'),
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('201030102'),
+            }),
+        ]"/>
+    </record>
+
+
+    <record id="purchase_tax_template_10" model="account.tax.template">
+        <!-- [Required] Set the CoA owning this tax. -->
+        <field name="chart_template_id" ref="py_chart_template_basic"/>
+
+        <!-- [Required] Specify the name to display for this tax. -->
+        <field name="name">IVA 10%</field>
+
+        <!-- [Optional] Specify a short text to be displayed on invoices.
+        For example, a tax named "15% on Services" can have the following label
+        on invoice "15%". -->
+        <field name="description">IVA 10%</field>
+
+        <!-- [Optional] Boolean that indicates if the amount should be considered
+        as included in price. False by default.
+        E.g. Suppose v = 132 and a tax amount of 20.
+        If price_include = False, the computed amount will be 132 * 0.2 = 26.4.
+        If price_include = True, the computed amount will be 132 - (132 / 1.2) = 132 - 110 = 22. -->
+        <field name="price_include" eval="True"/>
+
+        <!-- [Required] Specify the amount.
+        E.g. 7 with fixed amount_type means v + 7 if v is the amount on which
+        the tax is applied.
+        If amount_type is 'percent', the tax amount is v * 0.07. -->
+        <field name="amount">10</field>
+
+        <!-- [Optional] Define the tax's type.
+        'sale', 'purchase' or 'none' are the allowed values. 'sale' is the
+        default value.
+        Note: 'none' means a tax can't be used by itself, however it can still
+        be used in a group. -->
+        <field name="type_tax_use">purchase</field>
+
+        <!-- [Optional] The sequence field is used to define order in which the
+        tax lines are applied. By default, sequence = 1. -->
+        <field name="sequence" eval="3"/>
+
+        <field name="tax_group_id" ref="tax_group_iva_10"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('101030503'),
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('101030503'),
+            }),
+        ]"/>
+    </record>
+
+    <record id="purchase_tax_template_5" model="account.tax.template">
+        <!-- [Required] Set the CoA owning this tax. -->
+        <field name="chart_template_id" ref="py_chart_template_basic"/>
+
+        <!-- [Required] Specify the name to display for this tax. -->
+        <field name="name">IVA 5%</field>
+
+        <!-- [Optional] Specify a short text to be displayed on invoices.
+        For example, a tax named "15% on Services" can have the following label
+        on invoice "15%". -->
+        <field name="description">IVA 5%</field>
+
+        <!-- [Optional] Boolean that indicates if the amount should be considered
+        as included in price. False by default.
+        E.g. Suppose v = 132 and a tax amount of 20.
+        If price_include = False, the computed amount will be 132 * 0.2 = 26.4.
+        If price_include = True, the computed amount will be 132 - (132 / 1.2) = 132 - 110 = 22. -->
+        <field name="price_include" eval="True"/>
+
+        <!-- [Required] Specify the amount.
+        E.g. 7 with fixed amount_type means v + 7 if v is the amount on which
+        the tax is applied.
+        If amount_type is 'percent', the tax amount is v * 0.07. -->
+        <field name="amount">5</field>
+
+        <!-- [Optional] Define the tax's type.
+        'sale', 'purchase' or 'none' are the allowed values. 'sale' is the
+        default value.
+        Note: 'none' means a tax can't be used by itself, however it can still
+        be used in a group. -->
+        <field name="type_tax_use">purchase</field>
+
+        <!-- [Optional] The sequence field is used to define order in which the
+        tax lines are applied. By default, sequence = 1. -->
+        <field name="sequence" eval="4"/>
+
+        <field name="tax_group_id" ref="tax_group_iva_5"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('101030503'),
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('101030503'),
+            }),
+        ]"/>
+    </record>
+
+</odoo>

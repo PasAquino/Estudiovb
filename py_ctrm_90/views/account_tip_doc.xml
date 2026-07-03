@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_account_tip_doc_90" model="ir.ui.view">
+        <field name="name">account.tip.doc.90</field>
+        <field name="model">account.tip.doc</field>
+        <field name="inherit_id" ref="py_ctrm_base.view_account_tip_doc_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="after">
+                <group string="Configuración Resolución 90">
+                    <field name="code_90"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

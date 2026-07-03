@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    
+    <record model="ir.ui.view" id="secuencia_folios_list">
+      <field name="name">secuencia.folios.list</field>
+      <field name="model">ir.sequence</field>
+      <field name="inherit_id" ref="base.sequence_view"/>
+      <field name="arch" type="xml">
+          <xpath expr="//field[@name='date_range_ids']//field[@name='number_next_actual']" position="after">
+             <field name="number_ini"/>
+             <field name="number_max"/>
+             <field name="number_used"/>
+             <field name="timbrado"/>
+          </xpath>
+      </field>
+    </record>
+   
+ </data>
+</odoo>

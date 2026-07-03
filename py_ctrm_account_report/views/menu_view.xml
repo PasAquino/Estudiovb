@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <menuitem id="account_py_reports_menu"
+                  parent="account.menu_finance_reports"
+                  name="Reportes Contables Paraguay"/>
+
+        <menuitem id="menu_libro_diario"
+                  parent="account_py_reports_menu"
+                  name="Libro Diario" sequence="35"
+                  action="action_reporte_libro_diario"/>
+
+        <menuitem id="menu_reporte_balance"
+                  parent="account_py_reports_menu"
+                  name="Balance"
+                  sequence="45"
+                  action="action_reporte_balance"/>
+
+        <menuitem
+                id="menu_libro_mayor"
+                parent="py_ctrm_account_report.account_py_reports_menu"
+                name="Libro Mayor"
+                sequence="46"
+                action="action_reporte_libro_mayor"/>
+
+        <menuitem id="menu_libro_iva"
+                  parent="account_py_reports_menu"
+                  name="Libro IVA"
+                  sequence="47"
+                  action="action_reporte_libro_iva_report"/>
+
+        <menuitem id="cobranzas_report"
+                  name="Informe de Cobranzas"
+                  action="action_reporte_cobranzas_wizard"
+                  parent="account_py_reports_menu"
+                  sequence="48"/>
+
+        <menuitem id="pagos_report"
+                  name="Planilla de Pagos"
+                  action="action_reporte_pagos_wizard"
+                  parent="account_py_reports_menu"
+                  sequence="49"/>
+
+    </data>
+</odoo>

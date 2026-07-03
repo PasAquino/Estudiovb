@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <template id="report_template_check_deposit">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <span style="font-size: 16px">Nro de Deposito:</span>
+                        <span style="font-size: 16px; font-weight: bold" t-field="o.name"/>
+                        <br/>
+                        <br/>
+                        <span style="font-size: 16px">Banco:</span>
+                        <p>
+                            <t t-if="o.bank_journal_id.bank_account_id.bank_id.name">
+                                <span style="font-size: 14px" t-field="o.bank_journal_id.bank_account_id.bank_id.name"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.bank_journal_id.bank_account_id.bank_id.street">
+                                <span style="font-size: 14px" t-field="o.bank_journal_id.bank_account_id.bank_id.street"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.bank_journal_id.bank_account_id.bank_id.zip">
+                                <span style="font-size: 14px" t-field="o.bank_journal_id.bank_account_id.bank_id.zip"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.bank_journal_id.bank_account_id.bank_id.city">
+                                <span style="font-size: 14px" t-field="o.bank_journal_id.bank_account_id.bank_id.city"/>
+                            </t>
+                        </p>
+                        <span style="font-size: 16px">Beneficiario:</span>
+                        <div t-field="o.company_id.partner_id"
+                             t-field-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": true}'/>
+                        <br/>
+                        <b style="font-size: 14px">Número de cuenta bancaria para acreditar:</b>
+                        <span style="font-size: 14px" t-field="o.bank_journal_id.bank_account_id.acc_number"/>
+                        <br/>
+                        <b style="font-size: 14px">Tipo de Moneda:</b>
+                        <span style="font-size: 14px" t-field="o.currency_id.name"/>
+                        <br/>
+                        <b style="font-size: 14px">Fecha de la transacción:</b>
+                        <span style="font-size: 14px" t-field="o.deposit_date"/>
+                        <br/>
+                        <b style="font-size: 14px">Cantidad de Cheques:</b>
+                        <span style="font-size: 14px" t-field="o.check_count"/>
+                        <br/>
+                        <br/>
+                        <span style="font-size: 16px; font-weight: bold">Listado de Cheques::</span>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th style="font-size: 14px; text-align: center">Referencia</th>
+                                    <th style="font-size: 14px; text-align: center">Empresa</th>
+                                    <th style="font-size: 14px; text-align: center">Banco</th>
+                                    <th style="font-size: 14px; text-align: center">Fecha Cobro</th>
+                                    <th style="font-size: 14px; text-align: center">Fecha Diferida</th>
+                                    <th style="font-size: 14px; text-align: center">Nro cheque</th>
+                                    <th style="font-size: 14px; text-align: center">Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.check_payment_ids" t-as="eca">
+                                    <tr>
+                                        <td style="font-size: 13px; text-align: left">
+                                            <span t-field="eca.communication"/>
+                                        </td>
+                                        <td style="font-size: 13px; text-align: left">
+                                            <span t-field="eca.partner_id.name"/>
+                                        </td>
+                                        <td style="font-size: 13px; text-align: left">
+                                            <span t-field="eca.bank_id.name"/>
+                                        </td>
+                                        <td style="font-size: 13px; text-align: left">
+                                            <span t-field="eca.fecha_cobro"/>
+                                        </td>
+                                        <td style="font-size: 13px; text-align: left">
+                                            <span t-field="eca.fecha_diferida"/>
+                                        </td>
+                                        <td style="font-size: 13px; text-align: left">
+                                            <span t-field="eca.detalle_cheque"/>
+                                        </td>
+                                        <td style="font-size: 13px; text-align: right">
+                                            <t t-if="o.currency_id == o.company_id.currency_id">
+                                                <span t-field="eca.amount_payment"
+                                                      t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                            </t>
+                                            <t t-if="o.currency_id != o.company_id.currency_id">
+                                                <span t-field="eca.amount_payment"
+                                                      t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="6" style="border-top: 1px solid black">
+                                        <b>Total:</b>
+                                    </td>
+                                    <td style="border-top: 1px solid black; text-align: right">
+                                        <b>
+                                            <span t-field="o.total_amount"
+                                                  t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                        </b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

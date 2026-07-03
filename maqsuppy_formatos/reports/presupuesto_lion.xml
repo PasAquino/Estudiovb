@@ -1,0 +1,276 @@
+<odoo>
+    <template id="presupuesto_lion_template">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <link rel="stylesheet" href="/maqsuppy_formatos/static/src/css/presupuesto_lion.css"/>
+                    <div class="page">
+                        <div class="contenedor">
+                            <table class="tabla">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 650px; height: 150px">
+                                            <div style="border: 1px solid black; border-radius: 15px; height: 150px">
+                                                <table class="tabla">
+                                                    <tbody>
+                                                        <tr style="vertical-align: middle">
+                                                            <td style="width: 180px">
+                                                                <img src="/maqsuppy_formatos/static/src/img/lion.png"
+                                                                     style="width: unset; max-width: 150px; max-height: 130px; padding-left: 20px; padding-top: 20px"/>
+                                                            </td>
+                                                            <td style="width: 420px">
+                                                                <span style="font-weight: normal; padding-top: 30px">
+                                                                    MAQSUPPLY LATIN AMERICA
+                                                                </span>
+                                                                <br/>
+                                                                <span style="font-size:12px">
+                                                                    (Nextrade Lan America Pte. Ltd.)
+                                                                </span>
+                                                                <br/>
+                                                                <span style="font-weight: normal">
+                                                                    10 Anson Rd., Suites #10-11
+                                                                </span>
+                                                                <br/>
+                                                                <span style="font-weight: normal">
+                                                                    Intemaonal Plaza
+                                                                </span>
+                                                                <br/>
+                                                                <span style="font-weight: normal">
+                                                                    Singapore, 079903
+                                                                </span>
+                                                                <br/>
+                                                                <span>Tel:</span>
+                                                                <span style="font-weight: normal">
+                                                                    +65 9806 8025
+                                                                </span>
+                                                                <br/>
+                                                                <span style="font-weight: normal">
+                                                                    ventas@maqsupply.com
+                                                                </span>
+                                                                <br/>
+                                                                <span style="font-weight: normal">
+                                                                    www.maqsupply.com
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </th>
+                                        <th style="width: 10px">
+                                            <span>&amp;nbsp;&amp;nbsp;</span>
+                                        </th>
+                                        <th style="width: 330px; height: 140px">
+                                            <div style="border: 1px solid black; border-radius: 15px; height: 150px">
+                                                <table class="tabla">
+                                                    <tbody>
+                                                        <tr style="width: 90px">
+                                                            <td style="text-align: center">
+                                                                <br/>
+                                                                <span>
+                                                                    DOCUMENTO NO VALIDO COMO FACTURA
+                                                                </span>
+                                                                <br/>
+                                                                <br/>
+                                                                <span style="font-size: 14px">
+                                                                    COTIZACIÓN
+                                                                </span>
+                                                                <span style="font-size: 14px" t-field="o.name"/>
+                                                                <br/>
+                                                                <br/>
+                                                                <span style="font-size: 14px">
+                                                                    FECHA:
+                                                                </span>
+                                                                <t t-if="o.date_order">
+                                                                    <span t-esc="o.date_order.strftime('%d-%m-%Y')"/>
+                                                                </t>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <br/>
+                            <div style="border: 1px solid black; border-radius: 15px; height: 160px">
+                                <table class="tabla">
+                                    <thead>
+                                        <tr style="vertical-align: middle">
+                                            <th style="width: 480px">
+                                                <br/>
+                                                <span style="padding-left: 16px">Señor/es</span>
+                                                <br/>
+                                                <span style="padding-left: 20px">Empresa:</span>
+                                                <span style="font-weight: normal"
+                                                      t-field="o.partner_id.name"/>
+                                                <br/>
+                                                <span style="padding-left: 20px">Dirección:</span>
+                                                <span style="font-weight: normal"
+                                                      t-field="o.partner_id.street"/>
+                                                <br/>
+                                                <span style="padding-left: 20px">RUC:</span>
+                                                <span style="font-weight: normal"
+                                                      t-field="o.partner_id.vat"/>
+                                                <br/>
+                                                <span style="padding-left: 20px">Marca:</span>
+                                            </th>
+                                            <th style="width: 420px">
+                                                <br/>
+                                                <br/>
+                                                Teléfono:
+                                                <t t-if="o.partner_id.phone">
+                                                    <span style="font-weight: normal"
+                                                          t-field="o.partner_id.phone"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span style="font-weight: normal"
+                                                          t-field="o.partner_id.mobile"/>
+                                                </t>
+                                                <br/>
+                                                Email:
+                                                <span style="font-weight: normal"
+                                                      t-field="o.partner_id.email"/>
+                                                <br/>
+                                                Departamento:
+                                                <span style="font-weight: normal"
+                                                      t-field="o.partner_id.state_id.name"/>
+                                                <br/>
+                                                Factura No:
+                                                <br/>
+                                                Numero OC:
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <br/>
+                            <div style="border: 1px solid black; border-radius: 15px; padding: 15px;">
+                                <table class="tabla" style="border: 1px solid black">
+                                    <thead>
+                                        <tr style="text-align: center">
+                                            <th style="border: 1px solid black">
+                                                Nº
+                                            </th>
+                                            <th style="border: 1px solid black" colspan="2">
+                                                Descripción
+                                            </th>
+                                            <!--                                            <th style="border: 1px solid black">-->
+                                            <!--                                                Condición-->
+                                            <!--                                            </th>-->
+                                            <th style="border: 1px solid black">
+                                                Nº de Parte
+                                            </th>
+                                            <th style="border: 1px solid black">
+                                                Cant.
+                                            </th>
+                                            <th style="border: 1px solid black">
+                                                P. Uni.
+                                            </th>
+                                            <th style="border: 1px solid black">
+                                                P. Total
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="total_filas" t-value="23"/>
+                                        <t t-set="filas" t-value="0"/>
+                                        <t t-foreach="o.order_line" t-as="h">
+                                            <t t-set="filas" t-value="filas + 1"/>
+                                            <tr>
+                                                <td style="border: 1px solid black; text-align: center">
+                                                    <span t-esc="filas"/>
+                                                </td>
+                                                <td style="border: 1px solid black; text-align: center" colspan="2">
+                                                    <span t-field="h.product_id.name"/>
+                                                </td>
+                                                <!--                                                <td style="border: 1px solid black; text-align: center">-->
+                                                <!--                                                    <span>ORIGINAL</span>-->
+                                                <!--                                                </td>-->
+                                                <td style="border: 1px solid black; text-align: center">
+                                                    <span t-field="h.product_id.default_code"/>
+                                                </td>
+                                                <td style="border: 1px solid black; text-align: center">
+                                                    <t t-if="o.currency_id.name == 'PYG'">
+                                                        <span t-esc="'{0:,.0f}'.format(h.product_uom_qty).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="'{0:,.2f}'.format(h.product_uom_qty).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                                    </t>
+                                                </td>
+                                                <td style="border: 1px solid black; text-align: right">
+                                                    <t t-if="o.currency_id.name == 'PYG'">
+                                                        <span t-esc="'{0:,.0f}'.format(h.price_unit).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="'{0:,.2f}'.format(h.price_unit).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                                    </t>
+                                                </td>
+                                                <td style="border: 1px solid black; text-align: right">
+                                                    <t t-if="o.currency_id.name == 'PYG'">
+                                                        <span t-esc="'{0:,.0f}'.format(h.price_total).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="'{0:,.2f}'.format(h.price_total).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-set="total_filas" t-value="total_filas - filas"/>
+                                        <t t-foreach="total_filas" t-as="h">
+                                            <tr>
+                                                <td style="border: 1px solid black">
+                                                    <span>&amp;nbsp;</span>
+                                                </td>
+                                                <td style="border: 1px solid black" colspan="2">
+                                                    <span>&amp;nbsp;</span>
+                                                </td>
+                                                <!--                                                <td style="border: 1px solid black">-->
+                                                <!--                                                    <span>&amp;nbsp;</span>-->
+                                                <!--                                                </td>-->
+                                                <td style="border: 1px solid black">
+                                                    <span>&amp;nbsp;</span>
+                                                </td>
+                                                <td style="border: 1px solid black">
+                                                    <span>&amp;nbsp;</span>
+                                                </td>
+                                                <td style="border: 1px solid black">
+                                                    <span>&amp;nbsp;</span>
+                                                </td>
+                                                <td style="border: 1px solid black">
+                                                    <span>&amp;nbsp;</span>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="6"
+                                                style="border: 1px solid black; text-align: center">
+                                                <span style="font-size: 14px; font-weight: bold">TOTAL -</span>
+                                                <span style="font-size: 14px; font-weight: bold"
+                                                      t-field="o.currency_id.name"/>
+                                            </td>
+                                            <td style="border: 1px solid black; text-align: right">
+                                                <span style="font-size: 14px; font-weight: bold"
+                                                      t-field="o.amount_total"/>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <br/>
+                            <div style="border: 1px solid black; border-radius: 15px; padding: 15px">
+                                <span style="font-size: 17px; font-weight: bold">Condiciones comerciales:</span>
+                                <br/>
+                                <span t-field="o.note"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_resolucion90_archi,resolucion.90.21,model_resolucion_90_21,account.group_account_invoice,1,1,1,1
+access_resolucion90_set,set.resolucion90.archivo,model_set_resolucion90_archivo,account.group_account_invoice,1,1,1,1
+
+

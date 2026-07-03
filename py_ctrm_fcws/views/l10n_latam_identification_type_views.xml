@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View l10n_latam.identification.type list -->
+    <record id="view_l10n_latam_identification_type_list" model="ir.ui.view">
+        <field name="name">view.l10n_latam.identification.type.list</field>
+        <field name="model">l10n_latam.identification.type</field>
+        <field name="inherit_id" ref="l10n_latam_base.view_l10n_latam_identification_type_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="rg_code"/>
+                <field name="edi_code"/>
+                <field name="position_id"/>
+            </xpath>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">true</attribute>
+                <attribute name="edit">true</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

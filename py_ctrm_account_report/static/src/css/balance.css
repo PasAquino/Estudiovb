@@ -1,0 +1,72 @@
+.contenedor{
+    font-size:9px;
+    font-family:Arial, sanserif;
+}
+
+/*--------------TABLA DE LAS CABECERA-------------*/
+table.cabecera{
+  width: 100%;
+  height: 20px;
+  text-align: center;
+}
+
+table.cabecera tr td {
+}
+td{
+    height: 15px;
+    text-align: center;
+    align-items: center;
+}
+/*-----------------FIN TABLA DE LAS CABECERAS-----------*/
+table.tablaini{
+    width: 100%;
+}
+table.tablaini tr td {
+    padding:2px ;
+    text-align: center;
+
+}
+table.tabla{
+    width: 100%;
+
+}
+table.tabla tr{
+
+
+}
+td{
+    padding:2px ;
+    font-size:10px;
+}
+table.tabla th{
+    font-size:12px;
+}
+table.centrado{
+  text-align: center;
+  font-size: 18px;
+}
+table.centrado tr{
+}
+table.centrado td{
+    font-size:10px;
+}
+table.centrado th{
+    font-size:12px;
+}
+
+
+/*thead { display: table-header-group }*/
+/*tr { page-break-inside: avoid }*/
+
+.negrita{
+    font-weight: bold;
+}
+
+.derecha{
+    text-align: right !important;
+}
+.mayusculas{
+    text-transform: uppercase;
+}
+
+

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+
+    <record id="account_checkbooks_deposit_view_tree_search" model="ir.ui.view">
+        <field name="name">payment.methods.group.tree.search</field>
+        <field name="model">payment.methods.group</field>
+        <field eval="99" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="Cheques a Depositar" edit="0">
+                <field name="partner_id" string="Empresa"/>
+                <field name="bank_id"/>
+                <field name="cuenta_bank"/>
+                <field name="fecha_cobro"/>
+                <field name="fecha_diferida"/>
+                <field name="detalle_cheque"/>
+                <field name="amount_company_currency" string="Monto Guaraníes" sum="Total Gs"/>
+                <field name="amount_payment" string="Monto Total" sum="Total Dls"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_payment_methods_group_filter_search" model="ir.ui.view">
+        <field name="name">payment.methods.group.search</field>
+        <field name="model">payment.methods.group</field>
+        <field name="arch" type="xml">
+            <search string="Cheques">
+                <field name="detalle_cheque" string="Cheque Nº" filter_domain="[('detalle_cheque', 'ilike', self)]"/>
+                <field name="payment_date"/>
+                <field name="partner_id"/>
+                <field name="payment_journal"/>
+                <separator/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Empresa" name="group_by_partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Diario" name="journal" domain="[]" context="{'group_by': 'payment_journal'}"/>
+                    <filter string="Date" name="groupby_date" domain="[]" context="{'group_by': 'payment_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="account_checkbooks_deposit_view_form" model="ir.ui.view">
+        <field name="name">account.checkbooks.deposit.form</field>
+        <field name="model">account.checkbooks.deposit</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="validate_deposit" states="draft" string="CONFIRMAR" type="object" class="oe_highlight"
+                            style="font-weight: bold; color: black"/>
+                    <button name="action_cancel" states="done" string="CANCELAR" type="object" class="btn btn-danger"
+                            style="font-weight: bold; color: black"/>
+                    <button name="action_draft" states="done" string="CAMBIAR A BORRADOR" type="object" class="oe_highlight"
+                            style="font-weight: bold; color: black"/>
+                    <button name="action_print" string="Imprimir" attrs="{'invisible': [('state', 'in', ('draft','cancel'))]}" type="object"
+                            class="oe_highlight" style="font-weight: bold; color: black"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label string="" for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="deposit_date" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}"/>
+                            <field name="journal_id" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}" widget="selection"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                            <field name="bank_journal_id" widget="selection" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}"/>
+                            <field name="nro_boleta" string="Boleta de Depósito"/>
+                            <field name="check_count"/>
+                        </group>
+                        <group>
+                            <field name="journal_account_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"/>
+                            <field name="bank_check_account_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"/>
+                            <field name="move_id" string="Asiento Contable"/>
+                            <field name="total_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="currency_none_same_company_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Listado de Cheques" name="check_payments">
+                        <field name="check_payment_ids"
+                               nolabel="1" widget="many2many"
+                               domain="[('check_deposit_id', '=', False), ('state', '=', 'posted'), ('payment_journal', '=', journal_id),
+                                        ('currency_id', '=', currency_id), ('state_check', '=', 'to_deposit')]"
+                               context="{'tree_view_ref': 'account_payment_paraguay.account_checkbooks_deposit_view_tree_search',
+                                         'search_view_ref': 'account_payment_paraguay.view_account_payment_paraguay_filter_search'}">
+                            <tree>
+                                <field name="partner_id" string="Empresa"/>
+                                <field name="bank_id"/>
+                                <field name="cuenta_bank"/>
+                                <field name="fecha_cobro"/>
+                                <field name="fecha_diferida"/>
+                                <field name="detalle_cheque"/>
+                                <field name="amount_company_currency" string="Monto Guaraníes" sum="Total Gs"/>
+                                <field name="amount_payment" string="Monto Total" sum="Total Dls"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="obs_cancel" readonly="True" attrs="{'invisible': [('obs_cancel', '=', False)]}"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter" modifiers="{}">
+                    <field name="message_follower_ids" widget="mail_followers" modifiers="{}"/>
+                    <field name="message_ids" widget="mail_thread" modifiers="{}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_checkbooks_deposit_view_tree" model="ir.ui.view">
+        <field name="name">account.checkbooks.deposit.tree</field>
+        <field name="model">account.checkbooks.deposit</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" decoration-success="state == 'done'">
+                <field name="name"/>
+                <field name="nro_boleta"/>
+                <field name="check_count"/>
+                <field name="deposit_date"/>
+                <field name="journal_id"/>
+                <field name="bank_journal_id"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_check_deposit_search" model="ir.ui.view">
+        <field name="name">account.checkbooks.deposit.search</field>
+        <field name="model">account.checkbooks.deposit</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Depósitos de Cheques"/>
+                <filter name="draft" string="Borrador" domain="[('state', '=', 'draft')]"/>
+                <filter name="done" string="Confirmado" domain="[('state', '=', 'done')]"/>
+                <filter name="cancel" string="Cancelado" domain="[('state', '=', 'cancel')]"/>
+                <group string="Group By" name="groupby">
+                    <filter name="date_groupby" string="Fecha" context="{'group_by': 'deposit_date'}"/>
+                    <filter name="journal_groupby" string="Diario" context="{'group_by': 'journal_id'}"/>
+                    <filter name="bank_journal_id_groupby" string="Banco" context="{'group_by': 'bank_journal_id'}"/>
+                    <filter name="currency_groupby" string="Moneda" context="{'group_by': 'currency_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.rule" id="single_company_registration_checkbooks_deposit">
+        <field name="name">Depósito de Cheques</field>
+        <field name="model_id" search="[('model','=','account.checkbooks.deposit')]" model="ir.model"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="action_account_checkbooks_deposit" model="ir.actions.act_window">
+        <field name="name">Depósito de Cheques</field>
+        <field name="res_model">account.checkbooks.deposit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{ }</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click para registrar una Cartera de Cheques
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Depósito de Cheques"
+              action="action_account_checkbooks_deposit"
+              id="menu_account_checkbooks_deposit"
+              parent="account.menu_finance_entries_actions"
+              sequence="20"
+    />
+
+
+</odoo>

@@ -1,0 +1,316 @@
+<odoo>
+    <template id="template_check_list">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <link rel="stylesheet" href="/account_payment_paraguay/static/src/css/listado_cheques.css"/>
+                    <div class="page">
+                        <h6 class="text-right">
+                            <span t-esc="o.date_today.strftime('%d-%m-%Y %H:%M:%S')"/>
+                        </h6>
+
+                        <t t-if="o.check_type == 'cheques_tipo_pago'">
+                            <h4 class="text-center">Cheques Pagados</h4>
+                        </t>
+                        <t t-if="o.check_type == 'cheques_tipo_cobro'">
+                            <h4 class="text-center">Cheques Cobrados</h4>
+                        </t>
+                        <t t-if="o.check_type == 'to_deposit'">
+                            <h4 class="text-center">Cheques Pendientes a Depositar</h4>
+                        </t>
+                        <t t-if="o.check_type == 'deposited'">
+                            <h4 class="text-center">Cheques Depositados</h4>
+                        </t>
+
+                        <h5 class="text-center">
+                            <span t-field="o.date_start"/>
+                            AL
+                            <span t-field="o.date_end"/>
+                        </h5>
+                        <t t-if="o.check_type == 'cheques_tipo_pago' or o.check_type == 'cheques_tipo_cobro'">
+                            <table class="tabla" style="border-top: 1px solid black" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Tipo de Cheque:
+                                            <t t-if="o.check_type">
+                                                <span t-field="o.check_type"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span>Todos</span>
+                                            </t>
+                                        </th>
+                                        <th colspan="2">Cliente:
+                                            <t t-if="o.partner_id">
+                                                <span t-field="o.partner_id"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span>Todos</span>
+                                            </t>
+                                        </th>
+                                        <th colspan="3">Banco:
+                                            <t t-if="o.bank_id">
+                                                <span t-field="o.bank_id"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span>Todos</span>
+                                            </t>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3">Diario:
+                                            <t t-if="o.journal_id">
+                                                <span t-field="o.journal_id"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span>Todos</span>
+                                            </t>
+                                        </th>
+                                        <th colspan="2">Nro.Cheque:
+                                            <t t-if="o.detalle_cheque">
+                                                <span t-field="o.detalle_cheque"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span>Todos</span>
+                                            </t>
+                                        </th>
+                                        <th colspan="3">Moneda:
+                                            <t t-if="o.currency_id">
+                                                <span t-field="o.currency_id.currency_unit_label"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span>Todos</span>
+                                            </t>
+                                        </th>
+                                    </tr>
+                                    <t t-if="o.check_type == 'cheques_tipo_cobro'">
+                                        <tr style="text-align: center">
+                                            <th style="width: 80px; border: 1px solid black">Fecha</th>
+                                            <th style="width: 100px; border: 1px solid black">Nro. Recibo</th>
+                                            <th style="width: 180px; border: 1px solid black">Cliente</th>
+                                            <th style="width: 140px; border: 1px solid black">Banco</th>
+                                            <th style="width: 90px; border: 1px solid black">Fec.Emisión</th>
+                                            <th style="width: 90px; border: 1px solid black">Fec.Diferida</th>
+                                            <th style="width: 90px; border: 1px solid black">Cheque Nro.</th>
+                                            <th style="width: 90px; border: 1px solid black">Importe</th>
+                                        </tr>
+                                    </t>
+                                    <t t-if="o.check_type == 'cheques_tipo_pago'">
+                                        <tr style="text-align: center">
+                                            <th style="width: 80px; border: 1px solid black">Fecha</th>
+                                            <th style="width: 100px; border: 1px solid black">Nro. OP</th>
+                                            <th style="width: 180px; border: 1px solid black">Proveedor</th>
+                                            <th style="width: 140px; border: 1px solid black">Banco</th>
+                                            <th style="width: 90px; border: 1px solid black">Fec.Emisión</th>
+                                            <th style="width: 90px; border: 1px solid black">Fec.Diferida</th>
+                                            <th style="width: 90px; border: 1px solid black">Cheque Nro.</th>
+                                            <th style="width: 90px; border: 1px solid black">Importe</th>
+                                        </tr>
+                                    </t>
+                                </thead>
+                                <tbody>
+                                    <t t-set="amount_total" t-value="0"/>
+                                    <t t-foreach="listado_cheques" t-as="eca">
+                                        <tr>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.payment_date"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.payment_group_id"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.partner_id"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.bank_id"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.fecha_cobro"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.fecha_diferida"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.detalle_cheque"/>
+                                            </td>
+                                            <td style="text-align: right; border: 1px solid black">
+                                                <t t-if="eca.currency_id.name =='PYG'">
+                                                    <span t-esc="'{0:,.0f}'.format(eca.amount_payment).replace(',', '.')"/>
+                                                    <t t-set="amount_total" t-value="amount_total + eca.amount_payment"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span t-esc="'{0:,.2f}'.format(eca.amount_payment).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                                    <t t-set="amount_total" t-value="amount_total + eca.amount_payment"/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="7" style="border: 1px solid black">
+                                            TOTAL
+                                        </td>
+                                        <t t-if="o.currency_id.name == 'PYG'">
+                                            <td style="border: 1px solid black; text-align: right">
+                                                <span t-esc="'{0:,.0f}'.format(amount_total).replace(',', '.')"/>
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td style="border: 1px solid black; text-align: right">
+                                                <span t-esc="'{0:,.2f}'.format(amount_total).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </t>
+
+                        <t t-if="o.check_type == 'deposited'">
+                            <table class="tabla" style="border-top: 1px solid black" width="100%">
+                                <thead>
+                                    <tr style="text-align: center">
+                                        <th style="width: 80px; border: 1px solid black">Fecha</th>
+                                        <th style="width: 100px; border: 1px solid black">Deposito</th>
+                                        <th style="width: 180px; border: 1px solid black">Cliente</th>
+                                        <th style="width: 140px; border: 1px solid black">Banco</th>
+                                        <th style="width: 90px; border: 1px solid black">Fec.Emisión</th>
+                                        <th style="width: 90px; border: 1px solid black">Fec.Diferida</th>
+                                        <th style="width: 90px; border: 1px solid black">Cheque Nro.</th>
+                                        <th style="width: 90px; border: 1px solid black">Importe</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="amount_total" t-value="0"/>
+                                    <t t-foreach="cheques_depositados" t-as="eca">
+                                        <tr>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.payment_date"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.payment_group_id"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.partner_id"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.bank_id"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.fecha_cobro"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.fecha_diferida"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.detalle_cheque"/>
+                                            </td>
+                                            <td style="text-align: right; border: 1px solid black">
+                                                <t t-if="eca.currency_id.name =='PYG'">
+                                                    <span t-esc="'{0:,.0f}'.format(eca.amount_payment).replace(',', '.')"/>
+                                                    <t t-set="amount_total" t-value="amount_total + eca.amount_payment"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span t-esc="'{0:,.2f}'.format(eca.amount_payment).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                                    <t t-set="amount_total" t-value="amount_total + eca.amount_payment"/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="7" style="border: 1px solid black">
+                                            TOTAL
+                                        </td>
+                                        <t t-if="o.currency_id.name == 'PYG'">
+                                            <td style="border: 1px solid black; text-align: right">
+                                                <span t-esc="'{0:,.0f}'.format(amount_total).replace(',', '.')"/>
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td style="border: 1px solid black; text-align: right">
+                                                <span t-esc="'{0:,.2f}'.format(amount_total).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </t>
+
+                        <t t-if="o.check_type == 'to_deposit'">
+                            <table class="tabla" style="border-top: 1px solid black" width="100%">
+                                <thead>
+                                    <tr style="text-align: center">
+                                        <th style="width: 80px; border: 1px solid black">Fecha</th>
+                                        <th style="width: 100px; border: 1px solid black">Nro. Recibo</th>
+                                        <th style="width: 180px; border: 1px solid black">Cliente</th>
+                                        <th style="width: 140px; border: 1px solid black">Banco</th>
+                                        <th style="width: 90px; border: 1px solid black">Fec.Emisión</th>
+                                        <th style="width: 90px; border: 1px solid black">Fec.Diferida</th>
+                                        <th style="width: 90px; border: 1px solid black">Cheque Nro.</th>
+                                        <th style="width: 90px; border: 1px solid black">Importe</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="amount_total" t-value="0"/>
+                                    <t t-foreach="cheques_no_depositado" t-as="eca">
+                                        <tr>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.payment_date"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.payment_group_id"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.partner_id"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.bank_id"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.fecha_cobro"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.fecha_diferida"/>
+                                            </td>
+                                            <td style="border: 1px solid black">
+                                                <span t-field="eca.detalle_cheque"/>
+                                            </td>
+                                            <td style="text-align: right; border: 1px solid black">
+                                                <t t-if="eca.currency_id.name =='PYG'">
+                                                    <span t-esc="'{0:,.0f}'.format(eca.amount_payment).replace(',', '.')"/>
+                                                    <t t-set="amount_total" t-value="amount_total + eca.amount_payment"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span t-esc="'{0:,.2f}'.format(eca.amount_payment).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                                    <t t-set="amount_total" t-value="amount_total + eca.amount_payment"/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="7" style="border: 1px solid black">
+                                            TOTAL
+                                        </td>
+                                        <t t-if="o.currency_id.name == 'PYG'">
+                                            <td style="border: 1px solid black; text-align: right">
+                                                <span t-esc="'{0:,.0f}'.format(amount_total).replace(',', '.')"/>
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td style="border: 1px solid black; text-align: right">
+                                                <span t-esc="'{0:,.2f}'.format(amount_total).replace(',','a').replace('.','b').replace('a','.').replace('b',',')"/>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

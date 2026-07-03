@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+        <record id="reporte_balance" model="ir.ui.view">
+            <field name="name">balance.book.wizard</field>
+            <field name="model">balance.book.wizard</field>
+            <field name="arch" type="xml">
+               <form>
+                  <group>
+                      <field name="fecha_inicio" required="True"/>
+                      <field name="fecha_fin" required="True"/>
+                      <field name="company_id" invisible="1" wiget="selection" options='{"no_open": True, "no_create": True}'/>
+                  </group>
+                   <group string="Como desea el Resumen del Balance" style="font-size: 13px; text-align:center">
+                   </group>
+                   <group>
+                       <field name="resumen_balance" string="Agrupar por"/>
+                   </group>
+                    <group>
+                       <field name="tipo"/>
+                   </group>
+                   <footer>
+                       <button name="check_report" type="object" string="Generar" class="oe_highlight"/>
+                       <!--<button name="print_report_xlsx" type="object" string="Generar Xlsx" class="oe_highlight"/>-->
+                       <button string="Cancelar" special="cancel" class="btn btn-danger"/>
+                   </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_reporte_balance" model="ir.actions.act_window">
+            <field name="name">Balance </field>
+            <field name="res_model">balance.book.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="reporte_balance"/>
+            <field name="target">new</field>
+        </record>
+
+
+
+    </data>
+</odoo>

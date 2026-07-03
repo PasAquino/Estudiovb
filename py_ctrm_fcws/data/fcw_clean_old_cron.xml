@@ -1,0 +1,15 @@
+<odoo>
+    <record id="ir_cron_fcws_cleanup" model="ir.cron">
+        <field name="name">FCWS - Limpieza de históricos</field>
+        <field name="model_id" ref="model_fcws_document"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_clean_old_records()</field>
+
+        <!-- Ejecutar 1 vez al día -->
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

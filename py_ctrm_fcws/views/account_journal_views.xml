@@ -1,0 +1,19 @@
+<odoo>
+    <record id="view_account_journal_form_fcws" model="ir.ui.view">
+        <field name="name">account.journal.form.fcws</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="fcws_enabled"/>
+                <field name="timbrado_id"
+                    options="{'no_create': True}"
+                    domain="[('state', '=', 'active')]"
+                    attrs="{
+                        'invisible': ['|', ('req_doc', '=', False), ('type', '!=', 'sale')],
+                        'required': [('req_doc', '=', True)]
+                    }"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

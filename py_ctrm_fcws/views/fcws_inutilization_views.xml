@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_fcws_inutilization_tree" model="ir.ui.view">
+        <field name="name">fcws.inutilization.tree</field>
+        <field name="model">fcws.inutilization</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="state" widget="badge"/>
+                <field name="type"/>
+                <field name="timbrado"/>
+                <field name="establecimiento"/>
+                <field name="punto_expedicion"/>
+                <field name="numero_ini"/>
+                <field name="numero_fin"/>
+                <field name="fecha"/>
+                <field name="message"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fcws_inutilization_form" model="ir.ui.view">
+        <field name="name">fcws.inutilization.form</field>
+        <field name="model">fcws.inutilization</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send"
+                            type="object"
+                            string="Enviar"
+                            class="btn-primary"
+                            attrs="{'invisible': [('state', 'not in', ('draft', 'rejected', 'error'))]}"/>
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,sent,approved,rejected,error"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="type"/>
+                            <field name="fecha"/>
+                        </group>
+                        <group>
+                            <field name="timbrado"/>
+                            <field name="establecimiento"/>
+                            <field name="punto_expedicion"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <field name="numero_ini"/>
+                        <field name="numero_fin"/>
+                        <field name="motivo" colspan="2"/>
+                    </group>
+
+                    <group string="Auditoría" col="2">
+                        <field name="fcws_document_id" readonly="1"/>
+                        <field name="message" readonly="1"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Payload">
+                            <field name="payload_json" readonly="1" nolabel="1"/>
+                        </page>
+                        <page string="Respuesta">
+                            <field name="response_json" readonly="1" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_fcws_inutilization_search" model="ir.ui.view">
+        <field name="name">fcws.inutilization.search</field>
+        <field name="model">fcws.inutilization</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="timbrado"/>
+                <field name="establecimiento"/>
+                <field name="punto_expedicion"/>
+
+                <group expand="0" string="Estado">
+                    <filter name="state_draft" string="Borrador" domain="[('state','=','draft')]"/>
+                    <filter name="state_sent" string="Enviado" domain="[('state','=','sent')]"/>
+                    <filter name="state_approved" string="Aprobado" domain="[('state','=','approved')]"/>
+                    <filter name="state_rejected" string="Rechazado" domain="[('state','=','rejected')]"/>
+                    <filter name="state_error" string="Error" domain="[('state','=','error')]"/>
+                </group>
+
+                <group expand="0" string="Tipo">
+                    <filter name="type_invoice" string="Facturas" domain="[('type','=','invoice')]"/>
+                    <filter name="type_remision" string="Remisiones" domain="[('type','=','remision')]"/>
+                    <filter name="type_credit_note" string="Notas de Crédito" domain="[('type','=','credit_note')]"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_fcws_inutilization" model="ir.actions.act_window">
+        <field name="name">Inutilizaciones de Numeración</field>
+        <field name="res_model">fcws.inutilization</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_fcws_inutilization_search"/>
+    </record>
+
+    <menuitem id="menu_fcws_inutilization"
+              name="Inutilización de Numeración"
+              parent="menu_fcws"
+              action="action_fcws_inutilization"
+              sequence="11"/>
+
+</odoo>
