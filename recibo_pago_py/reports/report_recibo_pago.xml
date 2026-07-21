@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================================================
+         PLANTILLA DEL DOCUMENTO (cuerpo del recibo)
+         ============================================================ -->
+    <template id="report_recibo_pago_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page">
+                <link rel="stylesheet" href="/recibo_pago_py/static/src/css/recibo_pago.css"/>
+
+                <!-- Datos del pago  -->
+                <table class="recibo-info-table">
+                    <tr>
+                        <td class="lbl">Recibo de pago:</td>
+                        <td class="val"><strong><span t-field="o.name"/></strong></td>
+                    </tr>
+                    <tr>
+                        <td class="lbl">Fecha de pago:</td>
+                        <td class="val"><span t-field="o.date"/></td>
+                    </tr>
+                    <tr>
+                        <td class="lbl">
+                            <t t-if="o.partner_type == 'customer'">Cliente:</t>
+                            <t t-if="o.partner_type == 'supplier'">Proveedor:</t>
+                            <t t-if="not o.partner_type">Contacto:</t>
+                        </td>
+                        <td class="val"><span t-field="o.partner_id"/></td>
+                    </tr>
+                    <tr>
+                        <td class="lbl">RUC:</td>
+                        <td class="val"><span t-field="o.partner_id.vat"/></td>
+                    </tr>
+                    <tr>
+                        <td class="lbl">Importe de pago:</td>
+                        <td class="val">
+                            <span t-field="o.amount"
+                                  t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="lbl">Son:</td>
+                        <td class="val" style="font-style: italic;">
+                            <span t-esc="o.currency_id.amount_to_text(o.amount)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="lbl">Referencia / Memo:</td>
+                        <td class="val"><span t-field="o.ref"/></td>
+                    </tr>
+                </table>
+
+                <!-- Tabla de facturas reconciliadas -->
+                <t t-set="partials" t-value="o.move_id._get_reconciled_invoices_partials()"/>
+                <t t-set="invoices" t-value="{par[2].move_id for par in partials}"/>
+
+                <!-- Detectar si hay diferencia de monedas entre pago y facturas -->
+                <t t-set="otherCurrency" t-value="False"/>
+                <t t-foreach="invoices" t-as="inv">
+                    <t t-if="any(inv.currency_id != par2[2].currency_id for par2 in inv._get_reconciled_invoices_partials())"
+                       t-set="otherCurrency" t-value="True"/>
+                </t>
+
+                <t t-if="invoices">
+                    <table class="recibo-facturas">
+                        <thead>
+                            <tr>
+                                <th style="width:100px;">FECHA DE FACTURA</th>
+                                <th style="width:160px;">NÚMERO DE FACTURA</th>
+                                <th style="width:160px;">REFERENCIA</th>
+                                <th t-if="otherCurrency" class="text-right" style="width:130px;">IMPORTE EN MONEDA</th>
+                                <th class="text-right" style="width:130px;">IMPORTE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="invoices" t-as="inv">
+                                <t t-if="inv.move_type != 'entry'">
+
+                                    <!-- Fila de cabecera de la factura -->
+                                    <tr class="fila-factura">
+                                        <td><span t-field="inv.invoice_date"/></td>
+                                        <td>
+                                            <!-- En Paraguay el ref suele ser el N° de comprobante -->
+                                            <t t-if="inv.ref">
+                                                <span t-field="inv.ref"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span t-field="inv.name"/>
+                                            </t>
+                                        </td>
+                                        <td/>
+                                        <td t-if="otherCurrency"/>
+                                        <td class="text-right">
+                                            <span t-field="inv.amount_total"
+                                                  t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Filas de pagos aplicados a esta factura -->
+                                    <tr class="fila-pago"
+                                        t-foreach="inv._get_reconciled_invoices_partials()" t-as="par">
+                                        <t t-set="pago_move" t-value="par[2].move_id"/>
+                                        <t t-set="monto_aplicado" t-value="-par[1]"/>
+                                        <t t-set="curr_pago"    t-value="pago_move.currency_id"/>
+                                        <t t-set="curr_factura" t-value="inv.currency_id"/>
+                                        <td><span t-field="pago_move.date"/></td>
+                                        <td><span t-field="pago_move.name"/></td>
+                                        <td><span t-field="pago_move.ref"/></td>
+                                        <td t-if="otherCurrency" class="text-right">
+                                            <t t-if="curr_pago != curr_factura">
+                                                <span t-esc="-pago_move.amount_total"
+                                                      t-options="{'widget': 'monetary', 'display_currency': curr_pago}"/>
+                                            </t>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="monto_aplicado"
+                                                  t-options="{'widget': 'monetary', 'display_currency': curr_factura}"/>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Fila de saldo pendiente -->
+                                    <tr class="fila-saldo">
+                                        <td/>
+                                        <td colspan="2">
+                                            <strong>
+                                                Importe debido para&#160;
+                                                <t t-if="inv.ref"><span t-field="inv.ref"/></t>
+                                                <t t-else=""><span t-field="inv.name"/></t>
+                                            </strong>
+                                        </td>
+                                        <td t-if="otherCurrency"/>
+                                        <td class="text-right">
+                                            <strong>
+                                                <span t-field="inv.amount_residual"
+                                                      t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Separador entre grupos -->
+                                    <tr class="separador"><td colspan="5"/></tr>
+
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+
+                <!-- Mensaje cuando el pago aún no está reconciliado -->
+                <t t-if="not invoices">
+                    <p style="font-style: italic; color: #888; margin-top: 15px;">
+                        Este pago aún no está aplicado a ninguna factura.
+                    </p>
+                </t>
+
+                <!-- Footer con email de la empresa -->
+                <div class="recibo-footer">
+                    <t t-if="o.company_id.email">
+                        <span t-field="o.company_id.email"/>
+                    </t>
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+    <!-- ============================================================
+         PLANTILLA CONTENEDOR (itera docs y llama al documento)
+         ============================================================ -->
+    <template id="report_recibo_pago">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
+                <t t-call="recibo_pago_py.report_recibo_pago_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- ============================================================
+         ACCIÓN DEL REPORTE
+         (aparece en el menú Imprimir de account.payment)
+         ============================================================ -->
+    <record id="action_report_recibo_pago" model="ir.actions.report">
+        <field name="name">Recibo de Pago Completo</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">recibo_pago_py.report_recibo_pago</field>
+        <field name="report_file">recibo_pago_py.report_recibo_pago</field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+
+</odoo>
+
