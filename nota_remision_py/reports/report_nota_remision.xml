@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!--
-        El PDF de Nota de Remision se genera con ReportLab desde
-        stock.picking.action_print_remision().
-        Este registro sirve como referencia nombrada (sin binding al menu Print).
+        Template QWeb minimo requerido por ir.actions.report.
+        El PDF real se genera con ReportLab desde action_print_remision().
     -->
+    <template id="report_nota_remision_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <p>Nota de Remision generada por ReportLab.</p>
+                </div>
+            </t>
+        </t>
+    </template>
     <record id="action_report_nota_remision" model="ir.actions.report">
         <field name="name">Nota de Remision</field>
         <field name="model">stock.picking</field>
@@ -12,5 +20,6 @@
         <field name="report_name">nota_remision_py.report_nota_remision_document</field>
         <field name="report_file">nota_remision_py.report_nota_remision_document</field>
         <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <!-- Sin binding_model_id para que NO aparezca en el menu Print -->
     </record>
 </odoo>
