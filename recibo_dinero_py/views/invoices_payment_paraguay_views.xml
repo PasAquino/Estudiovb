@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista heredada para agregar campos de retención en la línea de facturas embebida -->
+    <record id="view_account_payment_paraguay_retencion" model="ir.ui.view">
+        <field name="name">account.payment.paraguay.retencion.form</field>
+        <field name="model">account.payment.paraguay</field>
+        <field name="inherit_id" ref="account_payment_paraguay.account_payment_paraguay_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Agregar columnas de retención en la tabla de facturas a pagar -->
+            <xpath expr="//field[@name='invoices_payment_ids']//field[@name='amount_payment']" position="after">
+                <field name="nro_retencion" string="N° Retención" optional="show"/>
+                <field name="importe_retencion" string="Importe Retención" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

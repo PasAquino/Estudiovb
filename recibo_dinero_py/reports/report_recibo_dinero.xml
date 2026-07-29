@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================================================
+         PLANTILLA DEL DOCUMENTO
+         ============================================================ -->
+    <template id="report_recibo_dinero_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <!-- El grupo de pago viene de payment_group_id (account.payment.paraguay) -->
+            <t t-set="pg" t-value="o.payment_group_id"/>
+
+            <div class="page recibo-dinero-wrap">
+                <!-- CSS embebido directamente en el documento -->
+                <style>
+                    .recibo-dinero-wrap { font-family: Arial, sans-serif; font-size: 10px; color: #000; }
+                    .recibo-header { width: 100%; border-collapse: collapse; margin-bottom: 6px; }
+                    .recibo-header td { vertical-align: top; padding: 2px 4px; }
+                    .recibo-title { font-size: 13px; font-weight: bold; text-align: center; }
+                    .recibo-nro { font-size: 13px; font-weight: bold; text-align: right; }
+                    .recibo-ruc { font-weight: bold; text-align: center; }
+                    .recibo-monedas { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+                    .recibo-monedas td { padding: 1px 4px; }
+                    .box-moneda { display: inline-block; width: 14px; height: 12px; border: 1px solid #000; vertical-align: middle; background: #fff; text-align: center; line-height: 12px; font-weight: bold; font-size: 10px; }
+                    .recibo-amount-box { display: inline-block; min-width: 160px; border: 1px solid #000; padding: 1px 4px; text-align: right; font-weight: bold; }
+                    .recibo-datos { width: 100%; border-collapse: collapse; margin-bottom: 6px; }
+                    .recibo-datos td { padding: 2px 4px; }
+                    .recibo-subtitulo { font-weight: bold; margin: 6px 0 2px 0; }
+                    .recibo-main { width: 100%; border-collapse: collapse; }
+                    .recibo-left { width: 55%; vertical-align: top; }
+                    .recibo-right { width: 45%; vertical-align: top; padding-left: 8px; }
+                    table.tabla-facturas, table.tabla-pagos { width: 100%; border-collapse: collapse; font-size: 9px; }
+                    table.tabla-facturas th, table.tabla-facturas td,
+                    table.tabla-pagos th, table.tabla-pagos td { border: 1px solid #000; padding: 2px 3px; }
+                    table.tabla-facturas th, table.tabla-pagos th { background: #f0f0f0; font-weight: bold; text-align: center; }
+                    .text-right { text-align: right; }
+                    .text-center { text-align: center; }
+                    .fila-total td { font-weight: bold; background: #e8e8e8; }
+                    .total-efectivo-box { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+                    .total-efectivo-box td { border: 1px solid #000; padding: 3px 6px; font-weight: bold; }
+                    .recibo-footer-firma { margin-top: 30px; width: 100%; border-collapse: collapse; }
+                    .recibo-footer-firma td { padding: 2px 4px; }
+                    hr.recibo-separator { border: none; border-top: 1px solid #000; margin: 0; }
+                </style>
+
+                <!-- ====== CABECERA ====== -->
+                <table class="recibo-header">
+                    <tr>
+                        <!-- Logo + datos empresa (columna izquierda) ya los maneja web.external_layout -->
+                        <td style="width:50%;">
+                            <!-- Espacio para el logo/datos de la empresa que coloca el external_layout -->
+                        </td>
+                        <td style="width:30%; text-align:center; vertical-align:middle;">
+                            <div class="recibo-title">RECIBO DE DINERO</div>
+                            <div class="recibo-ruc">
+                                RUC&#160;<span t-field="o.company_id.vat"/>
+                            </div>
+                        </td>
+                        <td style="width:20%; vertical-align:middle;">
+                            <div class="recibo-nro">
+                                N°&#160;<span t-esc="pg.document_number or ''"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="padding-top:4px;">
+                            <!-- Monedas Gs / Uss con indicador de cuál se usa -->
+                            <table class="recibo-monedas">
+                                <tr>
+                                    <td style="width:50%;">
+                                        <t t-set="es_pyg" t-value="pg.currency_id.name == 'PYG' if pg else False"/>
+                                        <t t-set="es_usd" t-value="pg.currency_id.name != 'PYG' if pg else False"/>
+                                        Gs.&#160;<span class="box-moneda"><t t-if="es_pyg">X</t></span>
+                                        &#160;&#160;
+                                        Uss&#160;<span class="box-moneda"><t t-if="es_usd">X</t></span>
+                                    </td>
+                                    <td style="width:50%; text-align:right;">
+                                        <span class="recibo-amount-box">
+                                            <t t-if="pg">
+                                                <span t-field="pg.payments_amount"
+                                                      t-options="{'widget': 'monetary', 'display_currency': pg.currency_id}"/>
+                                            </t>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- ====== DATOS DEL RECEPTOR ====== -->
+                <table class="recibo-datos">
+                    <tr>
+                        <td style="width:35%;"><strong>Fecha de emisión:</strong></td>
+                        <td style="width:65%;">
+                            <t t-if="pg">
+                                <span t-field="pg.payment_date"/>
+                            </t>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Recibidos de:</strong></td>
+                        <td>
+                            <t t-if="pg">
+                                <span t-field="pg.partner_id"/>
+                            </t>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>La cantidad de Gs/Dólares:</strong></td>
+                        <td>
+                            <t t-if="pg">
+                                <span t-esc="pg.generar_texto(pg.payments_amount, 2 if pg.currency_id.name != 'PYG' else 1)"/>
+                            </t>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>RUC:</strong></td>
+                        <td>
+                            <t t-if="pg">
+                                <span t-field="pg.partner_id.vat"/>
+                            </t>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- ====== CUERPO PRINCIPAL: FACTURAS (izq) + PAGOS (der) ====== -->
+                <p class="recibo-subtitulo">Pago de las siguientes facturas</p>
+
+                <table class="recibo-main">
+                    <tr>
+                        <!-- Columna izquierda: tabla de facturas -->
+                        <td class="recibo-left">
+                            <table class="tabla-facturas">
+                                <thead>
+                                    <tr>
+                                        <th>Factura</th>
+                                        <th>Importe Fac. Pagado</th>
+                                        <th>N. Retención</th>
+                                        <th>Importe de Retención</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-if="pg">
+                                        <t t-foreach="pg.invoices_payment_ids" t-as="inv_line">
+                                            <tr>
+                                                <td>
+                                                    <span t-esc="inv_line.invoice_id.name or ''"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="inv_line.amount_payment"
+                                                          t-options="{'widget': 'monetary', 'display_currency': pg.currency_id}"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-esc="inv_line.nro_retencion or ''"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <t t-if="inv_line.importe_retencion">
+                                                        <span t-esc="inv_line.importe_retencion"
+                                                              t-options="{'widget': 'monetary', 'display_currency': pg.currency_id}"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+
+                                        <!-- Filas de métodos de pago de tipo retención -->
+                                        <t t-foreach="pg.payment_methods_ids" t-as="pm">
+                                            <t t-if="'reten' in (pm.payment_journal.name or '').lower()">
+                                                <tr>
+                                                    <td>
+                                                        <span t-esc="pm.payment_journal.name or ''"/>
+                                                    </td>
+                                                    <td>&#160;</td>
+                                                    <td class="text-center">
+                                                        <span t-esc="pm.communication or ''"/>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <span t-esc="pm.amount_payment"
+                                                              t-options="{'widget': 'monetary', 'display_currency': pm.currency_id}"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+
+                                        <!-- Filas vacías para completar el recibo (min 5 filas) -->
+                                        <t t-set="n_reten" t-value="len([pm for pm in pg.payment_methods_ids if 'reten' in (pm.payment_journal.name or '').lower()])"/>
+                                        <t t-set="n_inv" t-value="len(pg.invoices_payment_ids) + n_reten"/>
+                                        <t t-foreach="range(max(0, 5 - n_inv))" t-as="vacio">
+                                            <tr>
+                                                <td>&#160;</td>
+                                                <td>&#160;</td>
+                                                <td>&#160;</td>
+                                                <td>&#160;</td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="fila-total">
+                                        <td><strong>Total Gs USD</strong></td>
+                                        <td class="text-right">
+                                            <t t-if="pg">
+                                                <span t-esc="sum(pg.invoices_payment_ids.mapped('amount_payment'))"
+                                                      t-options="{'widget': 'monetary', 'display_currency': pg.currency_id}"/>
+                                            </t>
+                                        </td>
+                                        <td>&#160;</td>
+                                        <td class="text-right">
+                                            <t t-if="pg">
+                                                <span t-esc="sum([pm.amount_payment for pm in pg.payment_methods_ids if 'reten' in (pm.payment_journal.name or '').lower()])"
+                                                      t-options="{'widget': 'monetary', 'display_currency': pg.currency_id}"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </td>
+
+                        <!-- Columna derecha: Total Efectivo + tabla de métodos de pago -->
+                        <td class="recibo-right">
+                            <!-- Total Efectivo -->
+                            <table class="total-efectivo-box" style="margin-bottom:6px;">
+                                <tr>
+                                    <td style="width:55%;"><strong>Total Efectivo</strong></td>
+                                    <td class="text-right">
+                                        <t t-if="pg">
+                                            <span t-field="pg.payments_amount"
+                                                  t-options="{'widget': 'monetary', 'display_currency': pg.currency_id}"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Tabla de métodos de pago -->
+                            <table class="tabla-pagos">
+                                <thead>
+                                    <tr>
+                                        <th>Método Pago</th>
+                                        <th>Banco</th>
+                                        <th>Fecha</th>
+                                        <th>Importe</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-if="pg">
+                                        <t t-foreach="pg.payment_methods_ids" t-as="pm">
+                                            <tr>
+                                                <td>
+                                                    <span t-esc="pm.payment_journal.name or ''"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="pm.payment_journal.bank_account_id.bank_id.name or ''"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-field="pm.payment_date"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="pm.amount_payment"
+                                                          t-options="{'widget': 'monetary', 'display_currency': pm.currency_id}"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <!-- Filas vacías -->
+                                        <t t-set="n_pm" t-value="len(pg.payment_methods_ids)"/>
+                                        <t t-foreach="range(max(0, 5 - n_pm))" t-as="vpm">
+                                            <tr>
+                                                <td>&#160;</td>
+                                                <td>&#160;</td>
+                                                <td>&#160;</td>
+                                                <td>&#160;</td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- ====== FOOTER FIRMA ====== -->
+                <table class="recibo-footer-firma" style="margin-top:40px;">
+                    <tr>
+                        <td style="width:35%;">
+                            <hr class="recibo-separator"/>
+                            <strong>Recibido por</strong>
+                        </td>
+                        <td style="width:30%;"/>
+                        <td style="width:35%;">
+                            <hr class="recibo-separator"/>
+                            <strong>Fecha</strong>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Mensaje si no hay grupo de pago -->
+                <t t-if="not pg">
+                    <p style="font-style:italic; color:#888; margin-top:15px;">
+                        Este pago no tiene un grupo de pago (Recibo de Dinero) asociado.
+                    </p>
+                </t>
+
+            </div>
+        </t>
+    </template>
+
+    <!-- ============================================================
+         PLANTILLA CONTENEDOR
+         ============================================================ -->
+    <template id="report_recibo_dinero">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
+                <t t-call="recibo_dinero_py.report_recibo_dinero_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- ============================================================
+         ACCIÓN DEL REPORTE
+         Aparece en el menú "Imprimir" de account.payment
+         ============================================================ -->
+    <record id="action_report_recibo_dinero" model="ir.actions.report">
+        <field name="name">Recibo de Dinero</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">recibo_dinero_py.report_recibo_dinero</field>
+        <field name="report_file">recibo_dinero_py.report_recibo_dinero</field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+
+</odoo>
+
