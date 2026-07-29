@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista formulario del wizard -->
+    <record id="view_wizard_remision_confirm_form" model="ir.ui.view">
+        <field name="name">wizard.remision.confirm.form</field>
+        <field name="model">wizard.remision.confirm</field>
+        <field name="arch" type="xml">
+            <form string="Confirmar Nota de Remisión">
+                <sheet>
+                    <group string="Timbrado">
+                        <field name="picking_id" invisible="1"/>
+                        <field name="stamp_journal_id"/>
+                        <field name="assign_number" readonly="1"/>
+                    </group>
+                    <group string="Datos del Traslado">
+                        <group>
+                            <field name="remision_fecha_inicio"/>
+                            <field name="remision_fecha_fin"/>
+                            <field name="remision_orden_trabajo"/>
+                        </group>
+                        <group>
+                            <field name="remision_motivo"/>
+                            <field name="remision_motivo_otros"
+                                   attrs="{'invisible': [('remision_motivo', '!=', 'otros')]}"/>
+                        </group>
+                    </group>
+                    <group string="Destinatario">
+                        <group>
+                            <field name="remision_ruc_destinatario"/>
+                            <field name="remision_nombre_razon_social"/>
+                            <field name="remision_nombre_fantasia"/>
+                        </group>
+                        <group>
+                            <field name="remision_dir_partida"/>
+                            <field name="remision_dir_llegada"/>
+                        </group>
+                    </group>
+                    <group string="Vehículo y Transporte">
+                        <group>
+                            <field name="remision_marca_vehiculo"/>
+                            <field name="remision_rua_remolque"/>
+                            <field name="remision_nombre_transportista"/>
+                            <field name="remision_ruc_transportista"/>
+                        </group>
+                        <group>
+                            <field name="remision_nombre_conductor"/>
+                            <field name="remision_ci_conductor"/>
+                            <field name="remision_domicilio_conductor"/>
+                            <field name="remision_factura_nro"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_confirmar" type="object"
+                            string="Confirmar e Imprimir" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
+

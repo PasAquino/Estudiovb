@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Hereda la vista formulario de stock.picking para agregar pestaña y botones de remisión -->
+    <record id="view_stock_picking_remision_form" model="ir.ui.view">
+        <field name="name">stock.picking.remision.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Botones de acción en la cabecera -->
+            <xpath expr="//header" position="inside">
+                <!-- Botón: Generar / Editar Remisión (estado borrador) -->
+                <button name="action_open_remision_wizard"
+                        type="object"
+                        string="Generar Remisión"
+                        class="btn-primary"
+                        attrs="{'invisible': [('remision_state', '=', 'confirmed')]}"/>
+
+                <!-- Botón: Imprimir (solo confirmado) -->
+                <button name="action_print_remision"
+                        type="object"
+                        string="Imprimir Nota de Remisión"
+                        class="btn-primary"
+                        attrs="{'invisible': [('remision_state', '!=', 'confirmed')]}"/>
+
+                <!-- Botón: Volver a Borrador -->
+                <button name="action_reset_remision_draft"
+                        type="object"
+                        string="Restablecer a Borrador"
+                        class="btn-secondary"
+                        attrs="{'invisible': [('remision_state', '!=', 'confirmed')]}"/>
+
+                <!-- Barra de estado remisión -->
+                <field name="remision_state" widget="statusbar"
+                       statusbar_visible="draft,confirmed"
+                       string="Estado Remisión"/>
+            </xpath>
+
+            <!-- Pestaña adicional: Nota de Remisión -->
+            <xpath expr="//page[last()]" position="after">
+                <page string="Nota de Remisión" name="remision_tab">
+                    <group string="Timbrado" col="4">
+                        <field name="remision_stamp_id" readonly="1"
+                               domain="[('type', '=', 2), ('state', '=', 'active')]"/>
+                        <field name="remision_number" readonly="1"/>
+                        <field name="remision_stamp_number" readonly="1"/>
+                        <field name="remision_stamp_vigencia_ini" readonly="1"/>
+                        <field name="remision_stamp_vigencia_fin" readonly="1"/>
+                    </group>
+                    <group string="Datos del Traslado">
+                        <group>
+                            <field name="remision_fecha_inicio"/>
+                            <field name="remision_fecha_fin"/>
+                            <field name="remision_orden_trabajo"/>
+                            <field name="remision_motivo"/>
+                            <field name="remision_motivo_otros"
+                                   attrs="{'invisible': [('remision_motivo', '!=', 'otros')]}"/>
+                        </group>
+                        <group>
+                            <field name="remision_ruc_destinatario"/>
+                            <field name="remision_nombre_razon_social"/>
+                            <field name="remision_nombre_fantasia"/>
+                            <field name="remision_dir_partida"/>
+                            <field name="remision_dir_llegada"/>
+                        </group>
+                    </group>
+                    <group string="Vehículo y Transporte">
+                        <group>
+                            <field name="remision_marca_vehiculo"/>
+                            <field name="remision_rua_remolque"/>
+                            <field name="remision_nombre_transportista"/>
+                            <field name="remision_ruc_transportista"/>
+                        </group>
+                        <group>
+                            <field name="remision_nombre_conductor"/>
+                            <field name="remision_ci_conductor"/>
+                            <field name="remision_domicilio_conductor"/>
+                            <field name="remision_factura_nro"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
+
