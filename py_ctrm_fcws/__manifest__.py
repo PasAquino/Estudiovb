@@ -1,7 +1,7 @@
 {
     "name": "Factura Electrónica Paraguay (FCWS)",
     "summary": "Integración con el Facturador Electrónico FCWS - SIFEN Paraguay",
-    "version": "1.0.1",
+    "version": "15.0.1.0.2",
     "category": "Accounting/Localizations",
     "author": "Ruben Recalde, Criterium S.A.",
     "website": "https://www.criterium.com.py",

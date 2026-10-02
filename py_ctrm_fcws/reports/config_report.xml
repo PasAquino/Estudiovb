@@ -23,7 +23,7 @@
             <field name="report_name">py_ctrm_fcws.template_electronic_billing</field>
             <field name="report_file">py_ctrm_fcws.template_electronic_billing</field>
             <field name="paperformat_id" ref="paperformat_electronic_billing"/>
-            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
             <field name="binding_type">report</field>
             <field name="print_report_name">(object.name or 'Documento_Electronico')</field>
         </record>

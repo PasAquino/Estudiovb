@@ -20,7 +20,8 @@ class AccountMoveReversal(models.TransientModel):
         required=True,
     )
 
-    def reverse_moves(self, is_modify=False):
+    def reverse_moves(self):
+        self.ensure_one()
         for refund in self:
             if not refund.motivo_emision:
                 raise UserError(
@@ -29,9 +30,10 @@ class AccountMoveReversal(models.TransientModel):
 
         action = super().reverse_moves()
 
-        for refund in self:
-            credit_note = self.env["account.move"].browse(action["res_id"])
-            credit_note.fcws_motivo_emision = refund.motivo_emision
+        for credit_note in self.new_move_ids.filtered(
+            lambda move: move.move_type == "out_refund"
+        ):
+            credit_note.fcws_motivo_emision = self.motivo_emision
             doc = self.env["account.tip.doc"].search(
                 [("tipdoc", "=", "sale"), ("internal_type", "=", "credit_note")],
                 limit=1,
