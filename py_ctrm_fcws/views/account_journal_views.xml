@@ -6,12 +6,21 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='type']" position="after">
                 <field name="fcws_enabled"/>
+                <field name="fcws_is_self_invoice"
+                    attrs="{'invisible': [('fcws_enabled', '=', False)]}"/>
                 <field name="timbrado_id"
                     options="{'no_create': True}"
-                    domain="[('state', '=', 'active')]"
+                    domain="[('state', '=', 'active'), ('type', '!=', '5')]"
                     attrs="{
                         'invisible': ['|', ('req_doc', '=', False), ('type', '!=', 'sale')],
-                        'required': [('req_doc', '=', True)]
+                        'required': [('req_doc', '=', True), ('type', '=', 'sale')]
+                    }"/>
+                <field name="timbrado_id"
+                    options="{'no_create': True}"
+                    domain="[('state', '=', 'active'), ('type', '=', '5')]"
+                    attrs="{
+                        'invisible': ['|', ('fcws_is_self_invoice', '=', False), ('type', '!=', 'purchase')],
+                        'required': [('fcws_is_self_invoice', '=', True)]
                     }"/>
             </xpath>
         </field>

@@ -31,6 +31,10 @@
                             string="Enviar"
                             class="btn-primary"
                             attrs="{'invisible': [('state', 'not in', ('draft', 'rejected', 'error'))]}"/>
+                    <button name="action_consult_status"
+                            type="object"
+                            string="Consultar estado"
+                            attrs="{'invisible': [('state', 'not in', ('sent', 'error'))]}"/>
                     <field name="state"
                            widget="statusbar"
                            statusbar_visible="draft,sent,approved,rejected,error"/>

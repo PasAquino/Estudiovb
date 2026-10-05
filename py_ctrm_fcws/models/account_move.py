@@ -43,6 +43,34 @@ class AccountMove(models.Model):
     fcws_document_id = fields.Many2one(
         "fcws.document", string="Documento FCWS", ondelete="set null"
     )
+    fcws_send_pending = fields.Boolean(
+        string="Envío FCWS pendiente", default=False, copy=False, index=True
+    )
+    fcws_send_attempts = fields.Integer(
+        string="Intentos de envío FCWS", default=0, copy=False
+    )
+    fcws_send_last_attempt = fields.Datetime(
+        string="Último intento FCWS", copy=False
+    )
+    fcws_send_error = fields.Text(string="Error de envío FCWS", copy=False)
+    fcws_cancel_event_state = fields.Selection(
+        [
+            ("none", "Sin solicitud"),
+            ("canceling", "Cancelación enviada"),
+            ("approved", "Cancelación aprobada por DNIT"),
+            ("rejected", "Cancelación rechazada por DNIT"),
+            ("error", "Error en cancelación"),
+        ],
+        string="Estado del evento de cancelación",
+        default="none",
+        copy=False,
+        tracking=True,
+    )
+    fcws_is_debit_note = fields.Boolean(
+        string="Es nota de débito",
+        compute="_compute_is_debit_note",
+        store=True,
+    )
     fcws_tipo_transaccion = fields.Selection(
         [
             ("1", "Venta de mercadería"),
@@ -104,6 +132,62 @@ class AccountMove(models.Model):
     fcws_tipo_cambio = fields.Float(
         string="Tipo de cambio FCWS", readonly=True, copy=False
     )
+    sifen_partner_constancia_type = fields.Selection(
+        [
+            ("1", "Constancia de no ser contribuyente"),
+            ("2", "Constancia de microproductores"),
+        ],
+        string="Tipo de constancia SIFEN",
+        readonly=True,
+        copy=False,
+    )
+    sifen_partner_constancia_number = fields.Char(
+        string="Número de constancia", readonly=True, copy=False
+    )
+    sifen_partner_constancia_control = fields.Char(
+        string="Número de control", readonly=True, copy=False
+    )
+    fcws_journal_is_self_invoice = fields.Boolean(
+        string="Diario de autofactura",
+        related="journal_id.fcws_is_self_invoice",
+    )
+    fcws_lote_number = fields.Char(
+        string="Número de lote FCWS", readonly=True, copy=False
+    )
+    fcws_lote_state = fields.Selection(
+        [
+            ("draft", "Borrador"),
+            ("queued", "En cola"),
+            ("sent", "Enviado"),
+            ("processing", "Procesando"),
+            ("approved", "Aprobado"),
+            ("partial", "Parcial"),
+            ("rejected", "Rechazado"),
+            ("error", "Error"),
+        ],
+        string="Estado del lote FCWS",
+        readonly=True,
+        copy=False,
+    )
+    fcws_lote_protocol = fields.Char(
+        string="Protocolo del lote FCWS", readonly=True, copy=False
+    )
+    fcws_lote_job_id = fields.Char(
+        string="Trabajo del lote FCWS", readonly=True, copy=False
+    )
+    fcws_lote_job_state = fields.Selection(
+        [
+            ("pendiente", "Pendiente"),
+            ("procesando", "Procesando"),
+            ("reintentable", "Reintentable"),
+            ("completado", "Completado"),
+            ("error", "Error"),
+            ("cancelado", "Cancelado"),
+        ],
+        string="Estado del trabajo FCWS",
+        readonly=True,
+        copy=False,
+    )
     fcws_manual_timbrado = fields.Char(
             string="Timbrado documento manual",
             copy=False,
@@ -152,28 +236,115 @@ class AccountMove(models.Model):
         return letras_return
 
     def action_send_fcws(self):
-        """Envía la factura o nota de crédito al FCWS y guarda resultado."""
+        """Envía facturas, notas y autofacturas al endpoint correspondiente."""
         client = self.env["fcws.client"]
 
         for move in self:
-            if move.move_type not in ("out_invoice", "out_refund"):
+            is_self_invoice = (
+                move.move_type == "in_invoice"
+                and move.journal_id.fcws_is_self_invoice
+            )
+            if move.move_type not in ("out_invoice", "out_refund") and not is_self_invoice:
                 raise UserError(
-                    _("Solo se pueden enviar facturas o notas de crédito electrónicas.")
+                    _(
+                        "Solo se pueden enviar facturas, notas de crédito, "
+                        "notas de débito o autofacturas electrónicas."
+                    )
+                )
+            if move.fcws_state not in ("draft", "rejected", "error"):
+                raise UserError(
+                    _("El documento %s ya fue procesado por FCWS.") % move.name
                 )
 
             payload = move._prepare_fcws_payload()
             try:
-                if move.move_type == "out_invoice":
-                    result = client.send_invoice(payload)
-                else:
+                if move.move_type == "out_refund":
                     result = client.send_credit_note(payload)
+                elif move.fcws_is_debit_note:
+                    result = client.send_debit_note(payload)
+                elif is_self_invoice:
+                    result = client.send_self_invoice(payload)
+                else:
+                    result = client.send_invoice(payload)
 
                 move._handle_fcws_response(result, payload)
+                if move.fcws_state in ("pending", "sent", "approved"):
+                    move.write(
+                        {
+                            "fcws_send_pending": False,
+                            "fcws_send_error": False,
+                        }
+                    )
 
-            except ValidationError as e:
-                move._log_fcws_error(payload, str(e))
+            except ValidationError as error:
+                move._log_fcws_error(payload, str(error))
 
         return True
+
+    def _get_self_invoice_receptor_data(self):
+        """Para autofactura, el receptor es la propia compañía emisora."""
+        self.ensure_one()
+        partner = self.company_id.partner_id
+        vat_number = partner.vat or ""
+        if not vat_number or "-" not in vat_number:
+            raise ValidationError(
+                _("La compañía debe tener un RUC con dígito verificador.")
+            )
+        ruc, verification_digit = [
+            part.strip() for part in vat_number.split("-", 1)
+        ]
+        data = {
+            "contribuyente": True,
+            "tipoOperacion": 2,
+            "tipoDocumento": "1",
+            "docNro": ruc,
+            "dv": verification_digit,
+            "razonSocial": partner.name.strip(),
+            "pais": "PRY",
+            "direccion": partner.street or "S/D",
+            "numeroCasa": getattr(partner, "street_number", False) or "0",
+        }
+        if partner.city_id and partner.city_id.edi_code:
+            data["ciudad"] = int(partner.city_id.edi_code)
+        return data
+
+    def _get_self_invoice_seller_data(self):
+        """Devuelve los datos del vendedor no contribuyente de la autofactura."""
+        self.ensure_one()
+        partner = self.partner_id
+        id_type = partner.l10n_latam_identification_type_id
+        document_type = str(id_type.edi_code or "1")
+        document_number = re.sub(r"[^0-9A-Za-z]", "", partner.vat or "")
+        if not document_number:
+            raise ValidationError(
+                _("El vendedor '%s' no tiene número de documento.")
+                % partner.display_name
+            )
+        data = {
+            "naturaleza": 1,
+            "tipoDocumento": document_type,
+            "docNro": document_number,
+            "razonSocial": partner.name.strip() or "SIN NOMBRE",
+            "direccion": partner.street or "S/D",
+            "numeroCasa": getattr(partner, "street_number", False) or "0",
+        }
+        if document_type == "9":
+            data["tipoDocumentoOtro"] = "Identificación fiscal extranjera"
+        if partner.city_id and partner.city_id.edi_code:
+            data["ciudad"] = int(partner.city_id.edi_code)
+        if partner.country_id and partner.country_id.code:
+            data["pais"] = self._get_sifen_country_code(partner.country_id)
+        return data
+
+    def _get_sifen_country_code(self, country):
+        if not country:
+            return "PRY"
+        if country.sifen_code:
+            return country.sifen_code.strip().upper()
+        raise ValidationError(
+            _("El país '%s' no tiene configurado el Código país SIFEN.")
+            % country.display_name
+        )
 
     def _get_receptor_data(self):
         """Prepara el bloque 'receptor' del payload según el tipo de documento (usando edi_code)."""
@@ -249,21 +420,128 @@ class AccountMove(models.Model):
             data["ciudad"] = int(partner.city)
 
         if partner.country_id and partner.country_id.code:
-            data["pais"] = partner.country_id.code
+            data["pais"] = self._get_sifen_country_code(partner.country_id)
 
         return data
 
     def action_consult_fcws(self):
+        """Consulta primero el estado local en FCWS y luego el estado en SIFEN."""
         client = self.env["fcws.client"]
         for move in self.filtered(lambda m: m.fcws_cdc):
+            payload = {
+                "contribuyente": client._get_taxpayer_data(),
+                "cdc": move.fcws_cdc,
+            }
             try:
-                result = client.consult_document(move.fcws_cdc)
-                move._handle_fcws_response(result)
-                # Auto-sincronizar estado cancelado
-                if isinstance(result, dict) and result.get("estado") == "Cancelado":
-                    move.fcws_state = "cancelled"
-            except ValidationError as e:
-                move._log_fcws_error(None, str(e))
+                local_result = client.consult_document(move.fcws_cdc)
+                move._handle_fcws_response(local_result, payload)
+
+                if move.fcws_state in ("sent", "rejected"):
+                    sifen_result = client.sync_document_state(move.fcws_cdc)
+                    move._handle_fcws_response(sifen_result, payload)
+            except ValidationError as error:
+                move._log_fcws_error(payload, str(error))
+
+    def action_create_fcws_batch(self):
+        """Crea un lote FCWS con los CDC de los documentos seleccionados."""
+        moves = self.filtered(lambda move: move.fcws_cdc)
+        if not moves:
+            raise UserError(_("No hay documentos con CDC para crear el lote."))
+        client = self.env["fcws.client"]
+        result = client.create_batch(
+            {
+                "contribuyente": client._get_taxpayer_data(),
+                "documentos": [{"cdc": move.fcws_cdc} for move in moves],
+            }
+        )
+        if not isinstance(result, dict):
+            raise ValidationError(_("FCWS devolvió una respuesta de lote inválida."))
+        batch = result.get("lote") or result
+        batch_number = batch.get("numero_lote") or batch.get("numero")
+        if not batch_number:
+            raise ValidationError(
+                result.get("error") or result.get("mensaje") or _("FCWS no devolvió el número de lote.")
+            )
+        moves.write(
+            {
+                "fcws_lote_number": str(batch_number),
+                "fcws_lote_state": self._map_fcws_batch_state(
+                    batch.get("estado"), "queued"
+                ),
+                "fcws_lote_protocol": batch.get("protocolo"),
+                "fcws_lote_job_id": str(batch.get("job_id") or "") or False,
+                "fcws_lote_job_state": self._map_fcws_batch_job_state(
+                    batch.get("job_estado"), "pendiente"
+                ),
+            }
+        )
+        return True
+
+    def action_consult_fcws_batch(self):
+        """Actualiza en Odoo el estado del lote FCWS."""
+        client = self.env["fcws.client"]
+        for move in self.filtered(lambda record: record.fcws_lote_number):
+            result = client.consult_batch(move.fcws_lote_number)
+            if not isinstance(result, dict):
+                continue
+            batch = result.get("lote") or result
+            values = {
+                "fcws_lote_state": move._map_fcws_batch_state(
+                    batch.get("estado"), move.fcws_lote_state
+                ),
+                "fcws_lote_protocol": batch.get("protocolo")
+                or move.fcws_lote_protocol,
+                "fcws_lote_job_state": move._map_fcws_batch_job_state(
+                    batch.get("job_estado"), move.fcws_lote_job_state
+                ),
+            }
+            if batch.get("job_id"):
+                values["fcws_lote_job_id"] = str(batch["job_id"])
+            move.write(values)
+        return True
+
+    def _map_fcws_batch_state(self, state, default=False):
+        normalized = (state or "").strip().lower().replace(" ", "_")
+        mapping = {
+            "borrador": "draft",
+            "encolado": "queued",
+            "en_cola": "queued",
+            "enviado": "sent",
+            "procesando": "processing",
+            "aprobado": "approved",
+            "parcial": "partial",
+            "rechazado": "rejected",
+            "error": "error",
+        }
+        allowed = {
+            "draft",
+            "queued",
+            "sent",
+            "processing",
+            "approved",
+            "partial",
+            "rejected",
+            "error",
+        }
+        result = mapping.get(normalized, normalized)
+        return result if result in allowed else default
+
+    def _map_fcws_batch_job_state(self, state, default=False):
+        normalized = (state or "").strip().lower().replace(" ", "_")
+        mapping = {
+            "pending": "pendiente",
+            "processing": "procesando",
+            "retryable": "reintentable",
+            "completed": "completado",
+            "cancelled": "cancelado",
+            "canceled": "cancelado",
+        }
+        allowed = {
+            "pendiente", "procesando", "reintentable", "completado", "error",
+            "cancelado",
+        }
+        result = mapping.get(normalized, normalized)
+        return result if result in allowed else default
 
     def action_fcws_cancel_event(self):
         """Genera y envía el evento de cancelación (EV-CANCEL) al FCWS."""
@@ -350,30 +628,34 @@ class AccountMove(models.Model):
         # CONTRIBUYENTE
         # --------------------------------------------------------------------------
         taxpayer = client._get_taxpayer_data()
-        if not taxpayer.get("contribuyenteid") or not taxpayer.get("pass"):
+        if not taxpayer.get("pass"):
             raise ValidationError("Faltan credenciales FCWS en la configuración.")
 
         # --------------------------------------------------------------------------
         # TIMBRADO
         # --------------------------------------------------------------------------
-        if not company.fcws_docstamp_number:
-            raise ValidationError(
-                _("Falta configurar el número de timbrado en la compañía.")
-            )
-
-        if not company.fcws_timbrado_fec_ini:
-            raise ValidationError(
-                _("Falta la fecha de inicio del timbrado en la compañía.")
-            )
-        timbrado = company.fcws_docstamp_number if company.fcws_is_production else company.fcws_docstamp_number_test
+        timbrado = (
+            company.fcws_docstamp_number
+            if company.fcws_is_production
+            else company.fcws_docstamp_number_test
+        )
+        timbrado_start = (
+            company.fcws_timbrado_fec_ini
+            if company.fcws_is_production
+            else company.fcws_timbrado_fec_ini_test
+        )
         if not timbrado:
             raise ValidationError("Falta configurar el timbrado FCWS en la compania.")
+        if not timbrado_start:
+            raise ValidationError(
+                _("Falta la fecha de inicio del timbrado FCWS en la compañía.")
+            )
 
         establecimiento, punto_expedicion, nro = (self.name or "0-0-0").split("-")
 
         fec_ini = (
-            company.fcws_timbrado_fec_ini.strftime("%Y-%m-%dT03:00:00-03:00")
-            if company.fcws_timbrado_fec_ini
+            timbrado_start.strftime("%Y-%m-%dT03:00:00-03:00")
+            if timbrado_start
             else None
         )
         if not fec_ini:
@@ -396,29 +678,30 @@ class AccountMove(models.Model):
         # RECEPTOR (Usando helper centralizado)
         # --------------------------------------------------------------------------
 
-        receptor = self._get_receptor_data()
+        is_self_invoice = (
+            self.move_type == "in_invoice"
+            and self.journal_id.fcws_is_self_invoice
+        )
+        receptor = (
+            self._get_self_invoice_receptor_data()
+            if is_self_invoice
+            else self._get_receptor_data()
+        )
 
         # --------------------------------------------------------------------------
         # CONDICIÓN DE OPERACIÓN
         # --------------------------------------------------------------------------
-        if not self.invoice_payment_term_id:
-            condicion = 1  # contado
-        else:
-            condicion = 2  # crédito
-
-        condicion_operacion = {"condicion": condicion}
-        if condicion == 1:
+        if self._is_fcws_cash_operation():
+            condicion_operacion = {"condicion": 1}
             condicion_operacion["tiposPagos"] = [
-                {"tipoPagoCodigo": 1, "monto": float(self.amount_total)}
+                {
+                    "tipoPagoCodigo": 1,
+                    "monto": float(abs(self.currency_id.round(self.amount_total))),
+                    "moneda": self.currency_id.name,
+                }
             ]
         else:
-            condicion_operacion["operacionTipo"] = (
-                3
-                if self.partner_id.property_account_position_id
-                and self.partner_id.property_account_position_id.is_government
-                else 1
-            )
-            condicion_operacion["plazoCredito"] = self.payment_term_days()
+            condicion_operacion = self._get_fcws_credit_condition_operation()
 
         # --------------------------------------------------------------------------
         # DETALLES
@@ -451,7 +734,7 @@ class AccountMove(models.Model):
             raise ValidationError("No hay líneas válidas para enviar al FCWS.")
 
         tipo_transaccion = None
-        if self.move_type in ("out_invoice", "out_refund"):
+        if self.move_type in ("out_invoice", "out_refund") or is_self_invoice:
             tipo_transaccion = int(self.fcws_tipo_transaccion or 3)
 
         # --------------------------------------------------------------------------
@@ -471,13 +754,17 @@ class AccountMove(models.Model):
             "sucursal": sucursal,
             "receptor": receptor,
             "fecha": self._get_document_date(),
-            "operacionMoneda": self.currency_id.name,
-            "operacionMonedaCambio": tipo_cambio,
+            "moneda": self.currency_id.name,
             "tipoTransaccion": tipo_transaccion,
             "condicionOperacion": condicion_operacion,
             "detalles": items,
             "totalComprobante": abs(self.currency_id.round(self.amount_total_signed)),
+            "enviar_sifen": True,
+            "encolar_sifen": True,
         }
+
+        if self.currency_id != self.company_currency_id:
+            payload.update(condicionTipoCambio=1, cambio=round(tipo_cambio, 4))
 
         # --------------------------------------------------------------------------
         # NOTA DE CRÉDITO
@@ -528,6 +815,63 @@ class AccountMove(models.Model):
                     _("La nota de crédito debe tener un documento asociado electrónico o manual.")
                 )
 
+        elif self.fcws_is_debit_note:
+            payload["tipoDocumento"] = "6"
+            payload["notaCreditoDebito"] = {
+                "motivo": int(self.fcws_motivo_emision or "1")
+            }
+            if self.debit_origin_id and self.debit_origin_id.fcws_cdc:
+                payload["docAsociados"] = [
+                    {
+                        "tipo": 1,
+                        "cdc": self.debit_origin_id.fcws_cdc,
+                        "tipoDocAsociado": "2",
+                    }
+                ]
+            else:
+                raise ValidationError(
+                    _("La nota de débito debe tener un documento electrónico asociado.")
+                )
+
+        elif is_self_invoice:
+            constancia_partner = self.partner_id
+            if (
+                constancia_partner.commercial_partner_id
+                and not constancia_partner.sifen_has_constancia
+            ):
+                constancia_partner = constancia_partner.commercial_partner_id
+            if not constancia_partner.sifen_has_constancia:
+                raise ValidationError(
+                    _("El vendedor '%s' no tiene una constancia SIFEN configurada.")
+                    % constancia_partner.display_name
+                )
+            constancia_values = {
+                "sifen_partner_constancia_type": constancia_partner.sifen_constancia_type,
+                "sifen_partner_constancia_number": constancia_partner.sifen_constancia_number,
+                "sifen_partner_constancia_control": constancia_partner.sifen_constancia_control,
+            }
+            if not all(constancia_values.values()):
+                raise ValidationError(
+                    _("La constancia SIFEN del vendedor está incompleta.")
+                )
+            self.write(constancia_values)
+            payload["autoFactura"] = self._get_self_invoice_seller_data()
+            payload["docAsociados"] = [
+                {
+                    "formato": 3,
+                    "constanciaTipo": int(
+                        constancia_values["sifen_partner_constancia_type"]
+                    ),
+                    "constanciaControl": constancia_values[
+                        "sifen_partner_constancia_control"
+                    ],
+                    "constanciaNumero": constancia_values[
+                        "sifen_partner_constancia_number"
+                    ],
+                    "fecha": self._get_document_date(),
+                }
+            ]
+
         return payload
 
     def _get_fcws_manual_fecha_emision(self):
@@ -552,6 +896,7 @@ class AccountMove(models.Model):
     def _handle_fcws_response(self, result, payload=None):
         """Procesa respuesta del FCWS, manejando texto plano y JSON con eventos."""
         self.ensure_one()
+        result = self.env["fcws.client"].normalize_response(result)
 
         # 🔹 1. Texto plano (cancelación o inutilización)
         _logger.debug("[FCWS] Respuesta texto plano: %s", result)
@@ -814,6 +1159,126 @@ class AccountMove(models.Model):
         }
         return mapping.get(estado, "error")
 
+    def _is_fcws_cash_operation(self):
+        """Determina la condición según los vencimientos reales de Odoo 15."""
+        self.ensure_one()
+        if not self.invoice_payment_term_id:
+            return True
+
+        invoice_date = self.invoice_date or fields.Date.today()
+        total = abs(self.currency_id.round(self.amount_total or 0.0))
+        maturities = self.invoice_payment_term_id.compute(
+            total,
+            date_ref=invoice_date,
+            currency=self.currency_id,
+        )
+        return bool(maturities) and all(
+            fields.Date.to_date(maturity) <= invoice_date
+            for maturity, amount in maturities
+            if amount
+        )
+
+    def _fcws_get_receivable_payable_due_lines(self):
+        """Obtiene las cuotas contables generadas por el término de pago."""
+        self.ensure_one()
+        return self.line_ids.filtered(
+            lambda line: (
+                not line.display_type
+                and line.account_internal_type in ("receivable", "payable")
+                and not self.currency_id.is_zero(
+                    line.amount_currency
+                    if line.currency_id == self.currency_id
+                    else line.balance
+                )
+            )
+        ).sorted(
+            key=lambda line: (
+                line.date_maturity
+                or self.invoice_date_due
+                or self.invoice_date
+                or fields.Date.today(),
+                line.id,
+            )
+        )
+
+    def _fcws_get_credit_installments(self):
+        """Construye las cuotas FCWS desde vencimientos reales de Odoo 15."""
+        self.ensure_one()
+        currency = self.currency_id
+        invoice_date = self.invoice_date or fields.Date.today()
+        total = abs(currency.round(self.amount_total or 0.0))
+        installments = []
+
+        for line in self._fcws_get_receivable_payable_due_lines():
+            if line.currency_id == currency:
+                amount = abs(line.amount_currency)
+            else:
+                amount = abs(
+                    self.company_currency_id._convert(
+                        line.balance,
+                        currency,
+                        self.company_id,
+                        self.date or invoice_date,
+                    )
+                )
+            amount = currency.round(amount)
+            if amount:
+                installments.append(
+                    {
+                        "monto": float(amount),
+                        "vencimiento": fields.Date.to_string(
+                            line.date_maturity
+                            or self.invoice_date_due
+                            or invoice_date
+                        ),
+                    }
+                )
+
+        if not installments:
+            maturities = self.invoice_payment_term_id.compute(
+                total,
+                date_ref=invoice_date,
+                currency=currency,
+            )
+            installments = [
+                {
+                    "monto": float(abs(currency.round(amount))),
+                    "vencimiento": fields.Date.to_string(maturity),
+                }
+                for maturity, amount in maturities
+                if not currency.is_zero(amount)
+            ]
+
+        if not installments:
+            installments = [
+                {
+                    "monto": float(total),
+                    "vencimiento": fields.Date.to_string(
+                        self.invoice_date_due or invoice_date
+                    ),
+                }
+            ]
+
+        difference = currency.round(
+            total - sum(installment["monto"] for installment in installments)
+        )
+        if difference:
+            installments[-1]["monto"] = float(
+                currency.round(installments[-1]["monto"] + difference)
+            )
+        return installments
+
+    def _get_fcws_credit_condition_operation(self):
+        """Genera la estructura obligatoria de una operación a crédito."""
+        self.ensure_one()
+        installments = self._fcws_get_credit_installments()
+        return {
+            "condicion": 2,
+            "operacionTipo": 2,
+            "cantidadCuota": len(installments),
+            "cuotas": installments,
+        }
+
     def payment_term_days(self):
         self.ensure_one()
         if self.invoice_payment_term_id:
@@ -852,6 +1317,11 @@ class AccountMove(models.Model):
             )
             return resultado_formateado
 
+    @api.depends("debit_origin_id")
+    def _compute_is_debit_note(self):
+        for move in self:
+            move.fcws_is_debit_note = bool(move.debit_origin_id)
+
     @api.depends("fcws_qr_code")
     def _compute_qr_image(self):
         for rec in self:
@@ -867,6 +1337,50 @@ class AccountMove(models.Model):
 
     def action_post(self):
         """Publica la factura y, si el diario es electrónico, la envía automáticamente al FCWS."""
+        for move in self.filtered(
+            lambda record: record.move_type == "in_invoice"
+            and record.journal_id.fcws_enabled
+            and record.journal_id.fcws_is_self_invoice
+        ):
+            stamped = move.journal_id.timbrado_id
+            if not stamped:
+                raise ValidationError(
+                    _("Debe configurar un timbrado de autofactura en el diario.")
+                )
+            if stamped.type != "5" or stamped.state != "active":
+                raise ValidationError(
+                    _("El timbrado del diario debe ser de autofactura y estar activo.")
+                )
+            document_date = move.invoice_date or fields.Date.today()
+            if not stamped.date_range_ini <= document_date <= stamped.date_range_end:
+                raise ValidationError(
+                    _("El timbrado de autofactura no está vigente para la fecha del documento.")
+                )
+            next_number = stamped.current_number or stamped.number_ini
+            if next_number > stamped.number_max:
+                raise ValidationError(
+                    _("El timbrado de autofactura agotó su rango autorizado.")
+                )
+            move.write(
+                {
+                    "name": "%s-%s-%s"
+                    % (
+                        stamped.establishment_code.zfill(3),
+                        stamped.shipping_point.zfill(3),
+                        str(next_number).zfill(7),
+                    ),
+                    "timbrado_id": stamped.id,
+                }
+            )
+            stamped.write(
+                {
+                    "number_used": next_number,
+                    "current_number": next_number + 1,
+                    "state": "no_active"
+                    if next_number == stamped.number_max
+                    else stamped.state,
+                }
+            )
         res = super().action_post()
 
         for move in self:
@@ -888,6 +1402,9 @@ class AccountMove(models.Model):
                     move.tipdocing = tipdoc.id
 
         for move in self.filtered(lambda m: m.journal_id.fcws_enabled):
+            if self.env.context.get("skip_fcws_auto_send"):
+                move.fcws_send_pending = True
+                continue
             try:
                 _logger.debug(
                     "[FCWS] Diario electrónico detectado: %s → enviando documento %s al FCWS",
@@ -904,6 +1421,61 @@ class AccountMove(models.Model):
                 )
 
         return res
+
+    @api.model
+    def cron_process_fcws_outbox(self):
+        """Procesa documentos cuyo envío fue diferido explícitamente."""
+        max_attempts = 5
+        backoff_minutes = [1, 2, 5, 15, 30]
+        now = fields.Datetime.now()
+        moves = self.search(
+            [
+                ("fcws_send_pending", "=", True),
+                ("state", "=", "posted"),
+                ("fcws_state", "in", ("draft", "error", "rejected")),
+            ],
+            limit=50,
+        )
+        for move in moves:
+            if move.fcws_send_attempts >= max_attempts:
+                move.write(
+                    {
+                        "fcws_send_pending": False,
+                            "fcws_send_error": _(
+                                "Se superó el máximo de %s intentos."
+                            )
+                            % max_attempts,
+                    }
+                )
+                continue
+            if move.fcws_send_last_attempt:
+                index = min(move.fcws_send_attempts, len(backoff_minutes) - 1)
+                retry_at = move.fcws_send_last_attempt + datetime.timedelta(
+                    minutes=backoff_minutes[index]
+                )
+                if now < retry_at:
+                    continue
+            try:
+                with self.env.cr.savepoint():
+                    self.env.cr.execute(
+                        "SELECT id FROM account_move WHERE id = %s FOR UPDATE SKIP LOCKED",
+                        [move.id],
+                    )
+                    if not self.env.cr.rowcount:
+                        continue
+                    move.write(
+                        {
+                            "fcws_send_last_attempt": fields.Datetime.now(),
+                            "fcws_send_attempts": move.fcws_send_attempts + 1,
+                        }
+                    )
+                    move.action_send_fcws()
+            except Exception as error:
+                move.fcws_send_error = str(error)
+                _logger.exception(
+                    "[FCWS] Error procesando el envío diferido de %s", move.name
+                )
+        return True
 
     # --------------------------------------------------------------------------
     # Sincronización automática con FCWS (para cron)

@@ -16,6 +16,7 @@
                             <field name="fcws_docstamp_number"/>
                             <field name="fcws_docstamp_number_test"/>
                             <field name="fcws_timbrado_fec_ini"/>
+                            <field name="fcws_timbrado_fec_ini_test"/>
                             <field name="fcws_branch_name"/>
                         </group>
                         <group string="Actividades Económicas">

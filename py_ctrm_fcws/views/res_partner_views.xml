@@ -8,6 +8,29 @@
             <xpath expr="//field[@name='vat']" position="after">
                 <field name="l10n_py_operation_type"/>
             </xpath>
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Documento Electrónico (FCWS)">
+                    <group>
+                        <field name="sifen_has_constancia"/>
+                        <field name="sifen_constancia_type"
+                            attrs="{'invisible': [('sifen_has_constancia', '=', False)], 'required': [('sifen_has_constancia', '=', True)]}"/>
+                    </group>
+                    <group string="Datos de la constancia"
+                        attrs="{'invisible': [('sifen_has_constancia', '=', False)]}">
+                        <group>
+                            <field name="sifen_constancia_number"
+                                attrs="{'required': [('sifen_has_constancia', '=', True)]}"/>
+                            <field name="sifen_constancia_control"
+                                attrs="{'required': [('sifen_has_constancia', '=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="sifen_constancia_date_start"
+                                attrs="{'required': [('sifen_has_constancia', '=', True)]}"/>
+                            <field name="sifen_constancia_date_end"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
         </field>
     </record>
 </odoo>

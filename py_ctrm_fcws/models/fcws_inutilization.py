@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import pytz
 import re
@@ -242,10 +242,10 @@ class FcwsInutilization(models.Model):
     def _endpoint(self):
         self.ensure_one()
         if self.type == "invoice":
-            return "evento/inutilizacionnumfactura"
+            return "evento/inutilizacionnumfactura/"
         if self.type == "remision":
-            return "evento/inutilizacionnumremision"
-        return "evento/inutilizacionnumnotacredito"
+            return "evento/inutilizacionnumremision/"
+        return "evento/inutilizacionnumnotacredito/"
 
     def _get_company_timbrado(self):
         self.ensure_one()
@@ -452,17 +452,62 @@ class FcwsInutilization(models.Model):
     def _resolve_timbrado(self):
         self.ensure_one()
         company = self.company_id
-
-        if not company.fcws_docstamp_number:
-            raise ValidationError(_("Falta configurar el número de timbrado en la compañía."))
-
-        if not company.fcws_timbrado_fec_ini:
-            raise ValidationError(_("Falta la fecha de inicio del timbrado en la compañía."))
-
-        timbrado = company.fcws_docstamp_number if company.fcws_is_production else company.fcws_docstamp_number_test
+        timbrado = (
+            company.fcws_docstamp_number
+            if company.fcws_is_production
+            else company.fcws_docstamp_number_test
+        )
+        start_date = (
+            company.fcws_timbrado_fec_ini
+            if company.fcws_is_production
+            else company.fcws_timbrado_fec_ini_test
+        )
         if not timbrado:
             raise ValidationError(_("Falta configurar el timbrado FCWS en la compañía."))
+        if not start_date:
+            raise ValidationError(
+                _("Falta configurar la fecha inicial del timbrado FCWS.")
+            )
         return str(timbrado)
+
+    def _prepare_consult_payload(self):
+        self.ensure_one()
+        client = self.env["fcws.client"]
+        return {
+            "contribuyente": client._get_taxpayer_data(),
+            "timbrado": self._get_company_timbrado(),
+            "establecimiento": self.establecimiento,
+            "puntoExpedicion": self.punto_expedicion,
+            "numeroDesde": self.numero_ini,
+            "numeroHasta": self.numero_fin,
+        }
+
+    def action_consult_status(self):
+        client = self.env["fcws.client"]
+        for record in self:
+            payload = record._prepare_consult_payload()
+            try:
+                result = client.consult_inutilization(payload)
+                record._handle_response(payload, result)
+            except ValidationError as error:
+                record._set_error(payload, str(error))
+        return True
+
+    @api.model
+    def cron_sync_fcws_inutilizations(self):
+        cutoff = fields.Datetime.now() - timedelta(minutes=5)
+        records = self.search(
+            [("state", "in", ("sent", "error")), ("write_date", "<=", cutoff)],
+            limit=100,
+        )
+        for record in records:
+            try:
+                record.action_consult_status()
+            except Exception:
+                _logger.exception(
+                    "[FCWS-INU] Error sincronizando %s", record.display_name
+                )
+        return True
  
     def _move_type_for_inutilization(self):
         self.ensure_one()

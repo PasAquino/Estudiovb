@@ -71,6 +71,10 @@
                                         <label for="fcws_docstamp_number_test" class="col-lg-4 o_light_label"/>
                                         <field name="fcws_docstamp_number_test" class="oe_inline"/>
                                     </div>
+                                    <div class="row mt16">
+                                        <label for="fcws_timbrado_fec_ini_test" class="col-lg-4 o_light_label"/>
+                                        <field name="fcws_timbrado_fec_ini_test" class="oe_inline"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>

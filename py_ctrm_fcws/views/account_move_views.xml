@@ -24,6 +24,27 @@
                         </group>
                     </group>
 
+                    <field name="fcws_journal_is_self_invoice" invisible="1"/>
+                    <group string="Constancia utilizada"
+                        attrs="{'invisible': [('fcws_journal_is_self_invoice', '=', False)]}">
+                        <field name="sifen_partner_constancia_type"/>
+                        <field name="sifen_partner_constancia_number"/>
+                        <field name="sifen_partner_constancia_control"/>
+                    </group>
+
+                    <group string="Seguimiento de lote">
+                        <field name="fcws_lote_number"/>
+                        <field name="fcws_lote_state"/>
+                        <field name="fcws_lote_protocol"/>
+                        <field name="fcws_lote_job_id"/>
+                        <field name="fcws_lote_job_state"/>
+                    </group>
+
+                    <field name="fcws_is_debit_note" invisible="1"/>
+                    <group string="Nota de débito"
+                        attrs="{'invisible': [('fcws_is_debit_note', '=', False)]}">
+                        <field name="fcws_motivo_emision"/>
+                    </group>
 
                     <group string="Documento asociado" attrs="{'invisible': [('move_type', '!=', 'out_refund')]}">
                         <group>
@@ -58,6 +79,16 @@
                                 type="action"
                                 class="btn-danger"
                                 attrs="{'invisible': [('fcws_state', 'not in', ('approved', 'rejected'))]}"/>
+                        <button name="action_create_fcws_batch"
+                                string="Crear lote FCWS"
+                                type="object"
+                                class="btn-secondary"
+                                attrs="{'invisible': ['|', ('fcws_cdc', '=', False), ('fcws_lote_number', '!=', False)]}"/>
+                        <button name="action_consult_fcws_batch"
+                                string="Consultar lote"
+                                type="object"
+                                class="btn-secondary"
+                                attrs="{'invisible': [('fcws_lote_number', '=', False)]}"/>
                     </group>
                 </page>
             </xpath>

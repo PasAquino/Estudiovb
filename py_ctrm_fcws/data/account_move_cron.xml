@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="ir_cron_process_fcws_outbox" model="ir.cron">
+        <field name="name">FCWS: Procesar envíos diferidos</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_process_fcws_outbox()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
+    </record>
+
     <record id="ir_cron_fcws_sync_documents" model="ir.cron">
         <field name="name">FCWS: Sincronizar comprobantes pendientes</field>
         <field name="model_id" ref="account.model_account_move"/>
@@ -10,6 +21,17 @@
         <field name="interval_type">minutes</field>
         <field name="numbercall">-1</field>
         <field name="active">True</field>
+    </record>
+
+    <record id="ir_cron_sync_fcws_inutilizations" model="ir.cron">
+        <field name="name">FCWS: Sincronizar inutilizaciones</field>
+        <field name="model_id" ref="model_fcws_inutilization"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_sync_fcws_inutilizations()</field>
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
     </record>
 
 </odoo>

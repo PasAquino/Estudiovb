@@ -13,6 +13,11 @@ OPERATION_TYPE_SELECTION = [
     ("B2F", "Business to Foreign"),
 ]
 
+SIFEN_CONSTANCIA_TYPE_SELECTION = [
+    ("1", "Constancia de no ser contribuyente"),
+    ("2", "Constancia de microproductores"),
+]
+
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
@@ -24,6 +29,24 @@ class ResPartner(models.Model):
         "B2B (Business to Business), B2C (Business to Consumer), "
         "B2G (Business to Government), B2F (Business to Foreign).",
     )
+    sifen_has_constancia = fields.Boolean(
+        string="Tiene constancia SIFEN",
+        help="Activar si el contacto posee una constancia válida para autofactura electrónica.",
+    )
+    sifen_constancia_type = fields.Selection(
+        SIFEN_CONSTANCIA_TYPE_SELECTION,
+        string="Tipo de constancia SIFEN",
+    )
+    sifen_constancia_number = fields.Char(
+        string="Número de constancia",
+        size=11,
+    )
+    sifen_constancia_control = fields.Char(
+        string="Número de control",
+        size=8,
+    )
+    sifen_constancia_date_start = fields.Date(string="Fecha de inicio")
+    sifen_constancia_date_end = fields.Date(string="Fecha de fin")
 
     def _get_l10n_py_operation_type(self):
         """Calculates the operation type for Paraguay based on ID type and country."""
@@ -123,12 +146,73 @@ class ResPartner(models.Model):
                     _("The entered RUC number has an invalid format or check digit.")
                 )
 
+    @api.constrains(
+        "sifen_has_constancia",
+        "sifen_constancia_type",
+        "sifen_constancia_number",
+        "sifen_constancia_control",
+        "sifen_constancia_date_start",
+        "sifen_constancia_date_end",
+    )
+    def _check_sifen_constancia(self):
+        for partner in self:
+            if partner.sifen_has_constancia:
+                missing = []
+                if not partner.sifen_constancia_type:
+                    missing.append(_("Tipo de constancia SIFEN"))
+                if not partner.sifen_constancia_number:
+                    missing.append(_("Número de constancia"))
+                if not partner.sifen_constancia_control:
+                    missing.append(_("Número de control"))
+                if not partner.sifen_constancia_date_start:
+                    missing.append(_("Fecha de inicio"))
+                if missing:
+                    raise ValidationError(
+                        _("Faltan datos de la constancia SIFEN:\n- %s")
+                        % "\n- ".join(missing)
+                    )
+            if partner.sifen_constancia_number and (
+                len(partner.sifen_constancia_number) != 11
+                or not partner.sifen_constancia_number.isdigit()
+            ):
+                raise ValidationError(
+                    _("El número de constancia SIFEN debe tener exactamente 11 dígitos.")
+                )
+            if partner.sifen_constancia_control and (
+                len(partner.sifen_constancia_control) != 8
+                or not partner.sifen_constancia_control.isalnum()
+            ):
+                raise ValidationError(
+                    _("El número de control SIFEN debe tener 8 caracteres alfanuméricos.")
+                )
+            if (
+                partner.sifen_constancia_date_end
+                and partner.sifen_constancia_date_start
+                and partner.sifen_constancia_date_end
+                < partner.sifen_constancia_date_start
+            ):
+                raise ValidationError(
+                    _("La fecha final de la constancia no puede ser anterior a la inicial.")
+                )
+
+    def _normalize_sifen_constancia_vals(self, vals):
+        if vals.get("sifen_constancia_number"):
+            vals["sifen_constancia_number"] = vals[
+                "sifen_constancia_number"
+            ].strip()
+        if vals.get("sifen_constancia_control"):
+            vals["sifen_constancia_control"] = vals[
+                "sifen_constancia_control"
+            ].strip().upper()
+        return vals
+
     @api.model_create_multi
     def create(self, vals):
         """Automatically assigns CI type and operation type if not defined."""
         ci_type = self.env.ref("py_ctrm_fcws.it_ci").id
 
         for idx, record in enumerate(vals):
+            self._normalize_sifen_constancia_vals(record)
             # Detect identification type
             partner_type = self.env["l10n_latam.identification.type"].browse(
                 record.get("l10n_latam_identification_type_id", False)
@@ -152,6 +236,9 @@ class ResPartner(models.Model):
                 )
 
         return super().create(vals)
+
+    def write(self, vals):
+        return super().write(self._normalize_sifen_constancia_vals(vals))
 
     @api.onchange("vat")
     def _onchange_vat_ctrm_l10n_py_edi(self):

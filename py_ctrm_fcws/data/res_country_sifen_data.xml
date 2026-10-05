@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'PY')]"/>
+        <value eval="{'sifen_code': 'PRY'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'AR')]"/>
+        <value eval="{'sifen_code': 'ARG'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'BR')]"/>
+        <value eval="{'sifen_code': 'BRA'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'UY')]"/>
+        <value eval="{'sifen_code': 'URY'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'BO')]"/>
+        <value eval="{'sifen_code': 'BOL'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'CL')]"/>
+        <value eval="{'sifen_code': 'CHL'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'PE')]"/>
+        <value eval="{'sifen_code': 'PER'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'CO')]"/>
+        <value eval="{'sifen_code': 'COL'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'EC')]"/>
+        <value eval="{'sifen_code': 'ECU'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'VE')]"/>
+        <value eval="{'sifen_code': 'VEN'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'US')]"/>
+        <value eval="{'sifen_code': 'USA'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'ES')]"/>
+        <value eval="{'sifen_code': 'ESP'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'DE')]"/>
+        <value eval="{'sifen_code': 'DEU'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'FR')]"/>
+        <value eval="{'sifen_code': 'FRA'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'IT')]"/>
+        <value eval="{'sifen_code': 'ITA'}"/>
+    </function>
+    <function model="res.country" name="write">
+        <value model="res.country" search="[('code', '=', 'GB')]"/>
+        <value eval="{'sifen_code': 'GBR'}"/>
+    </function>
+</odoo>

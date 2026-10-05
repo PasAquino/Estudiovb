@@ -29,6 +29,11 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.fcws_timbrado_fec_ini",
         readonly=False,
     )
+    fcws_timbrado_fec_ini_test = fields.Date(
+        string="Fecha de inicio del timbrado Test",
+        related="company_id.fcws_timbrado_fec_ini_test",
+        readonly=False,
+    )
     fcws_test_user = fields.Char(
         string="Usuario Test",
         related="company_id.fcws_test_user",

@@ -39,6 +39,10 @@ class ResCompany(models.Model):
         string="Número de Timbrado Test",
         help="Número de timbrado vigente utilizado en los documentos electrónicos en entorno de pruebas.",
     )
+    fcws_timbrado_fec_ini_test = fields.Date(
+        string="Fecha de inicio del timbrado Test",
+        help="Fecha de inicio del timbrado utilizado en el entorno de pruebas.",
+    )
 
     # ----------------------------------------------------------------------
     # 🔒 Credenciales de Producción
