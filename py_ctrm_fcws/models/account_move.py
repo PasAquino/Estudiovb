@@ -371,6 +371,9 @@ class AccountMove(models.Model):
             parts = vat_number.split("-")
             data.update(
                 {
+                    "contribuyente": True,
+                    "tipoOperacion": 1,
+                    "tipoContribuyente": 2 if partner.is_company else 1,
                     "docNro": parts[0].strip(),
                     "dv": parts[1].strip(),
                     "razonSocial": partner.name.strip(),
