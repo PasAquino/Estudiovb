@@ -1136,7 +1136,7 @@ class AccountMove(models.Model):
         """Guarda errores de integración."""
         self.fcws_state = "error"
         self.fcws_message = message
-        self.env["fcws.document"].create(
+        self.fcws_document_id = self.env["fcws.document"].create(
             {
                 "move_id": self.id,
                 "payload": json.dumps(payload or {}, ensure_ascii=False, indent=2),
