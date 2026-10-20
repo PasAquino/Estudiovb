@@ -1,8 +1,25 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class ResCompany(models.Model):
     _inherit = "res.company"
+
+    @api.model
+    def _get_fcws_cron_companies(self):
+        """Obtiene las compañías con credenciales para su ambiente FCWS."""
+        return self.sudo().search([
+            "|",
+            "&",
+            ("fcws_is_production", "=", True),
+            "&",
+            ("fcws_prod_user", "!=", False),
+            ("fcws_prod_password", "!=", False),
+            "&",
+            ("fcws_is_production", "=", False),
+            "&",
+            ("fcws_test_user", "!=", False),
+            ("fcws_test_password", "!=", False),
+        ])
 
     # ----------------------------------------------------------------------
     # ⚙️ Configuración general FCWS (centralizada por compañía principal)

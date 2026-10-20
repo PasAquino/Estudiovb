@@ -495,9 +495,24 @@ class FcwsInutilization(models.Model):
 
     @api.model
     def cron_sync_fcws_inutilizations(self):
+        companies = self.env["res.company"]._get_fcws_cron_companies()
+        for company in companies:
+            records = self.sudo().with_company(company).with_context(
+                allowed_company_ids=[company.id]
+            )
+            records._cron_sync_fcws_inutilizations_company(company)
+        return True
+
+    @api.model
+    def _cron_sync_fcws_inutilizations_company(self, company):
+        """Sincroniza las inutilizaciones pendientes de una compañía."""
         cutoff = fields.Datetime.now() - timedelta(minutes=5)
         records = self.search(
-            [("state", "in", ("sent", "error")), ("write_date", "<=", cutoff)],
+            [
+                ("company_id", "=", company.id),
+                ("state", "in", ("sent", "error")),
+                ("write_date", "<=", cutoff),
+            ],
             limit=100,
         )
         for record in records:
@@ -507,8 +522,7 @@ class FcwsInutilization(models.Model):
                 _logger.exception(
                     "[FCWS-INU] Error sincronizando %s", record.display_name
                 )
-        return True
- 
+
     def _move_type_for_inutilization(self):
         self.ensure_one()
         return "out_invoice" if self.type == "invoice" else "out_refund"

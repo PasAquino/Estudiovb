@@ -715,18 +715,18 @@ class AccountMove(models.Model):
                 continue
 
             iva = line.tax_ids[:1].amount if line.tax_ids else 0
-            descuento = (
-                abs((line.quantity * line.price_unit) - line.price_total)
-                / line.quantity
-            )
+            edi_values = line._prepare_edi_vals_to_export()
 
             items.append(
                 {
                     "itemCodigo": line.product_id.default_code or "001",
                     "itemDescripcion": line.name or "",
                     "cantidad": line.quantity,
-                    "precioUnitario": round(line.price_unit, 2),
-                    "descuento": descuento,
+                    "precioUnitario": round(line.price_unit, 8),
+                    "descuento": (
+                        line.price_unit
+                        - edi_values["price_unit_after_discount"]
+                    ),
                     "afectacionTributaria": 1 if iva > 0 else 3,  # 1=Gravado, 3=Exento
                     "proporcionIVA": 100 if iva > 0 else 0,
                     "tasaIVA": int(iva),
@@ -1428,11 +1428,24 @@ class AccountMove(models.Model):
     @api.model
     def cron_process_fcws_outbox(self):
         """Procesa documentos cuyo envío fue diferido explícitamente."""
+        companies = self.env["res.company"]._get_fcws_cron_companies()
+        for company in companies:
+            moves = self.sudo().with_company(company).with_context(
+                allowed_company_ids=[company.id]
+            )
+            moves._cron_process_fcws_outbox_company(company)
+        _logger.debug("[FCWS CRON] Procesamiento de envíos multicompañía finalizado.")
+        return True
+
+    @api.model
+    def _cron_process_fcws_outbox_company(self, company):
+        """Procesa los envíos diferidos de una compañía."""
         max_attempts = 5
         backoff_minutes = [1, 2, 5, 15, 30]
         now = fields.Datetime.now()
         moves = self.search(
             [
+                ("company_id", "=", company.id),
                 ("fcws_send_pending", "=", True),
                 ("state", "=", "posted"),
                 ("fcws_state", "in", ("draft", "error", "rejected")),
@@ -1491,7 +1504,21 @@ class AccountMove(models.Model):
             "[FCWS CRON] Iniciando sincronización de comprobantes pendientes..."
         )
 
+        companies = self.env["res.company"]._get_fcws_cron_companies()
+        for company in companies:
+            moves = self.sudo().with_company(company).with_context(
+                allowed_company_ids=[company.id]
+            )
+            moves._cron_sync_fcws_documents_company(company)
+
+        _logger.debug("[FCWS CRON] Sincronización multicompañía finalizada.")
+        return True
+
+    @api.model
+    def _cron_sync_fcws_documents_company(self, company):
+        """Sincroniza los comprobantes electrónicos pendientes de una compañía."""
         domain = [
+            ("company_id", "=", company.id),
             ("move_type", "in", ["out_invoice", "out_refund"]),
             (
                 "fcws_state",
@@ -1517,5 +1544,6 @@ class AccountMove(models.Model):
             except Exception as e:
                 _logger.error("[FCWS CRON] Error al consultar %s: %s", move.name, e)
 
-        _logger.debug("[FCWS CRON] Sincronización finalizada.")
-        return True
+        _logger.debug(
+            "[FCWS CRON] Sincronización finalizada para %s.", company.display_name
+        )

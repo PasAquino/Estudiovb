@@ -245,13 +245,23 @@
 											<t t-if="o.move_type == 'out_refund'">
 												<th
 													style="width: 500px; text-align: left; padding-left: 15px; border: 1px solid white;">
-													<span
-														style="font-weight: normal; padding-left: 10px">Factura
-														relacionada
-													</span>
-													<span
-														style="font-weight: normal; padding-left: 10px"
-														t-field="o.reversed_entry_id.name" />
+													<t t-if="o.reversed_entry_id">
+														<span style="font-weight: normal;">Nº doc. asociado:</span>
+														<span t-field="o.reversed_entry_id.name" />
+														<br />
+														<span style="font-weight: normal;">Fecha doc. asociado:</span>
+														<span t-field="o.reversed_entry_id.invoice_date" />
+														<br />
+														<span style="font-weight: normal;">CDC asociado:</span>
+														<span t-field="o.reversed_entry_id.fcws_cdc" />
+													</t>
+													<t t-elif="o.fcws_manual_doc_asociado">
+														<span style="font-weight: normal;">Nº doc. asociado:</span>
+														<span t-field="o.fcws_manual_numero" />
+														<br />
+														<span style="font-weight: normal;">Fecha doc. asociado:</span>
+														<span t-field="o.fcws_manual_fecha_emision" />
+													</t>
 												</th>
 											</t>
 										</tr>

@@ -46,12 +46,26 @@ class FCWSDocument(models.Model):
     @api.model
     def cron_clean_old_records(self):
         """Elimina registros FCWS antiguos (más de 60 días)."""
+        companies = self.env["res.company"]._get_fcws_cron_companies()
+        for company in companies:
+            documents = self.sudo().with_company(company).with_context(
+                allowed_company_ids=[company.id]
+            )
+            documents._cron_clean_old_records_company(company)
+        return True
+
+    @api.model
+    def _cron_clean_old_records_company(self, company):
+        """Elimina los registros FCWS antiguos de una compañía."""
         days = 60
         limit = 1000  # borrar en lotes
 
         date_limit = fields.Datetime.now() - timedelta(days=days)
 
-        domain = [("create_date", "<", date_limit)]
+        domain = [
+            ("company_id", "=", company.id),
+            ("create_date", "<", date_limit),
+        ]
 
         total_deleted = 0
 
@@ -74,5 +88,3 @@ class FCWSDocument(models.Model):
             "[FCWS CRON] Limpieza finalizada. Total eliminados: %s",
             total_deleted,
         )
-
-        return True
