@@ -715,18 +715,13 @@ class AccountMove(models.Model):
                 continue
 
             iva = line.tax_ids[:1].amount if line.tax_ids else 0
-            edi_values = line._prepare_edi_vals_to_export()
-
             items.append(
                 {
                     "itemCodigo": line.product_id.default_code or "001",
                     "itemDescripcion": line.name or "",
                     "cantidad": line.quantity,
                     "precioUnitario": round(line.price_unit, 8),
-                    "descuento": (
-                        line.price_unit
-                        - edi_values["price_unit_after_discount"]
-                    ),
+                    "descuento": line.price_unit * (line.discount / 100.0),
                     "afectacionTributaria": 1 if iva > 0 else 3,  # 1=Gravado, 3=Exento
                     "proporcionIVA": 100 if iva > 0 else 0,
                     "tasaIVA": int(iva),
